@@ -1,20 +1,20 @@
 <div class="container">
-  <form #makeService="ngForm" (ngSubmit)="onSubmit(makeService.value, makeService)">
+  <form #updateService="ngForm" (ngSubmit)="onSubmit(updateService.value, updateService)">
 
     <label for="fname">Name</label>
-    <input type="text" id="fname" name="Name" placeholder="Name.." ngModel>
+    <input type="text" id="fname" name="Name" [(ngModel)]="activeService.Name" placeholder="Name.." ngModel>
 
     <label for="lname">Logo</label>
     <br>
-    <input type='file' (change)="onSelectFile($event)" id="lname" name="Logo" placeholder="Logo.." ngModel>
-    <img [src]="url" height="200">
+    <input type='file' (change)="onSelectFile($event)" id="lname" name="Logo" placeholder="Logo.." [(ngModel)]="activeService.Logo">
+    <img [src]="activeService.Logo" height="200">
     <br>
     <br>
     <label for="lname">E-mail</label>
-    <input type="text" id="lname" name="Email" placeholder="E-mail.." ngModel>
+    <input type="text" id="lname" name="Email" placeholder="E-mail.." [(ngModel)]="activeService.Email">
 
     <label for="subject">Description</label>
-    <textarea type="text" id="subject" name="Description" placeholder="Write something about service.." style="height:200px" ngModel></textarea>
+    <textarea type="text" id="subject" [(ngModel)]="activeService.Description" name="Description" placeholder="Write something about service.." style="height:200px" ></textarea>
 
     <input type="submit" value="Save">
 

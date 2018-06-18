@@ -22,7 +22,7 @@ export class MakeVehicleComponent implements OnInit {
   yesNo: string[];
   years: number[];
   available: string;
-  isVisible: boolean = true;
+  isVisible: boolean = false;
 
   constructor(private service: DemoServiceService, private router: Router, private activatedRoute: ActivatedRoute) { 
     this.types = [];
@@ -66,8 +66,6 @@ export class MakeVehicleComponent implements OnInit {
 
   SaveVehicle(newVehicle: Vehicle, form: NgForm){
 
-    debugger
-    //newVehicle.TypeId = this.selectedType;
     newVehicle.ServiceId = this.serviceId;
     this.available == "Yes" ? newVehicle.Available = true : newVehicle.Available = false;
     newVehicle.ProductionYear = this.selectedYear;

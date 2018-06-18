@@ -13,7 +13,6 @@
 	</div>
 </div>
 
-
 <div class="container container mt-10 mb-5">
     <h3 class="display-4 text-center"><b> Dobrodosli!</b> </h3>     
     <hr class="bg-dark mb-4 w-25">
@@ -32,10 +31,9 @@
                <app-vehicles-reserve [(vehicleId)]="vehicle.VehicleID" *ngIf="showSpecificReservation == vehicle.VehicleID"></app-vehicles-reserve>
                 </div>          
             </div>
-            
         </div>
       </div>
-      <a [routerLink]="['/make-vehicle/', serviceId]">Dodaj auto</a>
+ <a [routerLink]="['/make-vehicle/', serviceId]">Dodaj auto</a>
 
 
 

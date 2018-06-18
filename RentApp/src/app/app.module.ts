@@ -86,6 +86,10 @@ const Routes= [
     path: "make-vehicle/:Id",
     component: MakeVehicleComponent
   },
+  {
+    path: "edit-service/:Id",
+    component: EditServiceComponent
+  }
 ]
 
 @NgModule({

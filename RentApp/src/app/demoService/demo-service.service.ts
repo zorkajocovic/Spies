@@ -30,8 +30,11 @@ export class DemoServiceService {
   }
   
   postMethodDemo(path, newMember): Observable<any> {
-    debugger
     return this.httpClient.post(path, newMember)
+  }
+
+  updateService(path, newMember): Observable<any> {
+    return this.httpClient.put(path, newMember)
   }
 
   getTheToken(user){
