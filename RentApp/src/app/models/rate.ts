@@ -1,5 +1,5 @@
 export class Rate {
     ClientID: number;
-    ServiceID: number;
+    SerId: number;
     Value: number;
 }

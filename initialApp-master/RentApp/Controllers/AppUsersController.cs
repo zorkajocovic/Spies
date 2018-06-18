@@ -46,11 +46,11 @@ namespace RentApp.Controllers
             return unitOfWork.AppUsers.GetActiveUserId(User.Identity.Name);
         }
 
-        [Route("api/GetActiveUser")]
-        public AppUser GetActiveUser()
-        {
-            return unitOfWork.AppUsers.GetActiveUser(User.Identity.Name);
-        }
+        //[Route("api/GetActiveUser")]
+        //public AppUser GetActiveUser()
+        //{
+        //    return unitOfWork.AppUsers.GetActiveUser(User.Identity.Name);
+        //}
 
         // PUT: api/Services/5
         [ResponseType(typeof(void))]
