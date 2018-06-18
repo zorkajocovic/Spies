@@ -41,24 +41,24 @@ export class MakeServiceComponent implements OnInit {
     this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(
       data => {
           this.creator = data;
+          debugger
+          newService.CreatorID = this.creator;
+          let body = new FormData();
+          body.append('image', this.selectedFile)
+          body.append('service', JSON.stringify(newService))
+    
           this.service.postMethodDemo("http://localhost:51111/api/Services", body).subscribe(
             data => {
               alert("Uspesno ste se dodali novi servis")
+              this.router.navigate(['services']);
             },
             error => {
               alert("nije uspelo")
             })
       });
 
-      debugger
-      newService.CreatorID = this.creator;
-      let body = new FormData();
-      body.append('image', this.selectedFile)
-      body.append('service', JSON.stringify(newService))
-
     this.url = "";  
     form.reset();
-    this.router.navigate(['services']);
   }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { BranchOffice } from 'src/app/models/branchoffice';
 import { NgForm } from '@angular/forms';
 import { DemoServiceService } from '../demoService/demo-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-make-branch',
@@ -16,7 +16,7 @@ export class MakeBranchComponent implements OnInit {
   url: "";
   serviceId: number;
 
-  constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute) { 
+  constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) { 
     this.activatedRoute.params.subscribe(params => {this.serviceId = params["Id"]});
   }
 
@@ -49,6 +49,7 @@ export class MakeBranchComponent implements OnInit {
     this.service.postMethodDemo("http://localhost:51111/api/BranchOffice", body).subscribe(
         data => {
           alert("Uspesno ste se dodali novu filijalu!")
+          this.router.navigate(['branches/' + this.serviceId]);
         },
         error => {
           alert("nije uspelo")

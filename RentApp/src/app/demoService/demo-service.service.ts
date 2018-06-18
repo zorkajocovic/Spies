@@ -5,7 +5,7 @@ import { Headers, RequestOptions } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { Observable, BehaviorSubject } from 'rxjs';    //nije moglo da se ukljuci iz 'rxjs/Observable'
+import { Observable, BehaviorSubject } from 'rxjs';    
 import { AppUser } from '../models/AppUser.model'
 //import 'rxjs/add/operator/catch';
 //import 'rxjs/add/operator/map';
