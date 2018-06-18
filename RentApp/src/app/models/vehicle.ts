@@ -1,5 +1,5 @@
 export class Vehicle {
-    TypeId: number;
+    VehicleTypeId: number;
     ServiceId: number;
     Model: string;
     Producer: string;

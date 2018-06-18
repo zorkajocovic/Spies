@@ -16,7 +16,7 @@ export class MakeVehicleComponent implements OnInit {
   types: VehicleType[];
   url: string;
   selectedFile: string;
-  selectedType: number = -1;
+  selectedType: number;
   serviceId: number = -1;
   selectedYear: number = -1;
   yesNo: string[];
@@ -67,7 +67,7 @@ export class MakeVehicleComponent implements OnInit {
   SaveVehicle(newVehicle: Vehicle, form: NgForm){
 
     debugger
-    newVehicle.TypeId = this.selectedType;
+    //newVehicle.TypeId = this.selectedType;
     newVehicle.ServiceId = this.serviceId;
     this.available == "Yes" ? newVehicle.Available = true : newVehicle.Available = false;
     newVehicle.ProductionYear = this.selectedYear;
@@ -79,7 +79,7 @@ export class MakeVehicleComponent implements OnInit {
     this.service.postMethodDemo("http://localhost:51111/api/Vehicle", body).subscribe(
       data => {
         alert("Uspesno ste dodali vozilo!")
-        this.router.navigate(['vehicles/' + this.serviceId]);
+        this.router.navigate(['services/' + this.serviceId]);
       },
       error => {
         alert("nije uspelo")

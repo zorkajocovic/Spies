@@ -1,4 +1,4 @@
 export class VehicleType {
-    VehicleTypeID: string;
+    VehicleTypeId: number;
     VehicleName: string;
 }

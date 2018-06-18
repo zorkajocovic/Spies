@@ -25,6 +25,7 @@ import { MakeServiceComponent } from './make-service/make-service.component';
 import { BranchOfficeComponent } from './branch-office/branch-office.component';
 import { MakeBranchComponent } from './make-branch/make-branch.component';
 import { MakeVehicleComponent } from './make-vehicle/make-vehicle.component';
+import { EditServiceComponent } from './edit-service/edit-service.component';
 
 
 const ChildRoutes =
@@ -101,7 +102,8 @@ const Routes= [
     MakeServiceComponent,
     BranchOfficeComponent,
     MakeBranchComponent,
-    MakeVehicleComponent
+    MakeVehicleComponent,
+    EditServiceComponent
     ],
   imports: [
     BrowserModule,

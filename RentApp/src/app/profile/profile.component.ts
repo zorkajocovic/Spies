@@ -11,16 +11,24 @@ import { ActiveUser } from '../models/ActiveUser.model';
 export class ProfileComponent implements OnInit {
 
   user: ActiveUser;
+  activeId: number = -1;
 
   constructor(private service: DemoServiceService) {
     debugger
-    this.service.getMethodDemo("http://localhost:51111/api/GetActiveUser").subscribe(
+    this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(
       data => {
-        this.user = data;
+        this.activeId = data;
+        debugger
+        this.service.getMethodDemo("http://localhost:51111/api/AppUsers/" + this.activeId).subscribe(
+          data => {
+            this.user = data;
+            debugger
+          });
       });
    }
 
   ngOnInit() {
+  
   }
  
 }

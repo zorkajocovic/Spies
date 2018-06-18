@@ -12,10 +12,10 @@
     <label for="fname">Model</label>
     <input type="text" name="Model" placeholder="Model.." ngModel/>
 
-    <label for="Type">Type</label>
+    <label for="TypeId">Type</label>
     <div class="select-container">
-      <select name="TypeId" class="box-routh select" [(ngModel)]="selectedType">
-        <option *ngFor="let type of types" [value]="type.VehicleTypeID">{{type.VehicleName}}</option>
+      <select name="VehicleTypeId" ngModel #VehicleTypeId="ngModel">
+        <option *ngFor="let type of types" name="VehicleTypeId" [value]="type.VehicleTypeId">{{type.VehicleName}}</option>
       </select>
     </div>
 
