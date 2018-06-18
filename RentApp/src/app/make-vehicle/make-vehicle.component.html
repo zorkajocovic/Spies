@@ -1,0 +1,54 @@
+<div class="container">
+  <button (click)="toggle()">Add Type</button>
+  <div *ngIf="isVisible">
+    <form #makeType="ngForm" (ngSubmit)="SaveType(makeType.value, makeType)">
+      <label for="VehicleName">Type Name</label>
+      <input type="text" name="VehicleName" placeholder="Type.." ngModel/>
+      <input type="submit" value="Save">
+    </form>
+  </div>
+
+  <form #makeBranch="ngForm" (ngSubmit)="SaveVehicle(makeBranch.value, makeBranch)">
+    <label for="fname">Model</label>
+    <input type="text" name="Model" placeholder="Model.." ngModel/>
+
+    <label for="Type">Type</label>
+    <div class="select-container">
+      <select name="TypeId" class="box-routh select" [(ngModel)]="selectedType">
+        <option *ngFor="let type of types" [value]="type.VehicleTypeID">{{type.VehicleName}}</option>
+      </select>
+    </div>
+
+    <label for="lname">Image</label>
+    <br>
+    <input type='file' (change)="onSelectFile($event)" name="Image" placeholder="Image.." ngModel/>
+    <img [src]="url" height="200">
+    <br>
+    <br>
+
+    <div class="form-group">
+      <label>Available</label>
+      <div *ngFor="let yes of yesNo">
+        <input name="yes" type="radio" [value]="yes" for="yes" [(ngModel)]="available" />
+        <label>{{yes}}</label>
+      </div>
+    </div>
+
+    <label for="lname">Producer</label>
+    <input type="text" name="Producer" placeholder="Producer.." ngModel>
+
+    <label for="Type">Year Of Produce</label>
+    <div class="select-container">
+      <select name="ProductionYear" class="box-routh select" [(ngModel)]="selectedYear">
+        <option *ngFor="let year of years" [value]="year">{{year}}</option>
+      </select>
+    </div>
+
+    <label for="subject">Description</label>
+    <textarea type="text" id="subject" name="Description" placeholder="Write something about vehicle.." style="height:200px"
+      ngModel></textarea>
+
+    <input type="submit" value="Save">
+
+  </form>
+</div>

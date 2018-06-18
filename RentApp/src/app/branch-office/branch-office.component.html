@@ -1,0 +1,20 @@
+<div class="container container mt-4 mb-5">
+  <h3 class="display-4 text-center"> Branches </h3>     
+  <hr class="bg-dark mb-4 w-25">
+ 
+  <div class="row" >
+      <div class="col-md-4" *ngFor="let branch of branches">
+          <div class="card" >
+              <img class="card-img-top" src="{{branch.Image}}" alt="Card image cap">
+              <div class="card-block p-3">
+                  <h4 class="card-title" name="Address">Address: {{branch.Address}}</h4>
+                  <p class="card-text" name="Latitude">Latitude: {{branch.Latitude}}</p>
+                  <p class="card-text" name="Longitude">Longitude: {{branch.Longitude}}</p>
+              </div>
+          </div>
+      </div>
+    </div>
+
+  <a [routerLink]="['/make-branch/', serviceId]">Dodaj filijalu</a>
+
+</div>

@@ -1,0 +1,22 @@
+<div class="container">
+  <form #makeBranch="ngForm" (ngSubmit)="onSubmit(makeBranch.value, makeBranch)">
+
+    <label for="fname">Address</label>
+    <input type="text" name="Address" placeholder="Address.." ngModel>
+
+    <label for="lname">Image</label>
+    <br>
+    <input type='file' (change)="onSelectFile($event)" name="image" placeholder="Image.." ngModel>
+    <img [src]="url" height="200">
+    <br>
+    <br>
+    <label for="lname">Latitude</label>
+    <input type="text" name="Latitude" placeholder="Latitude.." ngModel>
+
+    <label for="subject">Longitude</label>
+    <input type="text" name="Longitude" placeholder="Longitude.." ngModel>
+
+    <input type="submit" value="Save">
+
+  </form>
+</div>

@@ -1,0 +1,22 @@
+<div class="container">
+  <form #makeService="ngForm" (ngSubmit)="onSubmit(makeService.value, makeService)">
+
+    <label for="fname">Name</label>
+    <input type="text" id="fname" name="Name" placeholder="Name.." ngModel>
+
+    <label for="lname">Logo</label>
+    <br>
+    <input type='file' (change)="onSelectFile($event)" id="lname" name="Logo" placeholder="Logo.." ngModel>
+    <img [src]="url" height="200">
+    <br>
+    <br>
+    <label for="lname">E-mail</label>
+    <input type="text" id="lname" name="Email" placeholder="E-mail.." ngModel>
+
+    <label for="subject">Description</label>
+    <textarea type="text" id="subject" name="Description" placeholder="Write something about service.." style="height:200px" ngModel></textarea>
+
+    <input type="submit" value="Save">
+
+  </form>
+</div>
