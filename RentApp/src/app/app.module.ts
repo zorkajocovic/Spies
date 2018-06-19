@@ -88,15 +88,13 @@ const Routes= [
     component: MakeVehicleComponent
   },
   {
-<<<<<<< HEAD
     path: "edit-service/:Id",
     component: EditServiceComponent
-  }
-=======
+  },
+  {
     path: "edit-profile",
     component: EditProfileComponent
-  },
->>>>>>> a8074cbd05b09cd318174e71976a91f86124d2b9
+  }
 ]
 
 @NgModule({

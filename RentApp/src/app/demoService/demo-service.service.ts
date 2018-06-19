@@ -37,6 +37,10 @@ export class DemoServiceService {
     return this.httpClient.put(path, newMember)
   }
 
+  updateProfile(path, newMember): Observable<any> {
+    return this.httpClient.put(path, newMember)
+  }
+
   getTheToken(user){
 
     let headers = new HttpHeaders();

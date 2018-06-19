@@ -9,6 +9,7 @@ import { NgForm } from '@angular/forms';
 import { Comment } from '../models/comment';
 import { AppUser } from '../models/AppUser.model';
 import { Router } from '@angular/router';
+import { VehicleType } from '../models/vehicle-type';
 
 @Component({
   selector: 'app-vehicles',
@@ -31,11 +32,14 @@ export class VehiclesComponent implements OnInit {
   UserID : number;
   users: AppUser[];
   userNames: string[];
+  vehicleTypes: VehicleType[];
+  isVisible: boolean = false;
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.activatedRoute.params.subscribe(params => {this.serviceId = params["Id"]});    //Id je definisano u appmodule.ts kod path: "service/Id"
     this.allVehicles('http://localhost:51111/api/GetVehiclesForService/' + this.serviceId);
     this.allComments('http://localhost:51111/api/Comment');
+    this.allVehicleType('http://localhost:51111/api/VehicleType');
   }
 
   ngOnInit() {
@@ -125,4 +129,20 @@ AddComment(comment: Comment, form: NgForm){
       form.reset();
       
     }
+
+
+    allVehicleType(path: string){
+      this.service.getMethodDemo(path).subscribe(
+        data => {
+          this.vehicleTypes = data;
+         // alert("uspelo")
+        },
+        error => {
+          alert("nije uspelo")
+        })
+      }
+
+      toggle():void {
+    this.isVisible = !this.isVisible;
+  }
   }
