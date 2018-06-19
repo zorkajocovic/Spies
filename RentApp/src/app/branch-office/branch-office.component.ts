@@ -31,7 +31,6 @@ export class BranchOfficeComponent implements OnInit {
     this.service.getMethodDemo(path).subscribe(
       data => {
         this.branches = data;
-        alert("uspelo")
       },
       error => {
         alert("nije uspelo")

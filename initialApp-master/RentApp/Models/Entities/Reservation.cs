@@ -19,7 +19,10 @@ namespace RentApp.Models.Entities
 
         public int GetBranchId { get; set; }
         public int ReturnBranchId { get; set; }
-       
+
+        public bool Deleted { get; set; }
+
+
         public AppUser Client { get; set; }
         public Vehicle Vehicle { get; set; }
         public BranchOffice BranchOffice { get; set; }

@@ -17,6 +17,8 @@ namespace RentApp.Models.Entities
         [ForeignKey("ServiceId")]
         public int ServiceID { get; set; }
 
+        public bool Deleted { get; set; }
+
         public Service ServiceId { get; set; }
     }
 }

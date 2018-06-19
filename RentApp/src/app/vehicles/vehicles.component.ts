@@ -31,6 +31,7 @@ export class VehiclesComponent implements OnInit {
   UserID : number;
   users: AppUser[];
   userNames: string[];
+  deleteId: number;
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.activatedRoute.params.subscribe(params => {this.serviceId = params["Id"]});    //Id je definisano u appmodule.ts kod path: "service/Id"
@@ -103,6 +104,25 @@ export class VehiclesComponent implements OnInit {
   //      this.userNames.push(this.users[i].fullName);
    //   } 
     }
+
+deleteVehicle(id: number){
+
+  debugger
+  for(var i=0; i<this.vehicles.length; i++){
+   if(this.vehicles[i].VehicleID == id){
+     debugger
+     this.vehicles[i].Deleted = true;
+     this.service.updateVehicle(this.vehicles[i].VehicleID, this.vehicles[i]).subscribe(
+      data => {
+        debugger
+        alert("Uspesno obrisano auto!")
+      },
+      error => {
+        alert("nije uspelo")
+      }); 
+   } 
+  }
+}
 
      
 AddComment(comment: Comment, form: NgForm){
