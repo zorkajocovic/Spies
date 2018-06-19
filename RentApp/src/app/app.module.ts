@@ -26,6 +26,7 @@ import { BranchOfficeComponent } from './branch-office/branch-office.component';
 import { MakeBranchComponent } from './make-branch/make-branch.component';
 import { MakeVehicleComponent } from './make-vehicle/make-vehicle.component';
 import { EditServiceComponent } from './edit-service/edit-service.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 const ChildRoutes =
@@ -87,9 +88,15 @@ const Routes= [
     component: MakeVehicleComponent
   },
   {
+<<<<<<< HEAD
     path: "edit-service/:Id",
     component: EditServiceComponent
   }
+=======
+    path: "edit-profile",
+    component: EditProfileComponent
+  },
+>>>>>>> a8074cbd05b09cd318174e71976a91f86124d2b9
 ]
 
 @NgModule({
@@ -107,7 +114,8 @@ const Routes= [
     BranchOfficeComponent,
     MakeBranchComponent,
     MakeVehicleComponent,
-    EditServiceComponent
+    EditServiceComponent,
+    EditProfileComponent
     ],
   imports: [
     BrowserModule,

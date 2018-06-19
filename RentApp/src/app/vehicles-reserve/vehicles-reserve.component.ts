@@ -36,8 +36,6 @@ export class VehiclesReserveComponent implements OnInit {
     this.service.getMethodDemo(path).subscribe(
       data => {
         this.BranchOffices = data;
-        this.Branchoffice = data[0].BranchOfficeID;
-        this.Branchoffice1 = data[0].BranchOfficeID;
       },
       error => {
         alert("nije uspelo")
