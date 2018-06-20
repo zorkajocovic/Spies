@@ -61,6 +61,10 @@ export class DemoServiceService {
     return this.httpClient.put("http://localhost:51111/api/Services/" + id, newMember)
   }
 
+  deleteService(id: number, newMember: Service): Observable<any> {
+    return this.httpClient.put("http://localhost:51111/api/Services/" + id, newMember)
+  }
+
   updateBranch(id: number, newMember: BranchOffice): Observable<any> {
     return this.httpClient.put("http://localhost:51111/api/BranchOffice/" + id, newMember)
   }

@@ -47,8 +47,9 @@ export class ServicesComponent implements OnInit {
     for (var i = 0; i < this.services.length; i++) {
       if (this.services[i].Id == serviceId) {
         this.services[i].Deleted = true;
-        this.service.updateService(this.services[i].Id, this.services[i]).subscribe(
+        this.service.deleteService(this.services[i].Id, this.services[i]).subscribe(
           data => {
+            this.allServices();
             this.router.navigate(['services']);
           },
           error => {
