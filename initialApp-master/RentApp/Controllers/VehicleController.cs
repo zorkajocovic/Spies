@@ -88,6 +88,7 @@ namespace RentApp.Controllers
 
         // POST: api/Services
         [ResponseType(typeof(Vehicle))]
+        [Authorize]
         public IHttpActionResult PostVehicle()
             {
             HttpRequestMessage request = this.Request;

@@ -82,6 +82,7 @@ namespace RentApp.Controllers
 
         // POST: api/Services
         [ResponseType(typeof(Comment))]
+        [Authorize(Roles = "AppUser")]
         public IHttpActionResult PostComment(Comment comment)
         {
             if (!ModelState.IsValid)

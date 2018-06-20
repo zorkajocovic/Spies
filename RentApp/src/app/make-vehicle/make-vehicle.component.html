@@ -1,13 +1,14 @@
 <div class="container">
-  <button (click)="toggle()">Add Type</button>
-  <div *ngIf="isVisible">
-    <form #makeType="ngForm" (ngSubmit)="SaveType(makeType.value, makeType)">
-      <label for="VehicleName">Type Name</label>
-      <input type="text" name="VehicleName" placeholder="Type.." ngModel/>
-      <input type="submit" value="Save">
-    </form>
+  <div *ngIf="isAdmin()">
+    <button (click)="toggle()">Add Type</button>
+    <div *ngIf="isVisible">
+      <form #makeType="ngForm" (ngSubmit)="SaveType(makeType.value, makeType)">
+        <label for="VehicleName">Type Name</label>
+        <input type="text" name="VehicleName" placeholder="Type.." ngModel/>
+        <input type="submit" value="Save">
+      </form>
+    </div>
   </div>
-
   <form #makeBranch="ngForm" (ngSubmit)="SaveVehicle(makeBranch.value, makeBranch)">
     <label for="fname">Model</label>
     <input type="text" name="Model" placeholder="Model.." ngModel/>
@@ -45,7 +46,8 @@
     </div>
 
     <label for="subject">Description</label>
-    <textarea type="text" id="subject" name="Description" placeholder="Write something about vehicle.." style="height:200px" ngModel></textarea>
+    <textarea type="text" id="subject" name="Description" placeholder="Write something about vehicle.." style="height:200px"
+      ngModel></textarea>
 
     <input type="submit" value="Save">
 

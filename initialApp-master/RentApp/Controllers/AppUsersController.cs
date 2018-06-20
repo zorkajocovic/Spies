@@ -43,6 +43,7 @@ namespace RentApp.Controllers
         }
 
         [Route("api/GetActiveUserId")]
+        [Authorize]
         public int GetActiveUserId()
         {
             return unitOfWork.AppUsers.GetActiveUserId(User.Identity.Name);

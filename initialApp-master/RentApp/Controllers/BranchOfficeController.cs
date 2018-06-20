@@ -50,6 +50,7 @@ namespace RentApp.Controllers
 
         // PUT: api/Services/5
         [ResponseType(typeof(void))]
+        [Authorize]
         public IHttpActionResult PutBranchOffice(int id, BranchOffice branchOffice)
         {
             if (!ModelState.IsValid)
@@ -84,6 +85,7 @@ namespace RentApp.Controllers
 
         // POST: api/Services
         [ResponseType(typeof(BranchOffice))]
+        [Authorize]
         public IHttpActionResult PostBranchOffice()
         {
             HttpRequestMessage request = this.Request;

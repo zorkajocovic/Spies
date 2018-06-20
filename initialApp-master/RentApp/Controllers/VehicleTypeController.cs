@@ -75,6 +75,7 @@ namespace RentApp.Controllers
 
         // POST: api/VehicleTypes
         [ResponseType(typeof(VehicleType))]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult PostService(VehicleType vehicleType)
         {
             if (!ModelState.IsValid)

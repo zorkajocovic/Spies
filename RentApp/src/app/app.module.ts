@@ -49,7 +49,7 @@ const Routes= [
   {
     path: "register",
     component: RegisterComponent,
-    canActivate: [IsSomeLogged]
+    
   },
 
   {

@@ -47,6 +47,7 @@ namespace RentApp.Controllers
 
         // PUT: api/Services/5
         [ResponseType(typeof(void))]
+        [Authorize]
         public IHttpActionResult PutService(int id, Service service)
         {
             if (!ModelState.IsValid)
@@ -107,6 +108,7 @@ namespace RentApp.Controllers
 
         // POST: api/Services
         [ResponseType(typeof(Service))]
+        [Authorize]
         public IHttpActionResult PostService()
         {
             HttpRequestMessage request = this.Request;
@@ -144,6 +146,7 @@ namespace RentApp.Controllers
                 // Save the uploaded file to "UploadedFiles" folder
                 httpPostedFile.SaveAs(fileSavePath);
                 service.Logo = "http://localhost:51111/Content/images/services/" + fileName;
+                service.Approved = false;
             }        
           
             unitOfWork.Services.Add(service);
