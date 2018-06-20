@@ -59,20 +59,11 @@ export class BranchOfficeComponent implements OnInit {
     this.service.getAllBranchesForService(id).subscribe(
       data => {
         this.branches = data;
+        debugger
       },
       error => {
         alert("nije uspelo")
       })
-    }
-
-    placeMarker($event){
-      console.log($event.coords.lat);
-      console.log($event.coords.lng);
-  
-      this.latNum = $event.coords.lat;
-      this.lngNum = $event.coords.lng;
-      
-    }
-  
+    }  
   
 }

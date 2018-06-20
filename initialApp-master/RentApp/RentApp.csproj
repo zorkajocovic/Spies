@@ -273,7 +273,6 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
-    <Compile Include="Controllers\PriceListController.cs" />
     <Compile Include="Controllers\RateController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
@@ -291,13 +290,16 @@
     <Compile Include="Migrations\201806171520157_RentACar.Designer.cs">
       <DependentUpon>201806171520157_RentACar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806201600054_rentaa.cs" />
+    <Compile Include="Migrations\201806201600054_rentaa.Designer.cs">
+      <DependentUpon>201806201600054_rentaa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Entities\BranchOffice.cs" />
     <Compile Include="Models\Entities\Comment.cs" />
     <Compile Include="Models\Entities\Item.cs" />
-    <Compile Include="Models\Entities\PriceList.cs" />
     <Compile Include="Models\Entities\RAIdentityUser.cs" />
     <Compile Include="Models\Entities\AppUser.cs" />
     <Compile Include="Models\Entities\Rate.cs" />
@@ -314,7 +316,6 @@
     <Compile Include="Persistance\Repository\Interfaces\IBranchOfficeRepository.cs" />
     <Compile Include="Persistance\Repository\Interfaces\ICommentRepository.cs" />
     <Compile Include="Persistance\Repository\Interfaces\IItemRepository.cs" />
-    <Compile Include="Persistance\Repository\Interfaces\IPriceListRepository.cs" />
     <Compile Include="Persistance\Repository\Interfaces\IRateRepository.cs" />
     <Compile Include="Persistance\Repository\Interfaces\IRepository.cs" />
     <Compile Include="Persistance\Repository\Interfaces\IReservationRepository.cs" />
@@ -322,7 +323,6 @@
     <Compile Include="Persistance\Repository\Interfaces\IVehicleTypeRepository.cs" />
     <Compile Include="Persistance\Repository\ItemRepository.cs" />
     <Compile Include="Persistance\Repository\Interfaces\IVehicleRepository.cs" />
-    <Compile Include="Persistance\Repository\PriceListRepository.cs" />
     <Compile Include="Persistance\Repository\RateRepository.cs" />
     <Compile Include="Persistance\Repository\Repository.cs" />
     <Compile Include="Persistance\Repository\ReservationRepository.cs" />
@@ -440,6 +440,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806171520157_RentACar.resx">
       <DependentUpon>201806171520157_RentACar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806201600054_rentaa.resx">
+      <DependentUpon>201806201600054_rentaa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
