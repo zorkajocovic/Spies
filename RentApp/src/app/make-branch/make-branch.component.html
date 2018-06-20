@@ -28,7 +28,7 @@
    <agm-map [latitude]="mapInfo.centerLat" [longitude]="mapInfo.centerLong" [zoom]="18" (mapClick)="placeMarker($event)">
     
      <!-- Postavljamo markere -->
-     <agm-marker [latitude]="mapInfo.centerLat" [longitude]="mapInfo.centerLong" [title]="mapInfo.title"
+     <agm-marker [latitude]="latNum" [longitude]="lngNum" [title]="mapInfo.title"
      [label]="mapInfo.label">
  
        <!-- Svakom markeru dodajemo info-window (Nije obavezno!)-->

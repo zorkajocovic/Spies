@@ -24,14 +24,13 @@ export class MakeBranchComponent implements OnInit {
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) { 
     this.activatedRoute.params.subscribe(params => {this.serviceId = params["Id"]});
-
-    
-    this.mapInfo = new MapInfo(45.242268, 19.842954, 
-      "assets/ftn.png",
-      "Jugodrvo" , "" , "http://ftn.uns.ac.rs/691618389/fakultet-tehnickih-nauka");
+   
   }
 
   ngOnInit() {
+    this.mapInfo = new MapInfo(45.242268, 19.842954, 
+      "assets/ftn.png",
+      "Jugodrvo" , "" , "http://ftn.uns.ac.rs/691618389/fakultet-tehnickih-nauka");
   }
 
 
@@ -50,7 +49,7 @@ export class MakeBranchComponent implements OnInit {
   }
   
   onSubmit(newBranch: BranchOffice, form: NgForm){
-
+    debugger
     newBranch.ServiceID = this.serviceId;
     newBranch.Latitude = this.latNum;
     newBranch.Longitude = this.lngNum;
@@ -58,14 +57,14 @@ export class MakeBranchComponent implements OnInit {
     let body = new FormData();
     body.append('image', this.selectedFile)
     body.append('branch', JSON.stringify(newBranch))
-
+    debugger
     this.service.postMethodDemo("http://localhost:51111/api/BranchOffice", body).subscribe(
         data => {
           alert("Uspesno ste se dodali novu filijalu!")
           this.router.navigate(['branches/' + this.serviceId]);
         },
         error => {
-          alert("nije uspelo")
+          alert("nije uspelopoo")
         })
 
 

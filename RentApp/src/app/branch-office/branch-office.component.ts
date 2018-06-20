@@ -4,17 +4,22 @@ import { NgForm } from '@angular/forms';
 import { DemoServiceService } from '../demoService/demo-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MapInfo } from '../models/map.model';
+import { IsAdmin } from '../guard/auth.admin';
 
 @Component({
   selector: 'app-branch-office',
   templateUrl: './branch-office.component.html',
-  styleUrls: ['./branch-office.component.css']
+  styleUrls: ['./branch-office.component.css'],
+  styles: ['agm-map {height: 500px; width: 700px;}']
 })
 
 export class BranchOfficeComponent implements OnInit {
 
   serviceId: number;
-
+  isAdmin: IsAdmin;
+  mapInfo: MapInfo;
+  latNum: number;
+  lngNum: number;
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) { 
     debugger
@@ -27,6 +32,9 @@ export class BranchOfficeComponent implements OnInit {
   branches: BranchOffice[];
 
   ngOnInit() {
+    this.mapInfo = new MapInfo(45.242268, 19.842954, 
+      "assets/ftn.png",
+      "Jugodrvo" , "" , "http://ftn.uns.ac.rs/691618389/fakultet-tehnickih-nauka");
   }
 
   
@@ -57,5 +65,14 @@ export class BranchOfficeComponent implements OnInit {
       })
     }
 
+    placeMarker($event){
+      console.log($event.coords.lat);
+      console.log($event.coords.lng);
+  
+      this.latNum = $event.coords.lat;
+      this.lngNum = $event.coords.lng;
+      
+    }
+  
   
 }
