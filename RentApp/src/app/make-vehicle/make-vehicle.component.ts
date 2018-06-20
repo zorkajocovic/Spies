@@ -4,6 +4,7 @@ import { DemoServiceService } from '../demoService/demo-service.service';
 import { Vehicle } from '../models/vehicle';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Item } from '../models/item';
 
 @Component({
   selector: 'app-make-vehicle',
@@ -23,8 +24,14 @@ export class MakeVehicleComponent implements OnInit {
   years: number[];
   available: string;
   isVisible: boolean = false;
+<<<<<<< HEAD
+  item: Item;
+  vehicle: Vehicle;
+  public nesto: number;
+=======
   activeUser: number;
 
+>>>>>>> f844380f499caf3e2a567b402db39d2f102d3308
   constructor(private service: DemoServiceService, private router: Router, private activatedRoute: ActivatedRoute) { 
     this.types = [];
     this.years = [];
@@ -84,7 +91,20 @@ export class MakeVehicleComponent implements OnInit {
 
     this.service.postMethodDemo("http://localhost:51111/api/Vehicle", body).subscribe(
       data => {
+        this.vehicle = data;
         alert("Uspesno ste dodali vozilo!")
+        debugger
+        this.item = new Item(this.vehicle.VehicleID, this.nesto);
+        debugger
+        this.service.postMethodDemoItem(this.item).subscribe(
+          data => {
+              alert("Uspesno ste dodali cenu vozila!");
+           },
+          error => {
+            alert("nije uspelo")
+          });
+
+
         this.router.navigate(['services/' + this.serviceId]);
       },
       error => {

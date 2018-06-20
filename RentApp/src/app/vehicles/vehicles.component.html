@@ -1,3 +1,40 @@
+<<<<<<< HEAD
+<button (click)="toggle()">Obrisati tip vozila</button>
+<a style="font-size:larger" style="color: white" [routerLink]="['/edit-service/', serviceId]">Izmeni servis</a>
+<div *ngIf="isVisible">
+    <table id="customers">
+        <tr>
+            <th>ID</th>
+            <th>Ime</th>
+            <th></th>
+        </tr>
+        <div *ngFor="let vehicleType of vehicleTypes">
+            <tr>
+                <td>{{vehicleType.VehicleTypeId}}</td>
+                <td>{{vehicleType.VehicleName}}</td>
+                <td>
+                    <button>
+                        <a (click)="DeleteVehicleType(vehicleType.VehicleTypeId)">Obrisi</a>
+                    </button>
+                </td>
+            </tr>
+        </div>
+    </table>
+</div>
+
+
+<form>
+<label for="Type">Oceni servis</label>
+<div>
+  <select name="rate" [(ngModel)]="selectedRate">
+    <option *ngFor="let rate of rates" [value]="rate">{{rate}}</option>
+  </select>
+</div>
+
+<button (click)="SendRate()" value="Zavrsi"></button>
+</form>
+
+=======
 <div *ngIf="isAdmin()">
     <button (click)="toggle()">Obrisati tip vozila</button>
     <a style="font-size:larger" style="color: white" [routerLink]="['/edit-service/', serviceId]">Izmeni servis</a>
@@ -23,6 +60,7 @@
         </table>
     </div>
 </div>
+>>>>>>> f844380f499caf3e2a567b402db39d2f102d3308
 <!--
 <span id="star">
 <span class="fa fa-star" (click)="SendRate(1)" [ngClass]="{checked: isOn[0]}"></span>
@@ -119,6 +157,17 @@
                         <i class="fa fa-trash" (click)="deleteVehicle(vehicle.VehicleID)"></i>
                     </button>
                 </div>
+<<<<<<< HEAD
+                <button class="btn btn-primary">
+                    <a (click)="showSpecificReservation = vehicle.VehicleID">Rezervisi</a>
+                </button>
+                <app-vehicles-reserve [(vehicleId)]="vehicle.VehicleID" *ngIf="showSpecificReservation == vehicle.VehicleID"></app-vehicles-reserve>
+                <a [routerLink]="['/edit-vehicle/', vehicle.VehicleID]">Izmeni auto</a>
+                <button class="btn" id="btnTrash">
+                    <i class="fa fa-trash" (click)="deleteVehicle(vehicle.VehicleID)"></i>
+                </button>
+=======
+>>>>>>> f844380f499caf3e2a567b402db39d2f102d3308
             </div>
         </div>
     </div>

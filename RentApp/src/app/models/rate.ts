@@ -3,4 +3,8 @@ export class Rate {
     ClientID: number;
     SerId: number;
     Value: number;
+
+    constructor(serid: number){
+        this.SerId=serid;
+    }
 }

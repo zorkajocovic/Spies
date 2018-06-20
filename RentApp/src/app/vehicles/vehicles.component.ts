@@ -5,7 +5,7 @@ import { Vehicle } from '../models/vehicle';
 import { DemoServiceService } from '../demoService/demo-service.service';
 import { VehiclesReserveComponent } from '../vehicles-reserve/vehicles-reserve.component'
 import { Rate } from '../models/rate';
-import { NgForm } from '@angular/forms';
+import { NgForm, NumberValueAccessor } from '@angular/forms';
 import { Comment } from '../models/comment';
 import { AppUser } from '../models/AppUser.model';
 import { Router } from '@angular/router';
@@ -39,11 +39,19 @@ export class VehiclesComponent implements OnInit {
   isVisible: boolean = false;
   vehicleTypes: VehicleType[];
   isOn: boolean[];
+<<<<<<< HEAD
+  isAdmin: IsAdmin;
+  RateValue1: string;
+  selectedRate: number;
+  rates: number[];
+  
+=======
   active: boolean;
   activeUser: number;
   filter: Vehicle;
   filterText: string;
   findedVehicles: Vehicle[];
+>>>>>>> f844380f499caf3e2a567b402db39d2f102d3308
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.activatedRoute.params.subscribe(params => { this.serviceId = params["Id"] });    //Id je definisano u appmodule.ts kod path: "service/Id"
@@ -54,6 +62,13 @@ export class VehiclesComponent implements OnInit {
   }
 
   ngOnInit() {
+<<<<<<< HEAD
+
+    for(var i=0; i<4; i++){
+        this.rates.push(i);
+    }
+
+=======
     this.service.getCurrentUser().subscribe(
       data => {
         this.activeUser = data;
@@ -61,6 +76,7 @@ export class VehiclesComponent implements OnInit {
       error => {
         alert("nije uspelo")
       })
+>>>>>>> f844380f499caf3e2a567b402db39d2f102d3308
   }
 
   selectSearch(event: any){
@@ -100,9 +116,29 @@ export class VehiclesComponent implements OnInit {
       })
   }
 
-  SendRate(num) {
+  SendRate() {
     debugger
-    this.service.getRateForService(this.serviceId).subscribe(
+    
+    this.rate.Value = this.selectedRate;
+    this.rate = new Rate(this.serviceId);
+
+    this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(
+      data => {
+            this.rate.ClientID = data;
+            this.rate = new Rate(this.serviceId);
+
+            this.service.postMethodDemo("http://localhost:51111/api/Rate", this.rate).subscribe(
+              data => {
+              },
+              error => {
+                alert("nije uspelo")
+              });
+      })
+
+
+
+
+    /*this.service.getRateForService(this.serviceId).subscribe(
       data=>{
         this.rate=data;
         debugger
@@ -126,7 +162,7 @@ export class VehiclesComponent implements OnInit {
         }
       }
     )
-
+*/
 
    /* debugger
     this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(

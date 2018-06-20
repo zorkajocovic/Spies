@@ -10,6 +10,6 @@ namespace RentApp.Persistance.Repository.Interfaces
     public interface IItemRepository : IRepository<Item, int>
     {
 
-
+        IEnumerable<Item> GetItemForVehicle(int vehicleId);
     }
 }
