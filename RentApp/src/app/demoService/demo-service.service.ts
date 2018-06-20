@@ -11,6 +11,7 @@ import { BranchOffice } from '../models/branchoffice';
 import { Vehicle } from '../models/vehicle';
 import { Comment } from '../models/comment';
 import { Service } from '../models/service';
+import { VehicleType } from '../models/vehicle-type';
 //import 'rxjs/add/operator/catch';
 //import 'rxjs/add/operator/map';
 
@@ -40,9 +41,16 @@ export class DemoServiceService {
   getAllServices(): Observable<any> {
     return this.httpClient.get("http://localhost:51111/api/Services");
   }
+  getRateForService(serviceId): Observable<any> {
+    return this.httpClient.get("http://localhost:51111/api/RateForService", serviceId);
+  }
   
   getAllVehiclesForService(serviceId): Observable<any> {
     return this.httpClient.get("http://localhost:51111/api/GetVehicleForService/" + serviceId);
+  }
+
+  updateVehicleType(id: number, newMember: VehicleType): Observable<any> {
+    return this.httpClient.put("http://localhost:51111/api/VehicleType/" + id, newMember)
   }
   
   getAllBranchesForService(serviceId): Observable<any> {

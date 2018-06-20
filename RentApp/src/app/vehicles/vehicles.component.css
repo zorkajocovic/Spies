@@ -109,3 +109,34 @@
     .media-comment {
         margin-top:20px
     }
+
+
+
+
+    
+    #customers {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 20%;
+    }
+    
+    #customers td, #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    
+    #customers tr:nth-child(even){background-color: #f2f2f2;}
+    
+    #customers tr {background-color: #ddd;}
+    
+    #customers th {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .checked{
+        color: aquamarine;
+    }

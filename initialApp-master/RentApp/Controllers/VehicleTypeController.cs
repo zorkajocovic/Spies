@@ -23,7 +23,7 @@ namespace RentApp.Controllers
         // GET: api/VehicleTypes
         public IEnumerable<VehicleType> GetVehicleTypes()
         {
-            return db.VehicleTypes.GetAll();
+            return db.VehicleTypes.GetAllVehicleTypes();
         }
 
         // GET: api/VehicleTypes/5

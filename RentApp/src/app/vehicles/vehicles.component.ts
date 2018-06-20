@@ -9,6 +9,7 @@ import { NgForm } from '@angular/forms';
 import { Comment } from '../models/comment';
 import { AppUser } from '../models/AppUser.model';
 import { Router } from '@angular/router';
+import { VehicleType } from '../models/vehicle-type';
 
 @Component({
   selector: 'app-vehicles',
@@ -32,11 +33,16 @@ export class VehiclesComponent implements OnInit {
   users: AppUser[];
   userNames: string[];
   deleteId: number;
+  isVisible: boolean = false;
+  vehicleTypes: VehicleType[];
+  isOn: boolean[];
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.activatedRoute.params.subscribe(params => { this.serviceId = params["Id"] });    //Id je definisano u appmodule.ts kod path: "service/Id"
     this.allVehicles();
-    this.allComments('http://localhost:51111/api/Comment');
+    this.allComments(this.serviceId);
+    this.allVehicleTypes('http://localhost:51111/api/VehicleType');
+
   }
 
   ngOnInit() {
@@ -45,6 +51,7 @@ export class VehiclesComponent implements OnInit {
   allVehicles() {
     this.service.getAllVehiclesForService(this.serviceId).subscribe(
       data => {
+        debugger
         this.vehicles = data;
         // alert("uspelo")
       },
@@ -53,8 +60,35 @@ export class VehiclesComponent implements OnInit {
       })
   }
 
-  SendRate() {
+  SendRate(num) {
     debugger
+    this.service.getRateForService(this.serviceId).subscribe(
+      data=>{
+        this.rate=data;
+        debugger
+        if(this.rate.RateID==0){
+            for(var i=0; i<num; i++){
+              this.isOn[i]=true;
+            }
+          debugger
+      this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(
+      data => {
+            this.rate.ClientID = data;
+            this.rate.SerId = this.serviceId;
+
+      this.service.postMethodDemo("http://localhost:51111/api/Rate", this.rate).subscribe(
+        data => {
+        },
+        error => {
+          alert("nije uspelo")
+        });
+      })           
+        }
+      }
+    )
+
+
+   /* debugger
     this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(
       data => {
         this.rate.ClientID = data
@@ -78,32 +112,19 @@ export class VehiclesComponent implements OnInit {
           error => {
             alert("nije uspelo")
           });
-      })
+      })*/
   }
 
-  allComments(path: string) {
-    this.service.getMethodDemo(path).subscribe(
+  allComments(num: number) {
+    debugger
+    this.service.getAllCommentsForService(num).subscribe(
       data => {
-
         this.comments = data;
 
-        //  for(var i=0; i<this.comments.length; i++){
-
-        // this.service.getMethodDemo('http://localhost:51111/api/AppUser/' + this.comments[i].ClientID).subscribe(
-        //    data => {
-        //     this.users = data;         
-        //     },
-        //     error => {
-        //    alert("nije uspelo ovo")
-        //     })      
-
-        // }
       })
-    //  debugger
-    //  for(var i=0; i<this.comments.length; i++){
-    //      this.userNames.push(this.users[i].fullName);
-    //   } 
-  }
+      debugger
+  
+}
 
   deleteVehicle(id: number) {
     for (var i = 0; i < this.vehicles.length; i++) {
@@ -122,7 +143,6 @@ export class VehiclesComponent implements OnInit {
     }
   }
 
-
   AddComment(comment: Comment, form: NgForm) {
     this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(
       data => {
@@ -133,7 +153,7 @@ export class VehiclesComponent implements OnInit {
 
         this.service.postMethodDemo("http://localhost:51111/api/Comment", comment).subscribe(
           data => {
-            this.allComments('http://localhost:51111/api/Comment');
+            this.allComments(this.serviceId);
           },
           error => {
             alert("nije uspelo")
@@ -143,4 +163,40 @@ export class VehiclesComponent implements OnInit {
     form.reset();
 
   }
+
+  toggle(): void {
+    this.isVisible = !this.isVisible;
+  }
+
+  allVehicleTypes(path: string) {
+    this.service.getMethodDemo(path).subscribe(
+      data => {
+        this.vehicleTypes = data;
+        // alert("uspelo")
+        debugger
+      },
+      error => {
+        alert("nije uspelo")
+      })
+  }
+
+  DeleteVehicleType(id: number) {
+    debugger
+    for (var i = 0; i < this.vehicleTypes.length; i++) {
+      if (this.vehicleTypes[i].VehicleTypeId == id) {
+        this.vehicleTypes[i].Deleted = true;
+
+        this.service.updateVehicleType(this.vehicleTypes[i].VehicleTypeId, this.vehicleTypes[i]).subscribe(
+          data => {
+            alert("Uspesno obrisan tip!")
+            this.allVehicleTypes('http://localhost:51111/api/VehicleType');
+            debugger
+          },
+          error => {
+            alert("nije uspelo")
+          });
+      }
+    }
+  }
+
 }

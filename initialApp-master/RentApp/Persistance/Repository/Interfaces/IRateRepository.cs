@@ -10,6 +10,6 @@ namespace RentApp.Persistance.Repository.Interfaces
     public interface IRateRepository : IRepository<Rate, int>
     {
 
-
+        IEnumerable<Rate> GetRate(int idService);
     }
 }

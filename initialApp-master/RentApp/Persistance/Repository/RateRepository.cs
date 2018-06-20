@@ -17,5 +17,10 @@ namespace RentApp.Persistance.Repository
 
         }
 
+        public IEnumerable<Rate> GetRate(int serviceId)
+        {
+            return Context.Rates.Where(p => p.ServiceID == serviceId);
+        }
+
     }
 }
