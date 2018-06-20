@@ -15,7 +15,6 @@ namespace RentApp.Persistance.UnitOfWork
         IBranchOfficeRepository BranchOffices { get; set; }
         ICommentRepository Comments { get; set; }
         IItemRepository Items { get; set; }
-        IPriceListRepository PriceLists { get; set; }
         IRateRepository Rates { get; set; }
         IReservationRepository Reservations { get; set; }
         IVehicleRepository Vehicles { get; set; }

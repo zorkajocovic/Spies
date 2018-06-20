@@ -8,13 +8,17 @@
             <th></th>
         </tr>
         <div *ngFor="let vehicleType of vehicleTypes">
-        <tr>
-            <td>{{vehicleType.VehicleTypeId}}</td>
-            <td>{{vehicleType.VehicleName}}</td>
-            <td><button><a (click)="DeleteVehicleType(vehicleType.VehicleTypeId)">Obrisi</a></button></td>
-        </tr>
+            <tr>
+                <td>{{vehicleType.VehicleTypeId}}</td>
+                <td>{{vehicleType.VehicleName}}</td>
+                <td>
+                    <button>
+                        <a (click)="DeleteVehicleType(vehicleType.VehicleTypeId)">Obrisi</a>
+                    </button>
+                </td>
+            </tr>
         </div>
-    </table>    
+    </table>
 </div>
 
 <!--
@@ -27,6 +31,7 @@
 </span>
 -->
 <!--
+<div *ngIf="isClient()">
 <div class="container">
     <div class="row">
         <div>
@@ -46,6 +51,7 @@
             <label for="star6" title="Meh"></label>
         </div>
     </div>
+</div>
 </div>
 -->
 <!--
@@ -87,27 +93,36 @@
                     <p>
                         <b>Opis:</b> {{vehicle.Description}}</p>
                 </div>
-                <button class="btn btn-primary">
-                    <a (click)="showSpecificReservation = vehicle.VehicleID">Rezervisi</a>
-                </button>
-                <app-vehicles-reserve [(vehicleId)]="vehicle.VehicleID" *ngIf="showSpecificReservation == vehicle.VehicleID"></app-vehicles-reserve>
-                <a [routerLink]="['/edit-vehicle/', vehicle.VehicleID]">Izmeni auto</a>
-                <button class="btn" id="btnTrash"><i class="fa fa-trash" (click)="deleteVehicle(vehicle.VehicleID)"></i></button>
+                <div *ngIf="isClient()">
+                    <button class="btn btn-primary">
+                        <a (click)="showSpecificReservation = vehicle.VehicleID">Rezervisi</a>
+                    </button>
+                    <app-vehicles-reserve [(vehicleId)]="vehicle.VehicleID" *ngIf="showSpecificReservation == vehicle.VehicleID"></app-vehicles-reserve>
+                </div>
             </div>
+            <a [routerLink]="['/edit-vehicle/', vehicle.VehicleID]">Izmeni auto</a>
+            <button class="btn" id="btnTrash">
+                <i class="fa fa-trash" (click)="deleteVehicle(vehicle.VehicleID)"></i>
+            </button>
         </div>
     </div>
 </div>
-<a [routerLink]="['/make-vehicle/', serviceId]">Dodaj auto</a>
 
-<form #comment="ngForm" (ngSubmit)="AddComment(comment.value, comment)">
-    <div class="form-group">
-        <label for="comment">Komentari:</label>
-        <textarea ngModel name="Text" class="form-control" rows="5" id="comment"></textarea>
-    </div>
-    <div>
-        <input value="Komentarisi" type="submit" class="btn btn-success" />
-    </div>
-</form>
+<div *ngIf="isManager()">
+    <a [routerLink]="['/make-vehicle/', serviceId]">Dodaj auto</a>
+</div>
+
+<div *ngIf="isClient()">
+    <form #comment="ngForm" (ngSubmit)="AddComment(comment.value, comment)">
+        <div class="form-group">
+            <label for="comment">Komentari:</label>
+            <textarea ngModel name="Text" class="form-control" rows="5" id="comment"></textarea>
+        </div>
+        <div>
+            <input value="Komentarisi" type="submit" class="btn btn-success" />
+        </div>
+    </form>
+</div>
 
 <div class="row">
     <div class="col-md-8">

@@ -15,7 +15,6 @@ namespace RentApp.Persistance
         public DbSet<BranchOffice> Branches { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<PriceList> PriceLists { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
         public DbSet<Comment> Comments { get; set; }

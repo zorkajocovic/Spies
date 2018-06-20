@@ -25,11 +25,17 @@ export class BranchOfficeComponent implements OnInit {
   url: string = '';
   selectedFile: string;
   branches: BranchOffice[];
+  activeUserId: number;
 
   ngOnInit() {
+    this.service.getCurrentUser().subscribe(
+      data =>
+      {
+        this.activeUserId = data;
+      }
+    );
   }
 
-  
   deleteBranch(id: number){
 
   for(var i=0; i<this.branches.length; i++){
@@ -57,5 +63,7 @@ export class BranchOfficeComponent implements OnInit {
       })
     }
 
-  
+    isManager(){
+      return localStorage.role == 'Manager' ?  true : false;
+    }
 }

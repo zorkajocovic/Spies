@@ -12,6 +12,8 @@ import { Vehicle } from '../models/vehicle';
 import { Comment } from '../models/comment';
 import { Service } from '../models/service';
 import { VehicleType } from '../models/vehicle-type';
+import { Profile } from 'selenium-webdriver/firefox';
+import { ActiveUser } from '../models/ActiveUser.model';
 //import 'rxjs/add/operator/catch';
 //import 'rxjs/add/operator/map';
 
@@ -34,6 +36,10 @@ export class DemoServiceService {
     return this.httpClient.get(path);
   }
 
+  getCurrentUser(): Observable<any>{
+    return this.httpClient.get("http://localhost:51111/api/GetActiveUserId");
+  }
+
   getAllBranches(): Observable<any> {
     return this.httpClient.get("http://localhost:51111/api/BranchOffice");
   }
@@ -41,6 +47,7 @@ export class DemoServiceService {
   getAllServices(): Observable<any> {
     return this.httpClient.get("http://localhost:51111/api/Services");
   }
+
   getRateForService(serviceId): Observable<any> {
     return this.httpClient.get("http://localhost:51111/api/RateForService", serviceId);
   }
@@ -49,8 +56,8 @@ export class DemoServiceService {
     return this.httpClient.get("http://localhost:51111/api/GetVehicleForService/" + serviceId);
   }
 
-  updateProfile(path, newMember): Observable<any> {
-    return this.httpClient.put(path, newMember)
+  updateProfile(id: number, newMember: ActiveUser): Observable<any> {
+    return this.httpClient.put("http://localhost:51111/api/AppUsers/" + id, newMember)
   }
 
   updateVehicleType(id: number, newMember: VehicleType): Observable<any> {

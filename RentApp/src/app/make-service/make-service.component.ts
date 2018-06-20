@@ -38,7 +38,7 @@ export class MakeServiceComponent implements OnInit {
 
   onSubmit(newService: Service, form: NgForm){
 
-    this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(
+    this.service.getCurrentUser().subscribe(
       data => {
           this.creator = data;
           debugger

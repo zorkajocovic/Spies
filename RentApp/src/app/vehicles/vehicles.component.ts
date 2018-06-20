@@ -11,6 +11,7 @@ import { AppUser } from '../models/AppUser.model';
 import { Router } from '@angular/router';
 import { VehicleType } from '../models/vehicle-type';
 import { IsAdmin } from '../guard/auth.admin';
+import { IsClient } from '../guard/auth.client';
 
 @Component({
   selector: 'app-vehicles',
@@ -37,13 +38,14 @@ export class VehiclesComponent implements OnInit {
   isVisible: boolean = false;
   vehicleTypes: VehicleType[];
   isOn: boolean[];
+  active: boolean;
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.activatedRoute.params.subscribe(params => { this.serviceId = params["Id"] });    //Id je definisano u appmodule.ts kod path: "service/Id"
     this.allVehicles();
     this.allComments(this.serviceId);
     this.allVehicleTypes('http://localhost:51111/api/VehicleType');
-
+ 
   }
 
   ngOnInit() {
@@ -200,4 +202,11 @@ export class VehiclesComponent implements OnInit {
     }
   }
 
+  isClient(){
+    return localStorage.role == 'AppUser' ?  true : false;
+  }
+
+  isManager(){
+    return localStorage.role == 'Manager' ?  true : false;
+  }
 }

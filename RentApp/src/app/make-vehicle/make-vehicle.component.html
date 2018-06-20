@@ -26,7 +26,7 @@
     <br>
     <br>
 
-    <div class="form-group">
+    <div class="form-group" *ngIf="isManager()">
       <label>Available</label>
       <div *ngFor="let yes of yesNo">
         <input name="yes" type="radio" [value]="yes" for="yes" [(ngModel)]="available" />

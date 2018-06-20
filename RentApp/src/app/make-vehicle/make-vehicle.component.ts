@@ -104,4 +104,8 @@ export class MakeVehicleComponent implements OnInit {
 
     form.reset();
   }
+  
+  isManager(){
+    return localStorage.role == 'Manager' ?  true : false;
+  }
 }
