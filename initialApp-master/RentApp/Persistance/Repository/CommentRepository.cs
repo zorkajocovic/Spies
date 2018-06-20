@@ -19,12 +19,12 @@ namespace RentApp.Persistance.Repository
 
         public IEnumerable<Comment> GetAllComments()
         {
-            return Context.Comments.Where(p => p.Deleted != true).ToList();
+            return Context.Comments.Where(p => p.Deleted != true).Include(c => c.Client).ToList();
         }
 
         public IEnumerable<Comment> GetCommentsForService(int serviceId)
         {
-            return Context.Comments.Where(p => p.ServiceID == serviceId && !p.Deleted).ToList();
+            return Context.Comments.Where(p => p.ServiceID == serviceId && !p.Deleted).Include(c => c.Client).ToList();
         }
     }
 }

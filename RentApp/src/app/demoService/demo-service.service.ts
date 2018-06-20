@@ -33,7 +33,6 @@ export class DemoServiceService {
     return this.httpClient.get(path);
   }
 
-  
   getAllBranches(): Observable<any> {
     return this.httpClient.get("http://localhost:51111/api/BranchOffice");
   }
@@ -46,7 +45,6 @@ export class DemoServiceService {
     return this.httpClient.get("http://localhost:51111/api/GetVehicleForService/" + serviceId);
   }
   
-
   getAllBranchesForService(serviceId): Observable<any> {
     return this.httpClient.get("http://localhost:51111/api/GetBranchOfficeForService/"+ serviceId);
   }

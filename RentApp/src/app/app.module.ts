@@ -2,7 +2,7 @@ import { BrowserModule, makeStateKey } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-//import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule } from '@agm/core';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/demo.interceptor';
@@ -30,6 +30,7 @@ import { EditServiceComponent } from './edit-service/edit-service.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { EditBranchComponent } from './edit-branch/edit-branch.component';
 import { EditVehicleComponent } from './edit-vehicle/edit-vehicle.component';
+import { MapComponent } from './map/map.component';
 
 
 const ChildRoutes =
@@ -126,14 +127,15 @@ const Routes= [
     EditServiceComponent,
     EditProfileComponent,
     EditBranchComponent,
-    EditVehicleComponent
+    EditVehicleComponent,
+    MapComponent
     ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(Routes),
     FormsModule,
     HttpClientModule,
-    //AgmCoreModule.forRoot({apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'})
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'})
   ],
   providers: [
     DemoServiceService,

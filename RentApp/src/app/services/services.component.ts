@@ -48,71 +48,13 @@ export class ServicesComponent implements OnInit {
       if (this.services[i].Id == serviceId) {
         this.services[i].Deleted = true;
         this.service.updateService(this.services[i].Id, this.services[i]).subscribe(
-          data => {},
+          data => {
+            this.router.navigate(['services']);
+          },
           error => {
             alert("nije uspelo")
           });
       }
     }
-  
-    this.service.getAllVehiclesForService(serviceId).subscribe(
-      data => {
-        debugger
-        this.vehicles = data;
-        for (var i = 0; i < this.vehicles.length; i++) {
-          if (this.vehicles[i].ServiceId == serviceId) {
-            this.vehicles[i].Deleted = true;
-            this.service.updateVehicle(this.vehicles[i].VehicleID, this.vehicles[i]).subscribe(
-              data => {}
-            );
-          }
-        }
-      },
-      error => {
-        alert("nije uspelo")
-      });
-
-    this.service.getAllBranchesForService(serviceId).subscribe(
-      data => {
-        debugger
-        this.branches = data;
-        for (var i = 0; i < this.branches.length; i++) {
-          if (this.branches[i].ServiceID == serviceId) {
-            this.branches[i].Deleted = true;
-            this.service.updateBranch(this.branches[i].BranchOfficeID, this.branches[i]).subscribe(
-              data => {}
-            );
-          }
-        }
-      },
-      error => {
-        alert("nije uspelo")
-      });
-   
-
-    this.service.getAllCommentsForService(serviceId).subscribe(
-      data => {
-        debugger
-        this.comments = data;
-        for (var i = 0; i < this.comments.length; i++) {
-          if (this.comments[i].ServiceID == serviceId) {
-            this.comments[i].Deleted = true;
-          }
-        }
-        this.service.updateComment(this.comments[i].CommentID, this.comments[i]).subscribe(
-          data => {}
-        );
-      },
-      error => {
-        alert("nije uspelo")
-      });
-   
-  
-      
-    this.router.navigate(['services']);
-
-
-
   }
-}
 }
