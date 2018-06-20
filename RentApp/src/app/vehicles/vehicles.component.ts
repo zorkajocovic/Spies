@@ -11,6 +11,8 @@ import { AppUser } from '../models/AppUser.model';
 import { Router } from '@angular/router';
 import { VehicleType } from '../models/vehicle-type';
 import { IsAdmin } from '../guard/auth.admin';
+import { IsClient } from '../guard/auth.client';
+import { FilterPipePipe } from '../vehicles/filter-pipe.pipe';
 
 @Component({
   selector: 'app-vehicles',
@@ -37,28 +39,71 @@ export class VehiclesComponent implements OnInit {
   isVisible: boolean = false;
   vehicleTypes: VehicleType[];
   isOn: boolean[];
+<<<<<<< HEAD
   isAdmin: IsAdmin;
   RateValue1: string;
   selectedRate: number;
   rates: number[];
   
+=======
+  active: boolean;
+  activeUser: number;
+  filter: Vehicle;
+  filterText: string;
+  findedVehicles: Vehicle[];
+>>>>>>> f844380f499caf3e2a567b402db39d2f102d3308
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.activatedRoute.params.subscribe(params => { this.serviceId = params["Id"] });    //Id je definisano u appmodule.ts kod path: "service/Id"
     this.allVehicles();
     this.allComments(this.serviceId);
     this.allVehicleTypes('http://localhost:51111/api/VehicleType');
-
+ 
   }
 
   ngOnInit() {
+<<<<<<< HEAD
 
     for(var i=0; i<4; i++){
         this.rates.push(i);
     }
 
+=======
+    this.service.getCurrentUser().subscribe(
+      data => {
+        this.activeUser = data;
+      },
+      error => {
+        alert("nije uspelo")
+      })
+>>>>>>> f844380f499caf3e2a567b402db39d2f102d3308
   }
 
+  selectSearch(event: any){
+    debugger
+    this.filterText = event.target.value;
+  }
+
+  filterBy(event: any){
+    this.findedVehicles = [];
+    debugger
+    this.vehicles.forEach(veh => {
+      debugger
+     if(this.filterText == "Model"){
+       var lengthFilter = event.length;
+        var brojEvent = veh.Model.substring(0, lengthFilter);
+
+        if(brojEvent.toLowerCase() == event.toLowerCase()){
+          this.findedVehicles.push(veh);
+        }
+     }
+    // else if(this.selected == "Price"){
+
+    // }
+    }
+    )
+    
+  }
   allVehicles() {
     this.service.getAllVehiclesForService(this.serviceId).subscribe(
       data => {
@@ -230,4 +275,15 @@ export class VehiclesComponent implements OnInit {
     }
   }
 
+  isClient(){
+    return localStorage.role == 'AppUser' ?  true : false;
+  }
+
+  isManager(){
+    return localStorage.role == 'Manager' ?  true : false;
+  }
+
+  isAdmin(){
+    return localStorage.role == 'Admin' ?  true : false;
+  }
 }

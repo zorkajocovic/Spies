@@ -30,14 +30,20 @@ export class BranchOfficeComponent implements OnInit {
   url: string = '';
   selectedFile: string;
   branches: BranchOffice[];
+  activeUserId: number;
 
   ngOnInit() {
+    this.service.getCurrentUser().subscribe(
+      data =>
+      {
+        this.activeUserId = data;
+      }
+    );
     this.mapInfo = new MapInfo(45.242268, 19.842954, 
       "assets/ftn.png",
       "Jugodrvo" , "" , "http://ftn.uns.ac.rs/691618389/fakultet-tehnickih-nauka");
   }
 
-  
   deleteBranch(id: number){
 
   for(var i=0; i<this.branches.length; i++){
@@ -64,6 +70,11 @@ export class BranchOfficeComponent implements OnInit {
       error => {
         alert("nije uspelo")
       })
-    }  
-  
-}
+    }
+
+    isManager(){
+      return localStorage.role == 'Manager' ?  true : false;
+    }
+  }  
+
+

@@ -23,8 +23,6 @@ export class EditBranchComponent implements OnInit {
     this.service.getMethodDemo("http://localhost:51111/api/BranchOffice/" + this.branchId).subscribe(
       data => {
         this.activeBranch = data;
-        debugger
-
       },
       error => {
         alert("nije uspelo")

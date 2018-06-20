@@ -21,6 +21,12 @@
               <a href="#" class="btn btn-success btn-sm">Follow</a>
               <a href="#" class="btn btn-info btn-sm">Send Messege</a>
 
+              <div *ngIf="activeUser.Image == null">
+                <input type='file' (change)="onSelectFile($event)" name="Image"/>
+                <img [src]="url" height="200">
+                <br>
+               </div>
+
               <hr>
           </div>
       </div>

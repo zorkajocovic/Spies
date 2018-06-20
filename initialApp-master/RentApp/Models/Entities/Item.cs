@@ -11,5 +11,6 @@ namespace RentApp.Models.Entities
         public decimal Price { get; set; }
         public int VehicleID { get; set; }
         public Vehicle VehicleId { get; set; }
+
     }
 }

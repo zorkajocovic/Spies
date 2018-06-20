@@ -1,4 +1,6 @@
-<a [routerLink]="['/make-branch/', serviceId]">Dodaj filijalu</a>
+<div *ngIf="isManager()">
+    <a [routerLink]="['/make-branch/', serviceId]">Dodaj filijalu</a>
+</div>
 
 <div class="container container mt-4 mb-5">
     <h3 class="display-4 text-center"> Branches </h3>

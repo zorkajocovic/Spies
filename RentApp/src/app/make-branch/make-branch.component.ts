@@ -8,8 +8,7 @@ import { MapInfo } from '../models/map.model';
 @Component({
   selector: 'app-make-branch',
   templateUrl: './make-branch.component.html',
-  styleUrls: ['./make-branch.component.css'],
-  styles: ['agm-map {height: 500px; width: 700px;}']
+  styleUrls: ['./make-branch.component.css']
 })
 
 export class MakeBranchComponent implements OnInit {
@@ -18,19 +17,26 @@ export class MakeBranchComponent implements OnInit {
   selectedFile: "";
   url: "";
   serviceId: number;
+  activeUser: number;
   mapInfo: MapInfo;
-  latNum: number;
-  lngNum: number;
-
+  
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) { 
     this.activatedRoute.params.subscribe(params => {this.serviceId = params["Id"]});
-   
   }
+  
 
   ngOnInit() {
     this.mapInfo = new MapInfo(45.242268, 19.842954, 
       "assets/ftn.png",
       "Jugodrvo" , "" , "http://ftn.uns.ac.rs/691618389/fakultet-tehnickih-nauka");
+
+      this.service.getCurrentUser().subscribe(
+        data => {
+          this.activeUser = data;
+        },
+        error => {
+          alert("nije uspelo")
+        })
   }
 
 
@@ -51,9 +57,7 @@ export class MakeBranchComponent implements OnInit {
   onSubmit(newBranch: BranchOffice, form: NgForm){
     debugger
     newBranch.ServiceID = this.serviceId;
-    newBranch.Latitude = this.latNum;
-    newBranch.Longitude = this.lngNum;
-
+    newBranch.CreatorID = this.activeUser;
     let body = new FormData();
     body.append('image', this.selectedFile)
     body.append('branch', JSON.stringify(newBranch))
@@ -64,21 +68,12 @@ export class MakeBranchComponent implements OnInit {
           this.router.navigate(['branches/' + this.serviceId]);
         },
         error => {
-          alert("nije uspelopoo")
-        })
-
+          alert("nije uspelo")
+        });
+        
 
     this.url = "";  
     form.reset();
-  }
-
-  placeMarker($event){
-    console.log($event.coords.lat);
-    console.log($event.coords.lng);
-
-    this.latNum = $event.coords.lat;
-    this.lngNum = $event.coords.lng;
-    
   }
 
 }
