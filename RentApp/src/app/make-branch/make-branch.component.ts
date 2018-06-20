@@ -3,6 +3,7 @@ import { BranchOffice } from 'src/app/models/branchoffice';
 import { NgForm } from '@angular/forms';
 import { DemoServiceService } from '../demoService/demo-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MapInfo } from '../models/map.model';
 
 @Component({
   selector: 'app-make-branch',
@@ -17,19 +18,25 @@ export class MakeBranchComponent implements OnInit {
   url: "";
   serviceId: number;
   activeUser: number;
-
+  mapInfo: MapInfo;
+  
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) { 
     this.activatedRoute.params.subscribe(params => {this.serviceId = params["Id"]});
   }
+  
 
   ngOnInit() {
-    this.service.getCurrentUser().subscribe(
-      data => {
-        this.activeUser = data;
-      },
-      error => {
-        alert("nije uspelo")
-      })
+    this.mapInfo = new MapInfo(45.242268, 19.842954, 
+      "assets/ftn.png",
+      "Jugodrvo" , "" , "http://ftn.uns.ac.rs/691618389/fakultet-tehnickih-nauka");
+
+      this.service.getCurrentUser().subscribe(
+        data => {
+          this.activeUser = data;
+        },
+        error => {
+          alert("nije uspelo")
+        })
   }
 
 
@@ -48,13 +55,13 @@ export class MakeBranchComponent implements OnInit {
   }
   
   onSubmit(newBranch: BranchOffice, form: NgForm){
-
+    debugger
     newBranch.ServiceID = this.serviceId;
     newBranch.CreatorID = this.activeUser;
     let body = new FormData();
     body.append('image', this.selectedFile)
     body.append('branch', JSON.stringify(newBranch))
-
+    debugger
     this.service.postMethodDemo("http://localhost:51111/api/BranchOffice", body).subscribe(
         data => {
           alert("Uspesno ste se dodali novu filijalu!")
@@ -63,7 +70,7 @@ export class MakeBranchComponent implements OnInit {
         error => {
           alert("nije uspelo")
         });
-
+        
 
     this.url = "";  
     form.reset();

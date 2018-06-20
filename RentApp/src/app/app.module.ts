@@ -31,7 +31,6 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { EditBranchComponent } from './edit-branch/edit-branch.component';
 import { EditVehicleComponent } from './edit-vehicle/edit-vehicle.component';
 
-
 const ChildRoutes =
   [
     {
@@ -43,12 +42,14 @@ const ChildRoutes =
 const Routes= [
   {
     path: "login",
-    component: LoginComponent
+    component: LoginComponent,
+    //canActivate: [IsSomeLogged]
   },
 
   {
     path: "register",
-    component: RegisterComponent
+    component: RegisterComponent,
+    canActivate: [IsSomeLogged]
   },
 
   {
@@ -74,37 +75,45 @@ const Routes= [
 
   {
     path: "profile",
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [IsSomeLogged]
   },
 
   {
     path: "make-service",
-    component: MakeServiceComponent
+    component: MakeServiceComponent,
+    canActivate: [IsManager]
   },
 
   {
     path: "make-branch/:Id",
-    component: MakeBranchComponent
+    component: MakeBranchComponent,
+    canActivate: [IsManager]
   },
   {
     path: "make-vehicle/:Id",
-    component: MakeVehicleComponent
+    component: MakeVehicleComponent,
+    canActivate: [IsManager]
   },
   {
     path: "edit-service/:Id",
-    component: EditServiceComponent
+    component: EditServiceComponent,
+    canActivate: [IsManager]
   },
   {
   path: "edit-profile",
-    component: EditProfileComponent
+    component: EditProfileComponent,
+    canActivate: [IsSomeLogged]
   },
   {
     path: "edit-branch/:Id",
-      component: EditBranchComponent
+      component: EditBranchComponent,
+      canActivate: [IsManager]
   },
   {
     path: "edit-vehicle/:Id",
-      component: EditVehicleComponent
+      component: EditVehicleComponent,
+      canActivate: [IsManager]
   }
 ]
 
@@ -126,13 +135,13 @@ const Routes= [
     EditServiceComponent,
     EditProfileComponent,
     EditBranchComponent,
-    EditVehicleComponent,
-    ],
+    EditVehicleComponent
+      ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(Routes),
     FormsModule,
-    HttpClientModule,
+        HttpClientModule,
     AgmCoreModule.forRoot({apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'})
   ],
   providers: [
@@ -151,7 +160,8 @@ const Routes= [
       useValue: () => {
         return true;
       } 
-    }
+    },
+
   ],
   bootstrap: [AppComponent]
 })

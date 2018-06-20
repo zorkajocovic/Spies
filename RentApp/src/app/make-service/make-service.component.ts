@@ -26,9 +26,9 @@ export class MakeServiceComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
        var reader = new FileReader();
 
-       reader.readAsDataURL(event.target.files[0]); // read file as data url
+       reader.readAsDataURL(event.target.files[0]); 
 
-       reader.onload = (event) => { // called once readAsDataURL is completed
+       reader.onload = (event) => { 
          this.url = event.target.result;
        }
 
@@ -41,7 +41,6 @@ export class MakeServiceComponent implements OnInit {
     this.service.getCurrentUser().subscribe(
       data => {
           this.creator = data;
-          debugger
           newService.CreatorID = this.creator;
           let body = new FormData();
           body.append('image', this.selectedFile)
@@ -49,7 +48,6 @@ export class MakeServiceComponent implements OnInit {
     
           this.service.postMethodDemo("http://localhost:51111/api/Services", body).subscribe(
             data => {
-           //  alert("Uspesno ste se dodali novi servis")
               this.router.navigate(['services']);
             },
             error => {

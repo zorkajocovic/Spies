@@ -23,6 +23,7 @@ export class MakeVehicleComponent implements OnInit {
   years: number[];
   available: string;
   isVisible: boolean = false;
+  activeUser: number;
 
   constructor(private service: DemoServiceService, private router: Router, private activatedRoute: ActivatedRoute) { 
     this.types = [];
@@ -50,8 +51,8 @@ export class MakeVehicleComponent implements OnInit {
     }
   }
 
-  allVehicleTypes(path: string){
-    this.service.getMethodDemo(path).subscribe(
+  allVehicleTypes(){
+    this.service.getAllVehicleTypes().subscribe(
       data => {
         this.types = data;
       },
@@ -61,15 +62,22 @@ export class MakeVehicleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.allVehicleTypes('http://localhost:51111/api/VehicleType');
+    this.allVehicleTypes();
+    this.service.getCurrentUser().subscribe(
+      data => {
+        this.activeUser = data;
+      },
+      error => {
+        alert("nije uspelo")
+      })
   }
 
   SaveVehicle(newVehicle: Vehicle, form: NgForm){
-
+    newVehicle.CreatorID = this.activeUser;
     newVehicle.ServiceId = this.serviceId;
     this.available == "Yes" ? newVehicle.Available = true : newVehicle.Available = false;
     newVehicle.ProductionYear = this.selectedYear;
-    debugger
+  
     let body = new FormData();
     body.append('image', this.selectedFile)
     body.append('vehicle', JSON.stringify(newVehicle))
@@ -96,6 +104,7 @@ export class MakeVehicleComponent implements OnInit {
     this.service.postMethodDemo("http://localhost:51111/api/VehicleType", newVehicleType).subscribe(
       data => {
         alert("Uspesno ste dodali novi tip vozila!")
+        this.allVehicleTypes();
         this.router.navigate(['vehicles/' + this.serviceId]);
       },
       error => {

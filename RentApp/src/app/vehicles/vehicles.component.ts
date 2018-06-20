@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { VehicleType } from '../models/vehicle-type';
 import { IsAdmin } from '../guard/auth.admin';
 import { IsClient } from '../guard/auth.client';
+import { FilterPipePipe } from '../vehicles/filter-pipe.pipe';
 
 @Component({
   selector: 'app-vehicles',
@@ -39,6 +40,10 @@ export class VehiclesComponent implements OnInit {
   vehicleTypes: VehicleType[];
   isOn: boolean[];
   active: boolean;
+  activeUser: number;
+  filter: Vehicle;
+  filterText: string;
+  findedVehicles: Vehicle[];
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.activatedRoute.params.subscribe(params => { this.serviceId = params["Id"] });    //Id je definisano u appmodule.ts kod path: "service/Id"
@@ -49,8 +54,40 @@ export class VehiclesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.service.getCurrentUser().subscribe(
+      data => {
+        this.activeUser = data;
+      },
+      error => {
+        alert("nije uspelo")
+      })
   }
 
+  selectSearch(event: any){
+    debugger
+    this.filterText = event.target.value;
+  }
+
+  filterBy(event: any){
+    this.findedVehicles = [];
+    debugger
+    this.vehicles.forEach(veh => {
+      debugger
+     if(this.filterText == "Model"){
+       var lengthFilter = event.length;
+        var brojEvent = veh.Model.substring(0, lengthFilter);
+
+        if(brojEvent.toLowerCase() == event.toLowerCase()){
+          this.findedVehicles.push(veh);
+        }
+     }
+    // else if(this.selected == "Price"){
+
+    // }
+    }
+    )
+    
+  }
   allVehicles() {
     this.service.getAllVehiclesForService(this.serviceId).subscribe(
       data => {
@@ -208,5 +245,9 @@ export class VehiclesComponent implements OnInit {
 
   isManager(){
     return localStorage.role == 'Manager' ?  true : false;
+  }
+
+  isAdmin(){
+    return localStorage.role == 'Admin' ?  true : false;
   }
 }

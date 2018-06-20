@@ -290,17 +290,13 @@
     <Compile Include="Migrations\201806171520157_RentACar.Designer.cs">
       <DependentUpon>201806171520157_RentACar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806191140257_rent.cs" />
-    <Compile Include="Migrations\201806191140257_rent.Designer.cs">
-      <DependentUpon>201806191140257_rent.cs</DependentUpon>
+    <Compile Include="Migrations\201806201711545_Rent.cs" />
+    <Compile Include="Migrations\201806201711545_Rent.Designer.cs">
+      <DependentUpon>201806201711545_Rent.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806201402088_float.cs" />
-    <Compile Include="Migrations\201806201402088_float.Designer.cs">
-      <DependentUpon>201806201402088_float.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806201612293_nn.cs" />
-    <Compile Include="Migrations\201806201612293_nn.Designer.cs">
-      <DependentUpon>201806201612293_nn.cs</DependentUpon>
+    <Compile Include="Migrations\201806201733365_Rent1.cs" />
+    <Compile Include="Migrations\201806201733365_Rent1.Designer.cs">
+      <DependentUpon>201806201733365_Rent1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -449,14 +445,11 @@
     <EmbeddedResource Include="Migrations\201806171520157_RentACar.resx">
       <DependentUpon>201806171520157_RentACar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806191140257_rent.resx">
-      <DependentUpon>201806191140257_rent.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806201711545_Rent.resx">
+      <DependentUpon>201806201711545_Rent.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806201402088_float.resx">
-      <DependentUpon>201806201402088_float.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806201612293_nn.resx">
-      <DependentUpon>201806201612293_nn.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806201733365_Rent1.resx">
+      <DependentUpon>201806201733365_Rent1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

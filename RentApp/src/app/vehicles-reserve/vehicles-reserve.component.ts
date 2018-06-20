@@ -17,9 +17,7 @@ export class VehiclesReserveComponent implements OnInit {
   Branchoffice1: number;
   UserId: number;
   GetDate: string;
-
-
-
+  
   @Input() vehicleId: number;
 
   constructor(private service: DemoServiceService) {
@@ -31,6 +29,8 @@ export class VehiclesReserveComponent implements OnInit {
     this.allBranchOffices('http://localhost:51111/api/BranchOffice');
 
   }
+
+ 
 
   allBranchOffices(path: string) {
     this.service.getMethodDemo(path).subscribe(

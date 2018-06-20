@@ -29,7 +29,6 @@ namespace RentApp.Persistance.UnitOfWork
         [Dependency]
         public IItemRepository Items { get; set; }
 
-      
         [Dependency]
         public IRateRepository Rates { get; set; }
 

@@ -4,17 +4,22 @@ import { NgForm } from '@angular/forms';
 import { DemoServiceService } from '../demoService/demo-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MapInfo } from '../models/map.model';
+import { IsAdmin } from '../guard/auth.admin';
 
 @Component({
   selector: 'app-branch-office',
   templateUrl: './branch-office.component.html',
-  styleUrls: ['./branch-office.component.css']
+  styleUrls: ['./branch-office.component.css'],
+  styles: ['agm-map {height: 500px; width: 700px;}']
 })
 
 export class BranchOfficeComponent implements OnInit {
 
   serviceId: number;
-
+  isAdmin: IsAdmin;
+  mapInfo: MapInfo;
+  latNum: number;
+  lngNum: number;
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) { 
     debugger
@@ -34,6 +39,9 @@ export class BranchOfficeComponent implements OnInit {
         this.activeUserId = data;
       }
     );
+    this.mapInfo = new MapInfo(45.242268, 19.842954, 
+      "assets/ftn.png",
+      "Jugodrvo" , "" , "http://ftn.uns.ac.rs/691618389/fakultet-tehnickih-nauka");
   }
 
   deleteBranch(id: number){
@@ -57,6 +65,7 @@ export class BranchOfficeComponent implements OnInit {
     this.service.getAllBranchesForService(id).subscribe(
       data => {
         this.branches = data;
+        debugger
       },
       error => {
         alert("nije uspelo")
@@ -66,4 +75,6 @@ export class BranchOfficeComponent implements OnInit {
     isManager(){
       return localStorage.role == 'Manager' ?  true : false;
     }
-}
+  }  
+
+

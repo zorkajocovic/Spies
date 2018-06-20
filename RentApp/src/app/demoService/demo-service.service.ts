@@ -36,6 +36,10 @@ export class DemoServiceService {
     return this.httpClient.get(path);
   }
 
+  getAllVehicleTypes(): Observable<any>{
+    return this.httpClient.get('http://localhost:51111/api/VehicleType');
+  }
+
   getCurrentUser(): Observable<any>{
     return this.httpClient.get("http://localhost:51111/api/GetActiveUserId");
   }
