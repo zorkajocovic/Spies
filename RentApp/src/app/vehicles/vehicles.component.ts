@@ -10,6 +10,7 @@ import { Comment } from '../models/comment';
 import { AppUser } from '../models/AppUser.model';
 import { Router } from '@angular/router';
 import { VehicleType } from '../models/vehicle-type';
+import { IsAdmin } from '../guard/auth.admin';
 
 @Component({
   selector: 'app-vehicles',

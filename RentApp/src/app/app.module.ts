@@ -30,7 +30,6 @@ import { EditServiceComponent } from './edit-service/edit-service.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { EditBranchComponent } from './edit-branch/edit-branch.component';
 import { EditVehicleComponent } from './edit-vehicle/edit-vehicle.component';
-import { MapComponent } from './map/map.component';
 
 
 const ChildRoutes =
@@ -128,7 +127,6 @@ const Routes= [
     EditProfileComponent,
     EditBranchComponent,
     EditVehicleComponent,
-    MapComponent
     ],
   imports: [
     BrowserModule,

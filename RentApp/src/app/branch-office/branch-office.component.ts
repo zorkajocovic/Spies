@@ -3,6 +3,7 @@ import { BranchOffice } from '../models/branchoffice';
 import { NgForm } from '@angular/forms';
 import { DemoServiceService } from '../demoService/demo-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MapInfo } from '../models/map.model';
 
 @Component({
   selector: 'app-branch-office',
@@ -13,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class BranchOfficeComponent implements OnInit {
 
   serviceId: number;
+
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) { 
     debugger
@@ -54,4 +56,6 @@ export class BranchOfficeComponent implements OnInit {
         alert("nije uspelo")
       })
     }
+
+  
 }

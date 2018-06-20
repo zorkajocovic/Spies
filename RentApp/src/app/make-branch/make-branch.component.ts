@@ -3,11 +3,13 @@ import { BranchOffice } from 'src/app/models/branchoffice';
 import { NgForm } from '@angular/forms';
 import { DemoServiceService } from '../demoService/demo-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MapInfo } from '../models/map.model';
 
 @Component({
   selector: 'app-make-branch',
   templateUrl: './make-branch.component.html',
-  styleUrls: ['./make-branch.component.css']
+  styleUrls: ['./make-branch.component.css'],
+  styles: ['agm-map {height: 500px; width: 700px;}']
 })
 
 export class MakeBranchComponent implements OnInit {
@@ -16,9 +18,17 @@ export class MakeBranchComponent implements OnInit {
   selectedFile: "";
   url: "";
   serviceId: number;
+  mapInfo: MapInfo;
+  latNum: number;
+  lngNum: number;
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) { 
     this.activatedRoute.params.subscribe(params => {this.serviceId = params["Id"]});
+
+    
+    this.mapInfo = new MapInfo(45.242268, 19.842954, 
+      "assets/ftn.png",
+      "Jugodrvo" , "" , "http://ftn.uns.ac.rs/691618389/fakultet-tehnickih-nauka");
   }
 
   ngOnInit() {
@@ -41,8 +51,10 @@ export class MakeBranchComponent implements OnInit {
   
   onSubmit(newBranch: BranchOffice, form: NgForm){
 
-    debugger
     newBranch.ServiceID = this.serviceId;
+    newBranch.Latitude = this.latNum;
+    newBranch.Longitude = this.lngNum;
+
     let body = new FormData();
     body.append('image', this.selectedFile)
     body.append('branch', JSON.stringify(newBranch))
@@ -59,6 +71,15 @@ export class MakeBranchComponent implements OnInit {
 
     this.url = "";  
     form.reset();
+  }
+
+  placeMarker($event){
+    console.log($event.coords.lat);
+    console.log($event.coords.lng);
+
+    this.latNum = $event.coords.lat;
+    this.lngNum = $event.coords.lng;
+    
   }
 
 }
