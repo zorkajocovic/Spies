@@ -8,5 +8,7 @@ namespace RentApp.Models.Entities
     {
         public int VehicleTypeId { get; set; }
         public string VehicleName { get; set; }
+        public bool Deleted { get; set; }
+
     }
 }

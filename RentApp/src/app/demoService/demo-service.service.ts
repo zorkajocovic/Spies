@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
 
 import { Observable, BehaviorSubject } from 'rxjs';    
 import { AppUser } from '../models/AppUser.model'
+import { BranchOffice } from '../models/branchoffice';
+import { Vehicle } from '../models/vehicle';
+import { VehicleType } from '../models/vehicle-type';
 //import 'rxjs/add/operator/catch';
 //import 'rxjs/add/operator/map';
 
@@ -39,6 +42,18 @@ export class DemoServiceService {
 
   updateProfile(path, newMember): Observable<any> {
     return this.httpClient.put(path, newMember)
+  }
+  updateBranch(id: number, newMember: BranchOffice): Observable<any> {
+    return this.httpClient.put("http://localhost:51111/api/BranchOffice/" + id, newMember)
+  }
+
+  
+  updateVehicle(id: number, newMember: Vehicle): Observable<any> {
+    return this.httpClient.put("http://localhost:51111/api/Vehicle/" + id, newMember)
+  }
+
+  updateVehicleType(id: number, newMember: VehicleType): Observable<any> {
+    return this.httpClient.put("http://localhost:51111/api/VehicleType/" + id, newMember)
   }
 
   getTheToken(user){

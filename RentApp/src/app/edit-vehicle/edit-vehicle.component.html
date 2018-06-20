@@ -1,0 +1,44 @@
+
+<div class="container">
+  <form #editVehicle="ngForm" (ngSubmit)="onSubmit(editVehicle.value, editVehicle)">
+    <label for="fname">Model</label>
+    <input type="text" name="Model" placeholder="Model.." [(ngModel)]="activeVehicle.Model"/>
+
+    <label for="TypeId">Type</label>
+    <div class="select-container">
+      <select name="VehicleTypeId" [(ngModel)]="activeVehicle.VehicleTypeId" #VehicleTypeId="ngModel">
+        <option *ngFor="let type of types" name="VehicleTypeId" [value]="type.VehicleTypeId">{{type.VehicleName}}</option>
+      </select>
+    </div>
+
+    <label for="lname">Image</label>
+    <br>
+    <img [src]="activeVehicle.Image" height="200">
+    <br>
+    <br>
+
+    <div class="form-group">
+      <label>Available</label>
+      <div *ngFor="let yes of yesNo">
+        <input name="yes" type="radio" [value]="yes" for="yes" [(ngModel)]="available" />
+        <label>{{yes}}</label>
+      </div>
+    </div>
+
+    <label for="lname">Producer</label>
+    <input type="text" name="Producer" placeholder="Producer.." [(ngModel)]="activeVehicle.Producer">
+
+    <label for="Type">Year Of Produce</label>
+    <div class="select-container">
+      <select name="ProductionYear" class="box-routh select" [(ngModel)]="activeVehicle.ProductionYear">
+        <option *ngFor="let year of years" [value]="year">{{year}}</option>
+      </select>
+    </div>
+
+    <label for="subject">Description</label>
+    <textarea type="text" id="subject" name="Description" placeholder="Write something about vehicle.." style="height:200px" [(ngModel)]="activeVehicle.Description"></textarea>
+
+    <input type="submit" value="Save">
+
+  </form>
+</div>

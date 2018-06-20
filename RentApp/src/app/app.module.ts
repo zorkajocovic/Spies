@@ -95,6 +95,7 @@ const Routes= [
     path: "edit-profile",
     component: EditProfileComponent
   }
+  
 ]
 
 @NgModule({

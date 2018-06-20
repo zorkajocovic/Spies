@@ -1,4 +1,5 @@
 export class Vehicle {
+    VehicleID: number;
     VehicleTypeId: number;
     ServiceId: number;
     Model: string;
@@ -7,4 +8,5 @@ export class Vehicle {
     Description: string;
     Image: string;
     Available: boolean;
+    Deleted: boolean;
 }

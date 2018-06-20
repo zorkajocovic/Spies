@@ -16,6 +16,7 @@ namespace RentApp.Models.Entities
         public bool Approved { get; set; }
         [ForeignKey("Creator")]
         public int CreatorID { get; set; }
+        public bool Deleted { get; set; }
 
         public AppUser Creator { get; set; }
 

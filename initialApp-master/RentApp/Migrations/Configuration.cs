@@ -1,10 +1,8 @@
 namespace RentApp.Migrations
 {
+    using global::RentApp.Models.Entities;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using RentApp.Models.Entities;
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 

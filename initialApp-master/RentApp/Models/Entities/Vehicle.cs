@@ -22,7 +22,8 @@ namespace RentApp.Models.Entities
         public string Description { get; set; }
         public string Image { get; set; }
         public bool Available { get; set; }
-      
+        public bool Deleted { get; set; }
+
         public VehicleType VehicleType { get; set; }
         public Service Service { get; set; }
        

@@ -32,10 +32,9 @@ namespace RentApp.Controllers
         }
 
 
-
         // GET: api/Vehicle/1
         [Route("api/GetVehiclesForService/{serviceId}")]
-        public IEnumerable<Vehicle> GetVehiclesForService(int serviceId)
+        public IEnumerable<Vehicle> GetVehicleForService(int serviceId)
         {
             return db.Vehicles.GetVehiclesForService(serviceId);
         }
@@ -55,7 +54,7 @@ namespace RentApp.Controllers
 
         // PUT: api/Services/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutService(int id, Vehicle vehicle)
+        public IHttpActionResult PutVehicle(int id, Vehicle vehicle)
         {
             if (!ModelState.IsValid)
             {
@@ -136,7 +135,7 @@ namespace RentApp.Controllers
 
         // DELETE: api/Services/5
         [ResponseType(typeof(Vehicle))]
-        public IHttpActionResult DeleteService(int id)
+        public IHttpActionResult DeleteVehicle(int id)
         {
             Vehicle vehicle = db.Vehicles.Get(id);
             if (vehicle == null)

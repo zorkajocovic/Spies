@@ -25,22 +25,21 @@ export class EditServiceComponent implements OnInit {
     this.service.getMethodDemo("http://localhost:51111/api/Services/" + this.serviceId).subscribe(
       data => {
         this.activeService = data;
-        debugger
-
       },
       error => {
         alert("nije uspelo")
       });
   }
 
-onSubmit(editService: Service, form: NgForm){
-  this.service.updateService("http://localhost:51111/api/Services/" + this.serviceId + "/", editService).subscribe(
+  onSubmit(form: NgForm){
+  
+  this.service.updateService("http://localhost:51111/api/Services/" + this.serviceId, this.activeService).subscribe(
     data => {
+      debugger
       alert("Uspesno izmenjen servis!")
     },
     error => {
       alert("nije uspelo")
     }); 
-
 }
 }

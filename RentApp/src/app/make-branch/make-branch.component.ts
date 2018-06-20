@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './make-branch.component.html',
   styleUrls: ['./make-branch.component.css']
 })
+
 export class MakeBranchComponent implements OnInit {
 
   branches: BranchOffice[];
