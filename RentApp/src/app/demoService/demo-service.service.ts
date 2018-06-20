@@ -65,8 +65,16 @@ export class DemoServiceService {
     return this.httpClient.get("http://localhost:51111/api/GetCommentsForService/ " + serviceId);
   }
 
+  getItemForVehicle(VehicleId): Observable<any> {
+    return this.httpClient.get("http://localhost:51111/api/GetItemVehicleId/" + VehicleId);
+  }
+
   postMethodDemo(path, newMember): Observable<any> {
     return this.httpClient.post(path, newMember)
+  }
+
+  postMethodDemoItem(newMember): Observable<any> {
+    return this.httpClient.post("http://localhost:51111/api/Item", newMember)
   }
 
   updateService(id: number, newMember: Service): Observable<any> {

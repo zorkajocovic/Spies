@@ -8,14 +8,30 @@
             <th></th>
         </tr>
         <div *ngFor="let vehicleType of vehicleTypes">
-        <tr>
-            <td>{{vehicleType.VehicleTypeId}}</td>
-            <td>{{vehicleType.VehicleName}}</td>
-            <td><button><a (click)="DeleteVehicleType(vehicleType.VehicleTypeId)">Obrisi</a></button></td>
-        </tr>
+            <tr>
+                <td>{{vehicleType.VehicleTypeId}}</td>
+                <td>{{vehicleType.VehicleName}}</td>
+                <td>
+                    <button>
+                        <a (click)="DeleteVehicleType(vehicleType.VehicleTypeId)">Obrisi</a>
+                    </button>
+                </td>
+            </tr>
         </div>
-    </table>    
+    </table>
 </div>
+
+
+<form>
+<label for="Type">Oceni servis</label>
+<div>
+  <select name="rate" [(ngModel)]="selectedRate">
+    <option *ngFor="let rate of rates" [value]="rate">{{rate}}</option>
+  </select>
+</div>
+
+<button (click)="SendRate()" value="Zavrsi"></button>
+</form>
 
 <!--
 <span id="star">
@@ -92,7 +108,9 @@
                 </button>
                 <app-vehicles-reserve [(vehicleId)]="vehicle.VehicleID" *ngIf="showSpecificReservation == vehicle.VehicleID"></app-vehicles-reserve>
                 <a [routerLink]="['/edit-vehicle/', vehicle.VehicleID]">Izmeni auto</a>
-                <button class="btn" id="btnTrash"><i class="fa fa-trash" (click)="deleteVehicle(vehicle.VehicleID)"></i></button>
+                <button class="btn" id="btnTrash">
+                    <i class="fa fa-trash" (click)="deleteVehicle(vehicle.VehicleID)"></i>
+                </button>
             </div>
         </div>
     </div>

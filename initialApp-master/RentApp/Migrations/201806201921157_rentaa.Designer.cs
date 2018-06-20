@@ -13,7 +13,7 @@ namespace RentApp.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201806201600054_rentaa"; }
+            get { return "201806201921157_rentaa"; }
         }
         
         string IMigrationMetadata.Source
