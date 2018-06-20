@@ -33,7 +33,7 @@ export class EditServiceComponent implements OnInit {
 
   onSubmit(form: NgForm){
   
-  this.service.updateService("http://localhost:51111/api/Services/" + this.serviceId, this.activeService).subscribe(
+  this.service.updateService(this.serviceId, this.activeService).subscribe(
     data => {
       debugger
       alert("Uspesno izmenjen servis!")

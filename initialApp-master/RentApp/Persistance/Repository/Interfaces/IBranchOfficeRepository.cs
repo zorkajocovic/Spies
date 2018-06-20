@@ -10,5 +10,6 @@ namespace RentApp.Persistance.Repository
     public interface IBranchOfficeRepository : IRepository<BranchOffice, int>
     {
         IEnumerable<BranchOffice> GetBranchOfficesForService(int serviceId);
+        IEnumerable<BranchOffice> GetAllBranchOffices();
     }
 }

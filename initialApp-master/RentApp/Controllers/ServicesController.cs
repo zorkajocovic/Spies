@@ -29,7 +29,7 @@ namespace RentApp.Controllers
         // GET: api/Services
         public IEnumerable<Service> GetServices()
         {
-            return unitOfWork.Services.GetAll();
+            return unitOfWork.Services.GetAllServices();
         }
 
         // GET: api/Services/5

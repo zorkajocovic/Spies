@@ -23,7 +23,14 @@ namespace RentApp.Controllers
         // GET: api/Services
         public IEnumerable<Comment> GetComment()
         {
-            return unitOfWork.Comments.GetAll();
+            return unitOfWork.Comments.GetAllComments();
+        }
+
+        // GET: api/Vehicle/1
+        [Route("api/GetCommentsForService/{serviceId}")]
+        public IEnumerable<Comment> GetCommentsForService(int serviceId)
+        {
+            return unitOfWork.Comments.GetCommentsForService(serviceId);
         }
 
         // GET: api/Services/5

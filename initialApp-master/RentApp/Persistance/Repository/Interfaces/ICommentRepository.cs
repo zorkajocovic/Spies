@@ -9,6 +9,7 @@ namespace RentApp.Persistance.Repository.Interfaces
 {
     public interface ICommentRepository : IRepository<Comment, int>
     {
-
+        IEnumerable<Comment> GetAllComments();
+        IEnumerable<Comment> GetCommentsForService(int serviceId);
     }
 }

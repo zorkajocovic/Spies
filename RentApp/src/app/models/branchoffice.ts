@@ -4,5 +4,6 @@ export class BranchOffice {
     Latitude: number;
     Longitude: number;
     Image: string;
-    ServiceID: number
+    ServiceID: number;
+    Deleted: boolean;
 }

@@ -18,7 +18,13 @@ namespace RentApp.Persistance.Repository
 
         public IEnumerable<BranchOffice> GetBranchOfficesForService(int serviceId)
         {
-            return Context.Branches.Where(p => p.ServiceID == serviceId).ToList();
+            return Context.Branches.Where(p => p.ServiceID == serviceId && !p.Deleted).ToList();
+        }
+
+       
+        public IEnumerable<BranchOffice> GetAllBranchOffices()
+        {
+            return Context.Branches.Where(p => p.Deleted != true).ToList();
         }
     }
 }

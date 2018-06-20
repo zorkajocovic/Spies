@@ -2,6 +2,7 @@ import { BrowserModule, makeStateKey } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+//import { AgmCoreModule } from '@agm/core';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/demo.interceptor';
@@ -131,7 +132,8 @@ const Routes= [
     BrowserModule,
     RouterModule.forRoot(Routes),
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    //AgmCoreModule.forRoot({apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'})
   ],
   providers: [
     DemoServiceService,

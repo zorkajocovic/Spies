@@ -9,7 +9,7 @@ namespace RentApp.Persistance.Repository
 {
     public interface IVehicleRepository : IRepository<Vehicle, int>
     {
-
+        IEnumerable<Vehicle> GetAllVehicles();
         IEnumerable<Vehicle> GetVehiclesForService(int serviceId);
     }
 }

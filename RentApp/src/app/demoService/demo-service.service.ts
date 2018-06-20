@@ -9,6 +9,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { AppUser } from '../models/AppUser.model'
 import { BranchOffice } from '../models/branchoffice';
 import { Vehicle } from '../models/vehicle';
+import { Comment } from '../models/comment';
+import { Service } from '../models/service';
 //import 'rxjs/add/operator/catch';
 //import 'rxjs/add/operator/map';
 
@@ -30,22 +32,47 @@ export class DemoServiceService {
   getMethodDemo(path): Observable<any> {
     return this.httpClient.get(path);
   }
+
   
+  getAllBranches(): Observable<any> {
+    return this.httpClient.get("http://localhost:51111/api/BranchOffice");
+  }
+
+  getAllServices(): Observable<any> {
+    return this.httpClient.get("http://localhost:51111/api/Services");
+  }
+  
+  getAllVehiclesForService(serviceId): Observable<any> {
+    return this.httpClient.get("http://localhost:51111/api/GetVehicleForService/" + serviceId);
+  }
+  
+
+  getAllBranchesForService(serviceId): Observable<any> {
+    return this.httpClient.get("http://localhost:51111/api/GetBranchOfficeForService/"+ serviceId);
+  }
+
+  getAllCommentsForService(serviceId): Observable<any> {
+    return this.httpClient.get("http://localhost:51111/api/GetCommentsForService/ " + serviceId);
+  }
+
   postMethodDemo(path, newMember): Observable<any> {
     return this.httpClient.post(path, newMember)
   }
 
-  updateService(path, newMember): Observable<any> {
-    return this.httpClient.put(path, newMember)
+  updateService(id: number, newMember: Service): Observable<any> {
+    return this.httpClient.put("http://localhost:51111/api/Services/" + id, newMember)
   }
 
   updateBranch(id: number, newMember: BranchOffice): Observable<any> {
     return this.httpClient.put("http://localhost:51111/api/BranchOffice/" + id, newMember)
   }
 
-  
   updateVehicle(id: number, newMember: Vehicle): Observable<any> {
     return this.httpClient.put("http://localhost:51111/api/Vehicle/" + id, newMember)
+  }
+
+  updateComment(id: number, newMember: Comment): Observable<any> {
+    return this.httpClient.put("http://localhost:51111/api/Comment/" + id, newMember)
   }
 
   getTheToken(user){

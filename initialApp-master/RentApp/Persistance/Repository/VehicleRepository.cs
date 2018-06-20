@@ -17,7 +17,12 @@ namespace RentApp.Persistance.Repository
         }
         public IEnumerable<Vehicle> GetVehiclesForService(int serviceId)
         {
-            return Context.Vehicles.Where(p => p.ServiceId == serviceId).ToList();
+            return Context.Vehicles.Where(p => p.ServiceId == serviceId && !p.Deleted).ToList();
+        }
+
+        public IEnumerable<Vehicle> GetAllVehicles()
+        {
+            return Context.Vehicles.Where(p => p.Deleted != true).ToList();
         }
     }
 }

@@ -3,4 +3,5 @@ export class Comment {
     ClientID: number;
     ServiceID: number;
     Text: string;
+    Deleted: boolean;
 }

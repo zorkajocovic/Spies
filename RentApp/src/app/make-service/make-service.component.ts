@@ -49,7 +49,7 @@ export class MakeServiceComponent implements OnInit {
     
           this.service.postMethodDemo("http://localhost:51111/api/Services", body).subscribe(
             data => {
-              alert("Uspesno ste se dodali novi servis")
+           //  alert("Uspesno ste se dodali novi servis")
               this.router.navigate(['services']);
             },
             error => {

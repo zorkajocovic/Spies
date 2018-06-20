@@ -11,6 +11,8 @@
                       <p class="card-text" name="Description">{{service.Description}}</p>
                       <a [routerLink]="['/services/', service.Id]" class="btn btn-primary rounded-0 mb-2">Vehicles</a>
                       <a [routerLink]="['/branches/', service.Id]" class="btn btn-primary rounded-0 mb-2">Branch Offices</a>
+
+                      <button class="btn" id="btnTrash"><i class="fa fa-trash" (click)="deleteService(service.Id)"></i></button>
                   </div>
               </div>
           </div>

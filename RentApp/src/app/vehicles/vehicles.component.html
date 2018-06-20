@@ -47,26 +47,24 @@
 
     <div class="row">
         <div class="col-sm-5" *ngFor="let vehicle of vehicles">
-            <div *ngIf="!vehicle.Deleted">
-                <div class="card">
-                    <img class="card-img-top" src="{{vehicle.Image}}" alt="Card image cap">
-                    <div class="card-block p-1">
-                        <p>
-                            <b>Model:</b> {{vehicle.Model}}</p>
-                        <p>
-                            <b>Proizvodjac:</b> {{vehicle.Producer}}</p>
-                        <p>
-                            <b>Godina proizvodnje:</b> {{vehicle.ProductionYear}}</p>
-                        <p>
-                            <b>Opis:</b> {{vehicle.Description}}</p>
-                    </div>
-                    <button class="btn btn-primary">
-                        <a (click)="showSpecificReservation = vehicle.VehicleID">Rezervisi</a>
-                    </button>
-                    <app-vehicles-reserve [(vehicleId)]="vehicle.VehicleID" *ngIf="showSpecificReservation == vehicle.VehicleID"></app-vehicles-reserve>
-                    <a [routerLink]="['/edit-vehicle/', vehicle.VehicleID]">Izmeni auto</a>
-                    <button (click)="deleteVehicle(vehicle.VehicleID)">Obrisi auto</button>
+            <div class="card">
+                <img class="card-img-top" src="{{vehicle.Image}}" alt="Card image cap">
+                <div class="card-block p-1">
+                    <p>
+                        <b>Model:</b> {{vehicle.Model}}</p>
+                    <p>
+                        <b>Proizvodjac:</b> {{vehicle.Producer}}</p>
+                    <p>
+                        <b>Godina proizvodnje:</b> {{vehicle.ProductionYear}}</p>
+                    <p>
+                        <b>Opis:</b> {{vehicle.Description}}</p>
                 </div>
+                <button class="btn btn-primary">
+                    <a (click)="showSpecificReservation = vehicle.VehicleID">Rezervisi</a>
+                </button>
+                <app-vehicles-reserve [(vehicleId)]="vehicle.VehicleID" *ngIf="showSpecificReservation == vehicle.VehicleID"></app-vehicles-reserve>
+                <a [routerLink]="['/edit-vehicle/', vehicle.VehicleID]">Izmeni auto</a>
+                <button class="btn" id="btnTrash"><i class="fa fa-trash" (click)="deleteVehicle(vehicle.VehicleID)"></i></button>
             </div>
         </div>
     </div>
