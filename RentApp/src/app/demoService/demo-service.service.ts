@@ -49,6 +49,10 @@ export class DemoServiceService {
     return this.httpClient.get("http://localhost:51111/api/GetVehicleForService/" + serviceId);
   }
 
+  updateProfile(path, newMember): Observable<any> {
+    return this.httpClient.put(path, newMember)
+  }
+
   updateVehicleType(id: number, newMember: VehicleType): Observable<any> {
     return this.httpClient.put("http://localhost:51111/api/VehicleType/" + id, newMember)
   }
