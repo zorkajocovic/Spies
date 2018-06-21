@@ -18,6 +18,7 @@ namespace RentApp.Controllers
     {
 
         private IUnitOfWork db;
+        private object locking = new object();
 
         public VehicleController(IUnitOfWork context)
         {
@@ -28,7 +29,10 @@ namespace RentApp.Controllers
         //  api/Services?serviceId=1
         public IEnumerable<Vehicle> GetVehicles(/*int serviceId = 0*/)
         {
-            return db.Vehicles.GetAllVehicles();
+            lock (locking)
+            {
+                return db.Vehicles.GetAllVehicles();
+            }
         }
 
 
@@ -36,7 +40,10 @@ namespace RentApp.Controllers
         [Route("api/GetVehicleForService/{serviceId}")]
         public IEnumerable<Vehicle> GetVehicleForService(int serviceId)
         {
-            return db.Vehicles.GetVehiclesForService(serviceId);
+            lock (locking)
+            {
+                return db.Vehicles.GetVehiclesForService(serviceId);
+            }
         }
 
         public IEnumerable<Vehicle> GetSearchVehicle(string text)
@@ -48,13 +55,16 @@ namespace RentApp.Controllers
         [ResponseType(typeof(Vehicle))]
         public IHttpActionResult GetService(int id)
         {
-            Vehicle vehicle = db.Vehicles.Get(id);
-            if (vehicle == null)
+            lock (locking)
             {
-                return NotFound();
-            }
+                Vehicle vehicle = db.Vehicles.Get(id);
+                if (vehicle == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(vehicle);
+                return Ok(vehicle);
+            }
         }
 
         // PUT: api/Services/5
@@ -73,8 +83,11 @@ namespace RentApp.Controllers
 
             try
             {
-                db.Vehicles.Update(vehicle);
-                db.Complete();
+                lock (locking)
+                {
+                    db.Vehicles.Update(vehicle);
+                    db.Complete();
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -132,10 +145,11 @@ namespace RentApp.Controllers
                 httpPostedFile.SaveAs(fileSavePath);
                 vehicle.Image = "http://localhost:51111/Content/images/vehicles/" + fileName;
             }
-
-            db.Vehicles.Add(vehicle);
-            db.Complete();
-
+            lock (locking)
+            {
+                db.Vehicles.Add(vehicle);
+                db.Complete();
+            }
             return CreatedAtRoute("DefaultApi", new { id = vehicle.VehicleID }, vehicle);
         }
 
@@ -143,16 +157,19 @@ namespace RentApp.Controllers
         [ResponseType(typeof(Vehicle))]
         public IHttpActionResult DeleteVehicle(int id)
         {
-            Vehicle vehicle = db.Vehicles.Get(id);
-            if (vehicle == null)
+            lock (locking)
             {
-                return NotFound();
+                Vehicle vehicle = db.Vehicles.Get(id);
+                if (vehicle == null)
+                {
+                    return NotFound();
+                }
+
+                db.Vehicles.Remove(vehicle);
+                db.Complete();
+
+                return Ok(vehicle);
             }
-
-            db.Vehicles.Remove(vehicle);
-            db.Complete();
-
-            return Ok(vehicle);
         }
 
         protected override void Dispose(bool disposing)
@@ -166,7 +183,10 @@ namespace RentApp.Controllers
 
         private bool VehiclesExists(int id)
         {
-            return db.Vehicles.Get(id) != null;
+            lock (locking)
+            {
+                return db.Vehicles.Get(id) != null;
+            }
         }
     }
 }

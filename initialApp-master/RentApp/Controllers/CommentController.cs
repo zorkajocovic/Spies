@@ -14,6 +14,7 @@ namespace RentApp.Controllers
     public class CommentController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
+        public object locking = new object();
 
         public CommentController(IUnitOfWork unitOfWork)
         {
@@ -23,27 +24,36 @@ namespace RentApp.Controllers
         // GET: api/Services
         public IEnumerable<Comment> GetComment()
         {
-            return unitOfWork.Comments.GetAllComments();
+            lock (locking)
+            {
+                return unitOfWork.Comments.GetAllComments();
+            }
         }
 
         // GET: api/Vehicle/1
         [Route("api/GetCommentsForService/{serviceId}")]
         public IEnumerable<Comment> GetCommentsForService(int serviceId)
         {
-            return unitOfWork.Comments.GetCommentsForService(serviceId);
+            lock (locking)
+            {
+                return unitOfWork.Comments.GetCommentsForService(serviceId);
+            }
         }
 
         // GET: api/Services/5
         [ResponseType(typeof(Comment))]
         public IHttpActionResult GetComment(int id)
         {
-            Comment comment = unitOfWork.Comments.Get(id);
-            if (comment == null)
+            lock (locking)
             {
-                return NotFound();
-            }
+                Comment comment = unitOfWork.Comments.Get(id);
+                if (comment == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(comment);
+                return Ok(comment);
+            }
         }
 
         // PUT: api/Services/5
@@ -62,8 +72,11 @@ namespace RentApp.Controllers
 
             try
             {
-                unitOfWork.Comments.Update(comment);
-                unitOfWork.Complete();
+                lock (locking)
+                {
+                    unitOfWork.Comments.Update(comment);
+                    unitOfWork.Complete();
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -89,9 +102,11 @@ namespace RentApp.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            unitOfWork.Comments.Add(comment);
-            unitOfWork.Complete();
+            lock (locking)
+            {
+                unitOfWork.Comments.Add(comment);
+                unitOfWork.Complete();
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = comment.CommentID }, comment);
         }
@@ -105,11 +120,13 @@ namespace RentApp.Controllers
             {
                 return NotFound();
             }
+            lock (locking)
+            {
+                unitOfWork.Comments.Remove(comment);
+                unitOfWork.Complete();
 
-            unitOfWork.Comments.Remove(comment);
-            unitOfWork.Complete();
-
-            return Ok(comment);
+                return Ok(comment);
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -123,7 +140,10 @@ namespace RentApp.Controllers
 
         private bool CommentExists(int id)
         {
-            return unitOfWork.Comments.Get(id) != null;
+            lock (locking)
+            {
+                return unitOfWork.Comments.Get(id) != null;
+            }
         }
     }
 }

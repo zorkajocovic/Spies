@@ -15,6 +15,7 @@ namespace RentApp.Controllers
     {
 
         private IUnitOfWork db;
+        private object locking = new object();
 
         public ReservationController(IUnitOfWork context)
         {
@@ -24,20 +25,26 @@ namespace RentApp.Controllers
         // GET: api/Services
         public IEnumerable<Reservation> GetReservations()
         {
-            return db.Reservations.GetAll();
+            lock (locking)
+            {
+                return db.Reservations.GetAll();
+            }
         }
 
         // GET: api/Services/5
         [ResponseType(typeof(Reservation))]
         public IHttpActionResult GetService(int id)
         {
-            Reservation reservation = db.Reservations.Get(id);
-            if (reservation == null)
+            lock (locking)
             {
-                return NotFound();
-            }
+                Reservation reservation = db.Reservations.Get(id);
+                if (reservation == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(reservation);
+                return Ok(reservation);
+            }
         }
 
         // PUT: api/Services/5
@@ -56,8 +63,11 @@ namespace RentApp.Controllers
 
             try
             {
-                db.Reservations.Update(reservation);
-                db.Complete();
+                lock (locking)
+                {
+                    db.Reservations.Update(reservation);
+                    db.Complete();
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -92,14 +102,15 @@ namespace RentApp.Controllers
             DateTime dt1 = DateTime.Parse(returnDateTime);
             reservation.ReturnVehicleDate = dt1;
 
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            db.Reservations.Add(reservation);
-            db.Complete();
-
+            lock (locking)
+            {
+                db.Reservations.Add(reservation);
+                db.Complete();
+            }
             return CreatedAtRoute("DefaultApi", new { id = reservation.ReservationID }, reservation);
         }
 
@@ -107,16 +118,19 @@ namespace RentApp.Controllers
         [ResponseType(typeof(Reservation))]
         public IHttpActionResult DeleteReservation(int id)
         {
-            Reservation reservation = db.Reservations.Get(id);
-            if (reservation == null)
+            lock (locking)
             {
-                return NotFound();
+                Reservation reservation = db.Reservations.Get(id);
+                if (reservation == null)
+                {
+                    return NotFound();
+                }
+
+                db.Reservations.Remove(reservation);
+                db.Complete();
+
+                return Ok(reservation);
             }
-
-            db.Reservations.Remove(reservation);
-            db.Complete();
-
-            return Ok(reservation);
         }
 
         protected override void Dispose(bool disposing)
@@ -130,7 +144,10 @@ namespace RentApp.Controllers
 
         private bool ReservationExists(int id)
         {
-            return db.Reservations.Get(id) != null;
+            lock (locking)
+            {
+                return db.Reservations.Get(id) != null;
+            }
         }
 
     }
