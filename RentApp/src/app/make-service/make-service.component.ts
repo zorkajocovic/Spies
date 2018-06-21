@@ -13,9 +13,9 @@ import { Route, Router } from '@angular/router';
 
 export class MakeServiceComponent implements OnInit {
 
-  constructor(private service: DemoServiceService, private router: Router) { }
+  constructor(private service: DemoServiceService, private router: Router) { debugger}
 
-  ngOnInit() {
+  ngOnInit() {debugger
   }
 
   selectedFile: File;
