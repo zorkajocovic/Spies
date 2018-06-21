@@ -1,4 +1,44 @@
 <div class="container">
+<<<<<<< HEAD
+    <form #updateProfile="ngForm" (ngSubmit)="onSubmit(updateProfile.Value, updateProfile)">
+  <div class="row">
+    <div class="offset-lg-4 col-lg-4 col-sm-6 col-12 main-section text-center">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-12 profile-header"></div>
+        </div>
+        <div class="row user-detail">
+            <div class="col-lg-12 col-sm-12 col-12">
+              <div>
+                <img [src]="activeUser.Image" class="rounded-circle img-thumbnail">
+              </div>
+              <div>
+                <label>Full name:   </label>
+                <input type="text" id="lname" name="FullName"  [(ngModel)]="activeUser.FullName">
+                </div>
+                <div></div>
+                <label>Date of birth:   </label>
+                <input type="text" id="lname" name="DateOfBirth"  [(ngModel)]="activeUser.DateOfBirth">
+                <hr>
+                <a href="#" class="btn btn-success btn-sm">Follow</a>
+                <a href="#" class="btn btn-info btn-sm">Send Messege</a>
+
+                <hr>
+            </div>
+        </div>
+        <div class="row user-social-detail">
+            <div class="col-lg-12 col-sm-12 col-12">
+                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Save">
+    </div>
+    
+  </div>
+    
+  </form>
+=======
   <form #updateProfile="ngForm" (ngSubmit)="onSubmit(updateProfile.Value, updateProfile)">
 <div class="row">
   <div class="offset-lg-4 col-lg-4 col-sm-6 col-12 main-section text-center">
@@ -43,4 +83,5 @@
 </div>
   
 </form>
+>>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
 </div>

@@ -291,6 +291,11 @@
       <DependentUpon>201806171520157_RentACar.cs</DependentUpon>
     </Compile>
 <<<<<<< HEAD
+    <Compile Include="Migrations\201806191445497_RentApp.cs" />
+    <Compile Include="Migrations\201806191445497_RentApp.Designer.cs">
+      <DependentUpon>201806191445497_RentApp.cs</DependentUpon>
+=======
+<<<<<<< HEAD
     <Compile Include="Migrations\201806201921157_rentaa.cs" />
     <Compile Include="Migrations\201806201921157_rentaa.Designer.cs">
       <DependentUpon>201806201921157_rentaa.cs</DependentUpon>
@@ -303,6 +308,7 @@
     <Compile Include="Migrations\201806201733365_Rent1.Designer.cs">
       <DependentUpon>201806201733365_Rent1.cs</DependentUpon>
 >>>>>>> f844380f499caf3e2a567b402db39d2f102d3308
+>>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -452,6 +458,10 @@
       <DependentUpon>201806171520157_RentACar.cs</DependentUpon>
     </EmbeddedResource>
 <<<<<<< HEAD
+    <EmbeddedResource Include="Migrations\201806191445497_RentApp.resx">
+      <DependentUpon>201806191445497_RentApp.cs</DependentUpon>
+=======
+<<<<<<< HEAD
     <EmbeddedResource Include="Migrations\201806201921157_rentaa.resx">
       <DependentUpon>201806201921157_rentaa.cs</DependentUpon>
 =======
@@ -461,6 +471,7 @@
     <EmbeddedResource Include="Migrations\201806201733365_Rent1.resx">
       <DependentUpon>201806201733365_Rent1.cs</DependentUpon>
 >>>>>>> f844380f499caf3e2a567b402db39d2f102d3308
+>>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

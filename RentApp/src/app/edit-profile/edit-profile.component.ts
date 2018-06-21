@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActiveUser } from '../models/ActiveUser.model';
 import { NgForm } from '@angular/forms';
 import { DemoServiceService } from '../demoService/demo-service.service';
+<<<<<<< HEAD
+=======
 
+>>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
 
 @Component({
   selector: 'app-edit-profile',
@@ -12,6 +15,41 @@ import { DemoServiceService } from '../demoService/demo-service.service';
 
 export class EditProfileComponent implements OnInit {
 
+<<<<<<< HEAD
+
+  activeUser: ActiveUser;
+  activeUserId: number = -1;
+
+  constructor(private service: DemoServiceService) { }
+
+  ngOnInit() {
+    debugger
+    this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(
+      data =>{
+        this.activeUserId = data;
+        debugger
+        this.service.getMethodDemo("http://localhost:51111/api/AppUsers/" + this.activeUserId).subscribe(
+          data =>{
+            this.activeUser = data;
+            debugger
+          })
+      })
+    
+  }
+
+  onSubmit(activeUser:  ActiveUser, form: NgForm){
+    debugger
+    this.service.updateProfile("http://localhost:51111/api/AppUsers/" + this.activeUserId, this.activeUser).subscribe(
+      data => {
+        debugger
+        alert("Uspelo")
+      },
+      error => {
+        alert("nije uspelo")       
+        });
+
+    }
+=======
   activeUser: ActiveUser;
   activeUserId: number = -1;
   url: string;
@@ -69,4 +107,5 @@ export class EditProfileComponent implements OnInit {
       //this.uploadFile = data;
     }
   }
+>>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
 }

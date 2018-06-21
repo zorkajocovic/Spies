@@ -28,8 +28,6 @@ import { MakeBranchComponent } from './make-branch/make-branch.component';
 import { MakeVehicleComponent } from './make-vehicle/make-vehicle.component';
 import { EditServiceComponent } from './edit-service/edit-service.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
-import { EditBranchComponent } from './edit-branch/edit-branch.component';
-import { EditVehicleComponent } from './edit-vehicle/edit-vehicle.component';
 
 const ChildRoutes =
   [
@@ -101,6 +99,10 @@ const Routes= [
     canActivate: [IsManager]
   },
   {
+<<<<<<< HEAD
+    path: "edit-profile",
+    component: EditProfileComponent
+=======
   path: "edit-profile",
     component: EditProfileComponent,
     canActivate: [IsSomeLogged]
@@ -114,7 +116,9 @@ const Routes= [
     path: "edit-vehicle/:Id",
       component: EditVehicleComponent,
       canActivate: [IsManager]
+>>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
   }
+  
 ]
 
 @NgModule({
@@ -133,10 +137,15 @@ const Routes= [
     MakeBranchComponent,
     MakeVehicleComponent,
     EditServiceComponent,
+<<<<<<< HEAD
+    EditProfileComponent
+    ],
+=======
     EditProfileComponent,
     EditBranchComponent,
     EditVehicleComponent
       ],
+>>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
   imports: [
     BrowserModule,
     RouterModule.forRoot(Routes),

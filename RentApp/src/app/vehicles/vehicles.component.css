@@ -11,7 +11,7 @@
         top:-9999px;
         clip:rect(0,0,0,0);
     }
-
+    
     .rating:not(:checked) > label {
         float:right;
         width:1em;
@@ -111,9 +111,18 @@
     }
 
 
+<<<<<<< HEAD
+    .checked {
+        color: orange;
+    }
+
+
+
+=======
 
 
     
+>>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
     #customers {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
@@ -135,6 +144,8 @@
         text-align: left;
         background-color: #4CAF50;
         color: white;
+<<<<<<< HEAD
+=======
     }
 
     .checked{
@@ -187,4 +198,5 @@
     /* Change the background color of the dropdown button when the dropdown content is shown */
     .dropdown:hover .dropbtn {
         background-color: #3e8e41;
+>>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
     }
