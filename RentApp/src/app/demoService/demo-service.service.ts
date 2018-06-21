@@ -27,7 +27,10 @@ export class DemoServiceService {
   changeLoginState(state: boolean){
     this.messageSource.next(state);
   }
-  
+ 
+  getAllCommentsForService(serviceId: number): Observable<any> {
+    return this.httpClient.get('http://localhost:51111/api/CommentsForService/' + serviceId);
+  }
   getMethodDemo(path): Observable<any> {
     return this.httpClient.get(path);
   }

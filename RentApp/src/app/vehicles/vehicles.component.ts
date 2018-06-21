@@ -41,7 +41,7 @@ export class VehiclesComponent implements OnInit {
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.activatedRoute.params.subscribe(params => { this.serviceId = params["Id"] });    //Id je definisano u appmodule.ts kod path: "service/Id"
     this.allVehicles('http://localhost:51111/api/GetVehiclesForService/' + this.serviceId);
-    this.allComments('http://localhost:51111/api/Comment');
+    this.getAllCommentsForService(this.serviceId);
     this.allVehicleType('http://localhost:51111/api/VehicleType');
   }
 
@@ -86,27 +86,27 @@ export class VehiclesComponent implements OnInit {
       })
   }
 
-  allComments(path: string) {
-    this.service.getMethodDemo(path).subscribe(
+  getAllCommentsForService(serviceId: number) {
+    this.service.getMethodDemo(serviceId).subscribe(
       data => {
 
         this.comments = data;
-       // for (var i = 0; i < this.comments.length; i++) {
+        for (var i = 0; i < this.comments.length; i++) {
 
-     //     this.service.getMethodDemo('http://localhost:51111/api/AppUsers/' + this.comments[i].ClientID).subscribe(
-     //       data => {
-     //         this.users = data;
-      //      },
-      //      error => {
-     //         alert("nije uspelo ovo")
-      //      })
+          this.service.getMethodDemo('http://localhost:51111/api/AppUsers/' + this.comments[i].ClientID).subscribe(
+            data => {
+              this.users = data;
+            },
+            error => {
+              alert("nije uspelo ovo")
+            })
 
-      //  }
-       // for (var i = 0; i < this.users.length; i++) {
-      //    this.userNames.push(this.users[i].FullName);
-      //  }
-        
-      })     
+        }
+        for (var i = 0; i < this.users.length; i++) {
+          this.userNames.push(this.users[i].FullName);
+        }
+
+      })
   }
 
   deleteVehicle(id: number) {
@@ -139,7 +139,7 @@ export class VehiclesComponent implements OnInit {
 
         this.service.postMethodDemo("http://localhost:51111/api/CommentsForService", comment.ServiceID).subscribe(
           data => {
-            this.allComments('http://localhost:51111/api/Comment');
+            this.getAllCommentsForService(comment.ServiceID);
           },
           error => {
             alert("nije uspelo")
