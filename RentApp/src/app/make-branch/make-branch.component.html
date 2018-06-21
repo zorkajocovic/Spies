@@ -38,7 +38,7 @@
             Longitude is required!
         </div>
        </div>
-    <input type="submit" value="Save">
+    <input type="submit" [disabled]="!makeBranch.valid" value="Save">
 
   </form>
 </div>

@@ -13,6 +13,7 @@
   <form #makeBranch="ngForm" (ngSubmit)="SaveVehicle(makeBranch.value, makeBranch)">
     <label for="fname">Model</label>
     <input type="text" name="Model" placeholder="Model.." ngModel #Model="ngModel"/>
+
     <div *ngIf="Model.errors && (Model.dirty || Model.touched)" class="alert alert-danger">
         <div [hidden]="!Model.errors.required">
             Model is required!
@@ -24,22 +25,23 @@
             Model cannot be more than 42 characters long.
         </div>
       </div>
-
+    
     <label for="TypeId">Type</label>
     <div class="select-container">
-      <select name="VehicleTypeId" ngModel #VehicleTypeId="ngModel">
+      <select name="VehicleTypeId" ngModel>
         <option *ngFor="let type of types" name="VehicleTypeId" [value]="type.VehicleTypeId">{{type.VehicleName}}</option>
       </select>
     </div>
 
     <label for="fcena">Cena po satu:</label>
     <input type="text" placeholder="Cena.." [value]="nesto"/>
+    <!--
     <div *ngIf="Cena.errors && (Cena.dirty || Cena.touched)" class="alert alert-danger">
         <div [hidden]="!Cena.errors.required">
             Cena is required!
         </div>
       </div>
-
+  --> 
     <label for="lname">Image</label>
     <br>
     <input type='file' (change)="onSelectFile($event)" name="Image" placeholder="Image.." ngModel/>
@@ -71,21 +73,21 @@
 
     <label for="Type">Year Of Produce</label>
     <div class="select-container">
-      <select name="ProductionYear" class="box-routh select" [(ngModel)]="selectedYear" #ProductionYear="ngModel">
+      <select name="ProductionYear" class="box-routh select" [(ngModel)]="selectedYear">
         <option *ngFor="let year of years" [value]="year">{{year}}</option>
       </select>
     </div>
-    <div *ngIf="ProductionYear.errors && (ProductionYear.dirty || ProductionYear.touched)" class="alert alert-danger">
+   <!-- <div *ngIf="ProductionYear.errors && (ProductionYear.dirty || ProductionYear.touched)" class="alert alert-danger">
         <div [hidden]="!ProductionYear.errors.required">
             ProductionYear is required!
         </div>
       </div>
-
+    -->
     <label for="subject">Description</label>
     <textarea type="text" id="subject" name="Description" placeholder="Write something about vehicle.." style="height:200px"
       ngModel></textarea>
 
-    <input type="submit" value="Save">
+    <input type="submit" [disabled]="!makeBranch.valid" value="Save">
 
   </form>
 </div>

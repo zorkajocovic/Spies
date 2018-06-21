@@ -62,4 +62,8 @@ export class ServicesComponent implements OnInit {
   isManager(){
     return localStorage.role == 'Manager' ?  true : false;
   }
+  
+  isAdmin(){
+    return localStorage.role == 'Admin' ?  true : false;
+  }
 }

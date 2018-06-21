@@ -16,14 +16,14 @@ namespace RentApp.Models.Entities
 
         [ForeignKey("Service")]
         public int ServiceId { get; set; }
-        [Required]
+       // [Required]
         public string Model { get; set; }
-        [Required]
+     //   [Required]
         public string Producer { get; set; }
-        [Required]
+       // [Required]
         public int ProductionYear { get; set; }
         public string Description { get; set; }
-        [Required]
+       // [Required]
         public string Image { get; set; }
         public bool Available { get; set; }
 

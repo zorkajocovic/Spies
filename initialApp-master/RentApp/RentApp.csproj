@@ -286,10 +286,6 @@
     <Compile Include="Migrations\201806031439020_Initial.Designer.cs">
       <DependentUpon>201806031439020_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806211531098_renta.cs" />
-    <Compile Include="Migrations\201806211531098_renta.Designer.cs">
-      <DependentUpon>201806211531098_renta.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -333,6 +329,8 @@
     <Compile Include="Providers\CustomOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Tools\EmailHelper.cs" />
+    <Compile Include="Tools\EmailTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -433,9 +431,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201806031439020_Initial.resx">
       <DependentUpon>201806031439020_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806211531098_renta.resx">
-      <DependentUpon>201806211531098_renta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

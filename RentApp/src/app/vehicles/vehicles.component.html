@@ -1,3 +1,5 @@
+
+<div *ngIf="isAdmin()">
 <button (click)="toggle()">Obrisati tip vozila</button>
 <a style="font-size:larger" style="color: white" [routerLink]="['/edit-service/', serviceId]">Izmeni servis</a>
 <div *ngIf="isVisible">
@@ -20,7 +22,7 @@
         </div>
     </table>
 </div>
-
+</div>
 
 <form>
 <label for="Type">Oceni servis</label>

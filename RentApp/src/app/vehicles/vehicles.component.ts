@@ -50,7 +50,7 @@ export class VehiclesComponent implements OnInit {
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.activatedRoute.params.subscribe(params => { this.serviceId = params["Id"] });    //Id je definisano u appmodule.ts kod path: "service/Id"
-    this.allVehicles();
+    this.vehicles = this.allVehicles();
     this.allComments(this.serviceId);
     this.allVehicleTypes('http://localhost:51111/api/VehicleType');
     this.rates = [];

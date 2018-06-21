@@ -36,11 +36,11 @@
             Email cannot be more than 42 characters long.
         </div>
       </div>
-      
+
     <label for="subject">Description</label>
     <textarea type="text" id="subject" name="Description" placeholder="Write something about service.." style="height:200px" ngModel></textarea>
 
-    <input type="submit" value="Save">
+    <input type="submit" [disabled]="!makeService.valid" value="Save">
 
   </form>
 </div>
