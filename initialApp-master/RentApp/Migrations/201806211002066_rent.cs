@@ -3,7 +3,7 @@ namespace RentApp.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class RentACar : DbMigration
+    public partial class rent : DbMigration
     {
         public override void Up()
         {
@@ -12,15 +12,19 @@ namespace RentApp.Migrations
                 c => new
                     {
                         BranchOfficeID = c.Int(nullable: false, identity: true),
-                        Address = c.String(),
-                        Latitude = c.Int(nullable: false),
-                        Longitude = c.Int(nullable: false),
-                        Image = c.String(),
+                        Address = c.String(nullable: false),
+                        Latitude = c.Single(nullable: false),
+                        Longitude = c.Single(nullable: false),
+                        Image = c.String(nullable: false),
                         ServiceID = c.Int(nullable: false),
+                        CreatorID = c.Int(nullable: false),
+                        Deleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.BranchOfficeID)
+                .ForeignKey("dbo.AppUsers", t => t.CreatorID, cascadeDelete: false)
                 .ForeignKey("dbo.Services", t => t.ServiceID, cascadeDelete: false)
-                .Index(t => t.ServiceID);
+                .Index(t => t.ServiceID)
+                .Index(t => t.CreatorID);
             
             CreateTable(
                 "dbo.Comments",
@@ -30,6 +34,7 @@ namespace RentApp.Migrations
                         ClientID = c.Int(nullable: false),
                         ServiceID = c.Int(nullable: false),
                         Text = c.String(),
+                        Deleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.CommentID)
                 .ForeignKey("dbo.AppUsers", t => t.ClientID, cascadeDelete: false)
@@ -58,28 +63,11 @@ namespace RentApp.Migrations
                     {
                         ItemID = c.Int(nullable: false, identity: true),
                         Price = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        PriceListID = c.Int(nullable: false),
                         VehicleID = c.Int(nullable: false),
-                        PriceListId_PriceListID = c.Int(),
                     })
                 .PrimaryKey(t => t.ItemID)
-                .ForeignKey("dbo.PriceLists", t => t.PriceListId_PriceListID)
                 .ForeignKey("dbo.Vehicles", t => t.VehicleID, cascadeDelete: false)
-                .Index(t => t.VehicleID)
-                .Index(t => t.PriceListId_PriceListID);
-            
-            CreateTable(
-                "dbo.PriceLists",
-                c => new
-                    {
-                        PriceListID = c.Int(nullable: false, identity: true),
-                        FromHour = c.Int(nullable: false),
-                        ToHour = c.Int(nullable: false),
-                        Item_ItemID = c.Int(),
-                    })
-                .PrimaryKey(t => t.PriceListID)
-                .ForeignKey("dbo.Items", t => t.Item_ItemID)
-                .Index(t => t.Item_ItemID);
+                .Index(t => t.VehicleID);
             
             CreateTable(
                 "dbo.Vehicles",
@@ -88,25 +76,30 @@ namespace RentApp.Migrations
                         VehicleID = c.Int(nullable: false, identity: true),
                         VehicleTypeId = c.Int(nullable: false),
                         ServiceId = c.Int(nullable: false),
-                        Model = c.String(),
-                        Producer = c.String(),
+                        Model = c.String(nullable: false),
+                        Producer = c.String(nullable: false),
                         ProductionYear = c.Int(nullable: false),
                         Description = c.String(),
-                        Image = c.String(),
+                        Image = c.String(nullable: false),
                         Available = c.Boolean(nullable: false),
+                        CreatorID = c.Int(nullable: false),
+                        Deleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.VehicleID)
+                .ForeignKey("dbo.AppUsers", t => t.CreatorID, cascadeDelete: false)
                 .ForeignKey("dbo.Services", t => t.ServiceId, cascadeDelete: false)
                 .ForeignKey("dbo.VehicleTypes", t => t.VehicleTypeId, cascadeDelete: false)
                 .Index(t => t.VehicleTypeId)
-                .Index(t => t.ServiceId);
+                .Index(t => t.ServiceId)
+                .Index(t => t.CreatorID);
             
             CreateTable(
                 "dbo.VehicleTypes",
                 c => new
                     {
                         VehicleTypeId = c.Int(nullable: false, identity: true),
-                        VehicleName = c.String(),
+                        VehicleName = c.String(nullable: false),
+                        Deleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.VehicleTypeId);
             
@@ -117,26 +110,30 @@ namespace RentApp.Migrations
                         ReservationID = c.Int(nullable: false, identity: true),
                         ClientID = c.Int(nullable: false),
                         VehicleID = c.Int(nullable: false),
-                        GetVehicleDate = c.DateTime(),
-                        ReturnVehicleDate = c.DateTime(),
+                        GetVehicleDate = c.DateTime(nullable: false),
+                        ReturnVehicleDate = c.DateTime(nullable: false),
                         GetBranchId = c.Int(nullable: false),
                         ReturnBranchId = c.Int(nullable: false),
+                        Deleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ReservationID)
-                .ForeignKey("dbo.BranchOffices", t => t.GetBranchId, cascadeDelete: true)
+                .ForeignKey("dbo.BranchOffices", t => t.GetBranchId, cascadeDelete: false)
                 .ForeignKey("dbo.AppUsers", t => t.ClientID, cascadeDelete: false)
                 .ForeignKey("dbo.Vehicles", t => t.VehicleID, cascadeDelete: false)
                 .Index(t => t.ClientID)
                 .Index(t => t.VehicleID)
                 .Index(t => t.GetBranchId);
             
-            AddColumn("dbo.AppUsers", "DateOfBirth", c => c.DateTime());
+            AddColumn("dbo.AppUsers", "DateOfBirth", c => c.DateTime(nullable: false));
             AddColumn("dbo.AppUsers", "Image", c => c.String());
-            AddColumn("dbo.Services", "Logo", c => c.String());
-            AddColumn("dbo.Services", "Email", c => c.String());
+            AddColumn("dbo.Services", "Logo", c => c.String(nullable: false));
+            AddColumn("dbo.Services", "Email", c => c.String(nullable: false));
             AddColumn("dbo.Services", "Description", c => c.String());
             AddColumn("dbo.Services", "Approved", c => c.Boolean(nullable: false));
             AddColumn("dbo.Services", "CreatorID", c => c.Int(nullable: false));
+            AddColumn("dbo.Services", "Deleted", c => c.Boolean(nullable: false));
+            AlterColumn("dbo.AppUsers", "FullName", c => c.String(nullable: false));
+            AlterColumn("dbo.Services", "Name", c => c.String(nullable: false));
             CreateIndex("dbo.Services", "CreatorID");
             AddForeignKey("dbo.Services", "CreatorID", "dbo.AppUsers", "Id", cascadeDelete: false);
         }
@@ -149,28 +146,31 @@ namespace RentApp.Migrations
             DropForeignKey("dbo.Items", "VehicleID", "dbo.Vehicles");
             DropForeignKey("dbo.Vehicles", "VehicleTypeId", "dbo.VehicleTypes");
             DropForeignKey("dbo.Vehicles", "ServiceId", "dbo.Services");
-            DropForeignKey("dbo.PriceLists", "Item_ItemID", "dbo.Items");
-            DropForeignKey("dbo.Items", "PriceListId_PriceListID", "dbo.PriceLists");
+            DropForeignKey("dbo.Vehicles", "CreatorID", "dbo.AppUsers");
             DropForeignKey("dbo.Rates", "ServiceID", "dbo.Services");
             DropForeignKey("dbo.Rates", "ClientID", "dbo.AppUsers");
             DropForeignKey("dbo.Services", "CreatorID", "dbo.AppUsers");
             DropForeignKey("dbo.Comments", "ServiceID", "dbo.Services");
             DropForeignKey("dbo.Comments", "ClientID", "dbo.AppUsers");
             DropForeignKey("dbo.BranchOffices", "ServiceID", "dbo.Services");
+            DropForeignKey("dbo.BranchOffices", "CreatorID", "dbo.AppUsers");
             DropIndex("dbo.Reservations", new[] { "GetBranchId" });
             DropIndex("dbo.Reservations", new[] { "VehicleID" });
             DropIndex("dbo.Reservations", new[] { "ClientID" });
+            DropIndex("dbo.Vehicles", new[] { "CreatorID" });
             DropIndex("dbo.Vehicles", new[] { "ServiceId" });
             DropIndex("dbo.Vehicles", new[] { "VehicleTypeId" });
-            DropIndex("dbo.PriceLists", new[] { "Item_ItemID" });
-            DropIndex("dbo.Items", new[] { "PriceListId_PriceListID" });
             DropIndex("dbo.Items", new[] { "VehicleID" });
             DropIndex("dbo.Rates", new[] { "ServiceID" });
             DropIndex("dbo.Rates", new[] { "ClientID" });
             DropIndex("dbo.Comments", new[] { "ServiceID" });
             DropIndex("dbo.Comments", new[] { "ClientID" });
+            DropIndex("dbo.BranchOffices", new[] { "CreatorID" });
             DropIndex("dbo.BranchOffices", new[] { "ServiceID" });
             DropIndex("dbo.Services", new[] { "CreatorID" });
+            AlterColumn("dbo.Services", "Name", c => c.String());
+            AlterColumn("dbo.AppUsers", "FullName", c => c.String());
+            DropColumn("dbo.Services", "Deleted");
             DropColumn("dbo.Services", "CreatorID");
             DropColumn("dbo.Services", "Approved");
             DropColumn("dbo.Services", "Description");
@@ -181,7 +181,6 @@ namespace RentApp.Migrations
             DropTable("dbo.Reservations");
             DropTable("dbo.VehicleTypes");
             DropTable("dbo.Vehicles");
-            DropTable("dbo.PriceLists");
             DropTable("dbo.Items");
             DropTable("dbo.Rates");
             DropTable("dbo.Comments");

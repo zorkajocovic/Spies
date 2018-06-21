@@ -26,9 +26,13 @@ namespace RentApp.Models.Entities
         [Required]
         public string Image { get; set; }
         public bool Available { get; set; }
+
         [ForeignKey("AppUser")]
         public int CreatorID { get; set; }
+
         public bool Deleted { get; set; }
+
+        public float PriceVehicle { get; set; }
 
         public VehicleType VehicleType { get; set; }
         public Service Service { get; set; }
