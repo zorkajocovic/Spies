@@ -43,13 +43,11 @@ const Routes= [
   {
     path: "login",
     component: LoginComponent,
-    //canActivate: [IsSomeLogged]
   },
 
   {
     path: "register",
     component: RegisterComponent,
-    
   },
 
   {

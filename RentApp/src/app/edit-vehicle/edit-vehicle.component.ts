@@ -63,5 +63,10 @@ export class EditVehicleComponent implements OnInit {
         alert("Nije uspela izmena auta")
       }); 
   }
+
+  
+  isManager(){
+    return localStorage.role == 'Manager' ?  true : false;
+  }
   
 }

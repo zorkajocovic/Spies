@@ -4,17 +4,31 @@
     <label for="fname">Address</label>
     <input type="text" name="Address" [(ngModel)]="activeBranch.Address">
 
+    <div *ngIf="DateOfBirth.errors && (DateOfBirth.dirty || DateOfBirth.touched)" class="alert alert-danger">
+        <div [hidden]="!DateOfBirth.errors.required">
+                Date Of Birth is required!
+        </div>
+    </div>
     <label for="lname">Image</label>
     <br>
     <img [src]="activeBranch.Image" height="200">
     <br>
     <br>
     <label for="lname">Latitude</label>
-    <input type="text" name="Latitude" [(ngModel)]="activeBranch.Latitude">
-
+    <input type="text" name="Latitude" [(ngModel)]="activeBranch.Latitude" #Latitude="ngModel">
+    <div *ngIf="Latitude.errors && (Latitude.dirty || Latitude.touched)"  class="alert alert-danger">
+        <div [hidden]="!Latitude.errors.required">
+            Latitude is required!
+        </div>
+    </div>
     <label for="subject">Longitude</label>
-    <input type="text" name="Longitude" [(ngModel)]="activeBranch.Longitude">
+    <input type="text" name="Longitude" [(ngModel)]="activeBranch.Longitude" #Longitude="ngModel">
 
+    <div *ngIf="Longitude.errors && (Longitude.dirty || Longitude.touched)" class="alert alert-danger">
+        <div [hidden]="!Longitude.errors.required">
+            Longitude is required!
+        </div>
+    </div>
     <input type="submit" value="Save">
 
   </form>

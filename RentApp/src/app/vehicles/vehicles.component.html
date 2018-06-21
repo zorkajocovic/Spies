@@ -107,7 +107,6 @@
         <p><b>Opis:</b> {{vehicle.Description}}</p>
          <button><a (click) = "showSpecificReservation = vehicle.VehicleID">Reservisi</a></button>       
         <app-vehicles-reserve [(vehicleId)]="vehicle.VehicleID" *ngIf="showSpecificReservation == vehicle.VehicleID"></app-vehicles-reserve>
-
     </div> 
   </div>
 -->
@@ -117,16 +116,27 @@
         <b> Dobrodosli!</b>
     </h3>
     <hr class="bg-dark mb-4 w-25">
-
-    <textarea [(ngModel)]="data" (ngModelChange)="filterBy($event)" placeholder="Search text ..."></textarea>
+<div class="row">
     <select (change)="selectSearch($event)">
-        <option value="Model" selected>
+            <option value="Izaberite filter" selected>
+                    Izaberite filter
+                </option>
+        <option value="Model" >
             Model
         </option>
         <option value="Price">
             Price
         </option>
     </select>
+
+    <div>
+      <select name="VehicleTypeId" (change)="selectSearch($event)" (ngModelChange)="filterBy($event)" [ngModel]="selectedType">
+        <option value="Filtriraj po tipu vozila" selected>Filtriraj po tipu vozila</option>
+        <option *ngFor="let type of vehicleTypes" [value]="type.VehicleTypeId">{{type.VehicleName}}</option>
+      </select>
+    </div>
+    <textarea [(ngModel)]="data" (ngModelChange)="filterBy($event)" placeholder="Search text ..."></textarea>
+</div>
     <div *ngIf="filterText == ''">
         <div class="row">
             <div class="col-sm-5" *ngFor="let vehicle of vehicles">

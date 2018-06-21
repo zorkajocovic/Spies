@@ -44,22 +44,22 @@ export class VehiclesComponent implements OnInit {
   active: boolean;
   activeUser: number;
   filter: Vehicle;
-  filterText: string;
+  filterText: string = '';
   findedVehicles: Vehicle[];
-
+  selectedType: number = -1;
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.activatedRoute.params.subscribe(params => { this.serviceId = params["Id"] });    //Id je definisano u appmodule.ts kod path: "service/Id"
     this.allVehicles();
     this.allComments(this.serviceId);
     this.allVehicleTypes('http://localhost:51111/api/VehicleType');
- 
+    this.rates = [];
+   
   }
 
   ngOnInit() {
-
-    for(var i=0; i<4; i++){
-        this.rates.push(i);
+    for(var i=1; i<=5; i++){
+      this.rates.push(i);
     }
 
     this.service.getCurrentUser().subscribe(
@@ -82,12 +82,26 @@ export class VehiclesComponent implements OnInit {
     this.vehicles.forEach(veh => {
       debugger
      if(this.filterText == "Model"){
+       debugger
        var lengthFilter = event.length;
         var brojEvent = veh.Model.substring(0, lengthFilter);
 
         if(brojEvent.toLowerCase() == event.toLowerCase()){
           this.findedVehicles.push(veh);
         }
+     }
+     else if(veh.VehicleTypeId == event){
+       debugger
+         this.findedVehicles.push(veh);
+       }
+     
+     else if(this.filterText == "Filtriraj po tipu vozila"){
+      debugger
+        this.findedVehicles = this.allVehicles();
+     }
+      else if(this.filterText == "Izaberite filter"){
+        debugger
+          this.findedVehicles = this.allVehicles();
      }
     // else if(this.selected == "Price"){
 
@@ -96,7 +110,7 @@ export class VehiclesComponent implements OnInit {
     )
   }
 
-  allVehicles() {
+  allVehicles() : Vehicle[]{
     this.service.geAllVehiclesForService(this.serviceId).subscribe(
       data => {
         debugger
@@ -106,6 +120,7 @@ export class VehiclesComponent implements OnInit {
       error => {
         alert("nije uspelo")
       })
+      return this.vehicles;
   }
 
   SendRate() {
@@ -126,61 +141,6 @@ export class VehiclesComponent implements OnInit {
                 alert("nije uspelo")
               });
       })
-
-
-
-
-    /*this.service.getRateForService(this.serviceId).subscribe(
-      data=>{
-        this.rate=data;
-        debugger
-        if(this.rate.RateID==0){
-            for(var i=0; i<num; i++){
-              this.isOn[i]=true;
-            }
-          debugger
-      this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(
-      data => {
-            this.rate.ClientID = data;
-            this.rate.SerId = this.serviceId;
-
-      this.service.postMethodDemo("http://localhost:51111/api/Rate", this.rate).subscribe(
-        data => {
-        },
-        error => {
-          alert("nije uspelo")
-        });
-      })           
-        }
-      }
-    )
-*/
-
-   /* debugger
-    this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(
-      data => {
-        this.rate.ClientID = data
-        debugger
-        this.rate.SerId = this.serviceId
-        if (this.star5 == "5") {
-          this.rate.Value = 5;
-        } else if (this.star4 == "4") {
-          this.rate.Value = 4;
-        } else if (this.star3 == "3") {
-          this.rate.Value = 3;
-        } else if (this.star2 == "2") {
-          this.rate.Value = 2;
-        } else {
-          this.rate.Value = 1;
-        }
-
-        this.service.postMethodDemo('http://localhost:51111/api/Rate', this.rate).subscribe(
-          data => {
-          },
-          error => {
-            alert("nije uspelo")
-          });
-      })*/
   }
 
   allComments(num: number) {
@@ -191,7 +151,6 @@ export class VehiclesComponent implements OnInit {
 
       })
       debugger
-  
 }
 
   deleteVehicle(id: number) {

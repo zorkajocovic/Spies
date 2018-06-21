@@ -9,9 +9,21 @@
       </form>
     </div>
   </div>
+
   <form #makeBranch="ngForm" (ngSubmit)="SaveVehicle(makeBranch.value, makeBranch)">
     <label for="fname">Model</label>
-    <input type="text" name="Model" placeholder="Model.." ngModel/>
+    <input type="text" name="Model" placeholder="Model.." ngModel #Model="ngModel"/>
+    <div *ngIf="Model.errors && (Model.dirty || Model.touched)" class="alert alert-danger">
+        <div [hidden]="!Model.errors.required">
+            Model is required!
+        </div>
+        <div [hidden]="!Model.errors.minlength">
+            Model must be at least 5 characters long.
+        </div>
+        <div [hidden]="!Model.errors.maxlength">
+            Model cannot be more than 42 characters long.
+        </div>
+      </div>
 
     <label for="TypeId">Type</label>
     <div class="select-container">
@@ -21,7 +33,12 @@
     </div>
 
     <label for="fcena">Cena po satu:</label>
-    <input type="text" placeholder="Cena.." [(ngModel)]="nesto"/>
+    <input type="text" placeholder="Cena.." [value]="nesto"/>
+    <div *ngIf="Cena.errors && (Cena.dirty || Cena.touched)" class="alert alert-danger">
+        <div [hidden]="!Cena.errors.required">
+            Cena is required!
+        </div>
+      </div>
 
     <label for="lname">Image</label>
     <br>
@@ -39,14 +56,30 @@
     </div>
 
     <label for="lname">Producer</label>
-    <input type="text" name="Producer" placeholder="Producer.." ngModel>
+    <input type="text" name="Producer" placeholder="Producer.." ngModel #Producer="ngModel">
+<div *ngIf="Producer.errors && (Producer.dirty || Producer.touched)" class="alert alert-danger">
+        <div [hidden]="!Producer.errors.required">
+            Producer is required!
+        </div>
+        <div [hidden]="!Producer.errors.minlength">
+            Producer must be at least 5 characters long.
+        </div>
+        <div [hidden]="!Producer.errors.maxlength">
+            Producer cannot be more than 42 characters long.
+        </div>
+      </div>
 
     <label for="Type">Year Of Produce</label>
     <div class="select-container">
-      <select name="ProductionYear" class="box-routh select" [(ngModel)]="selectedYear">
+      <select name="ProductionYear" class="box-routh select" [(ngModel)]="selectedYear" #ProductionYear="ngModel">
         <option *ngFor="let year of years" [value]="year">{{year}}</option>
       </select>
     </div>
+    <div *ngIf="ProductionYear.errors && (ProductionYear.dirty || ProductionYear.touched)" class="alert alert-danger">
+        <div [hidden]="!ProductionYear.errors.required">
+            ProductionYear is required!
+        </div>
+      </div>
 
     <label for="subject">Description</label>
     <textarea type="text" id="subject" name="Description" placeholder="Write something about vehicle.." style="height:200px"
