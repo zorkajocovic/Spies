@@ -17,6 +17,7 @@ namespace RentApp.Controllers
     public class BranchOfficeController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
+        private object locking = new object();
 
         public BranchOfficeController(IUnitOfWork unitOfWork)
         {
@@ -26,26 +27,35 @@ namespace RentApp.Controllers
         // GET: api/Services
         public IEnumerable<BranchOffice> GetBranchOffice()
         {
-            return unitOfWork.BranchOffices.GetAllBranchOffices();
+            lock (locking)
+            {
+                return unitOfWork.BranchOffices.GetAllBranchOffices();
+            }
         }
 
         [Route("api/GetBranchOfficeForService/{serviceId}")]
         public IEnumerable<BranchOffice> GetBranchOfficesForService(int serviceId)
         {
-            return unitOfWork.BranchOffices.GetBranchOfficesForService(serviceId);
+            lock (locking)
+            {
+                return unitOfWork.BranchOffices.GetBranchOfficesForService(serviceId);
+            }
         }
 
         // GET: api/Services/5
         [ResponseType(typeof(AppUser))]
         public IHttpActionResult GetBranchOffice(int id)
         {
-            BranchOffice branchOffice = unitOfWork.BranchOffices.Get(id);
-            if (branchOffice == null)
+            lock (locking)
             {
-                return NotFound();
-            }
+                BranchOffice branchOffice = unitOfWork.BranchOffices.Get(id);
+                if (branchOffice == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(branchOffice);
+                return Ok(branchOffice);
+            }
         }
 
         // PUT: api/Services/5
@@ -65,8 +75,11 @@ namespace RentApp.Controllers
 
             try
             {
-                unitOfWork.BranchOffices.Update(branchOffice);
-                unitOfWork.Complete();
+                lock (locking)
+                {
+                    unitOfWork.BranchOffices.Update(branchOffice);
+                    unitOfWork.Complete();
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -125,9 +138,11 @@ namespace RentApp.Controllers
                 branchOffice.Image = "http://localhost:51111/Content/images/branches/" + fileName;
             }
 
-            unitOfWork.BranchOffices.Add(branchOffice);
-            unitOfWork.Complete();
-
+            lock (locking)
+            {
+                unitOfWork.BranchOffices.Add(branchOffice);
+                unitOfWork.Complete();
+            }
             return CreatedAtRoute("DefaultApi", new { id = branchOffice.BranchOfficeID }, branchOffice);
         }
 
@@ -135,16 +150,19 @@ namespace RentApp.Controllers
         [ResponseType(typeof(BranchOffice))]
         public IHttpActionResult DeleteBranchOffice(int id)
         {
-            BranchOffice branchOffice = unitOfWork.BranchOffices.Get(id);
-            if (branchOffice == null)
+            lock (locking)
             {
-                return NotFound();
+                BranchOffice branchOffice = unitOfWork.BranchOffices.Get(id);
+                if (branchOffice == null)
+                {
+                    return NotFound();
+                }
+
+                unitOfWork.BranchOffices.Remove(branchOffice);
+                unitOfWork.Complete();
+
+                return Ok(branchOffice);
             }
-
-            unitOfWork.BranchOffices.Remove(branchOffice);
-            unitOfWork.Complete();
-
-            return Ok(branchOffice);
         }
 
         protected override void Dispose(bool disposing)
@@ -158,7 +176,10 @@ namespace RentApp.Controllers
 
         private bool BranchOfficeExists(int id)
         {
-            return unitOfWork.BranchOffices.Get(id) != null;
+            lock (locking)
+            {
+                return unitOfWork.BranchOffices.Get(id) != null;
+            }
         }
     }
 }

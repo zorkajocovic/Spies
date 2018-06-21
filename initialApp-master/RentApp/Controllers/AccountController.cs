@@ -20,6 +20,7 @@ using RentApp.Results;
 
 namespace RentApp.Controllers
 {
+
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
@@ -326,14 +327,15 @@ namespace RentApp.Controllers
 
             var user = new RAIdentityUser() { UserName = model.Email, Email = model.Email, AppUser = appUser, PasswordHash = RAIdentityUser.HashPassword(model.Password)};
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-            UserManager.AddToRole(user.Id, model.Role);
+           
+                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                UserManager.AddToRole(user.Id, model.Role);
 
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+            
             return Ok();
         }
 

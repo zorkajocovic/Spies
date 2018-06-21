@@ -15,6 +15,7 @@ namespace RentApp.Controllers
     {
 
         private IUnitOfWork db;
+        private object locking = new object();
 
         public ItemController(IUnitOfWork context)
         {
@@ -25,20 +26,26 @@ namespace RentApp.Controllers
         [Route("api/GetItemVehicleId/{VehicleId}")]
         public IEnumerable<Item> GetItemVehicleId(int VehicleId)
         {
-            return db.Items.GetItemForVehicle(VehicleId);
+            lock (locking)
+            {
+                return db.Items.GetItemForVehicle(VehicleId);
+            }
         }
 
         // GET: api/Services/5
         [ResponseType(typeof(Item))]
         public IHttpActionResult GetService(int id)
         {
-            Item item = db.Items.Get(id);
-            if (item == null)
+            lock (locking)
             {
-                return NotFound();
-            }
+                Item item = db.Items.Get(id);
+                if (item == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(item);
+                return Ok(item);
+            }
         }
 
         // PUT: api/Services/5
@@ -57,8 +64,11 @@ namespace RentApp.Controllers
 
             try
             {
-                db.Items.Update(item);
-                db.Complete();
+                lock (locking)
+                {
+                    db.Items.Update(item);
+                    db.Complete();
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -83,8 +93,11 @@ namespace RentApp.Controllers
             {
                 return BadRequest(ModelState);
             }
-            db.Items.Add(item);
-            db.Complete();
+            lock (locking)
+            {
+                db.Items.Add(item);
+                db.Complete();
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = item.ItemID }, item);
         }
@@ -98,10 +111,11 @@ namespace RentApp.Controllers
             {
                 return NotFound();
             }
-
-            db.Items.Remove(item);
-            db.Complete();
-
+            lock (locking)
+            {
+                db.Items.Remove(item);
+                db.Complete();
+            }
             return Ok(item);
         }
 

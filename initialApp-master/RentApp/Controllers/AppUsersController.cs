@@ -17,6 +17,8 @@ namespace RentApp.Controllers
     public class AppUsersController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
+        private Object locking = new Object();
+
 
         public AppUsersController(IUnitOfWork unitOfWork)
         {
@@ -33,20 +35,25 @@ namespace RentApp.Controllers
         [ResponseType(typeof(AppUser))]
         public IHttpActionResult GetAppUser(int id)
         {
-            AppUser appUser = unitOfWork.AppUsers.Get(id);
-            if (appUser == null)
+            lock (locking)
             {
-                return NotFound();
+                AppUser appUser = unitOfWork.AppUsers.Get(id);
+                if (appUser == null)
+                {
+                    return NotFound();
+                }
+                return Ok(appUser);
             }
-
-            return Ok(appUser);
         }
 
         [Route("api/GetActiveUserId")]
         [Authorize]
         public int GetActiveUserId()
         {
-            return unitOfWork.AppUsers.GetActiveUserId(User.Identity.Name);
+            lock (locking)
+            {
+                return unitOfWork.AppUsers.GetActiveUserId(User.Identity.Name);
+            }
         }
 
       
@@ -66,23 +73,24 @@ namespace RentApp.Controllers
 
             try
             {
-                if(appUser.Image != null)
+                lock (locking)
                 {
-                    string root = System.Web.HttpContext.Current.Server.MapPath("~/Content/images/users");
-                    var extionsion = new FileInfo(appUser.Image).Extension;
-                    var fileName = Guid.NewGuid() + extionsion;
-                    var fileSavePath = Path.Combine(root, fileName);
+                string root = System.Web.HttpContext.Current.Server.MapPath("~/Content/images/users");
+                var extionsion = new FileInfo(appUser.Image).Extension;
+                var fileName = Guid.NewGuid() + extionsion;
+                var fileSavePath = Path.Combine(root, fileName);
 
-                    while (File.Exists(fileSavePath))
-                    {
-                        fileName = Guid.NewGuid() + extionsion;
-                        fileSavePath = Path.Combine(root, fileName);
-                    }
-                    appUser.Image = "http://localhost:51111/Content/images/users/" + fileName;
+                while (File.Exists(fileSavePath))
+                {
+                    fileName = Guid.NewGuid() + extionsion;
+                    fileSavePath = Path.Combine(root, fileName);
                 }
+                appUser.Image = "http://localhost:51111/Content/images/users/" + fileName;
+                
               
-                unitOfWork.AppUsers.Update(appUser);
-                unitOfWork.Complete();
+                    unitOfWork.AppUsers.Update(appUser);
+                    unitOfWork.Complete();
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -107,10 +115,11 @@ namespace RentApp.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            unitOfWork.AppUsers.Add(appUser);
-            unitOfWork.Complete();
-
+            lock (locking)
+            {
+                unitOfWork.AppUsers.Add(appUser);
+                unitOfWork.Complete();
+            }
             return CreatedAtRoute("DefaultApi", new { id = appUser.Id }, appUser);
         }
 
@@ -118,16 +127,19 @@ namespace RentApp.Controllers
         [ResponseType(typeof(AppUser))]
         public IHttpActionResult DeleteAppUser(int id)
         {
-            AppUser appUser = unitOfWork.AppUsers.Get(id);
-            if (appUser == null)
+            lock (locking)
             {
-                return NotFound();
+                AppUser appUser = unitOfWork.AppUsers.Get(id);
+                if (appUser == null)
+                {
+                    return NotFound();
+                }
+
+                unitOfWork.AppUsers.Remove(appUser);
+                unitOfWork.Complete();
+
+                return Ok(appUser);
             }
-
-            unitOfWork.AppUsers.Remove(appUser);
-            unitOfWork.Complete();
-
-            return Ok(appUser);
         }
 
         protected override void Dispose(bool disposing)
@@ -141,7 +153,10 @@ namespace RentApp.Controllers
 
         private bool AppUserExists(int id)
         {
-            return unitOfWork.AppUsers.Get(id) != null;
+            lock (locking)
+            {
+                return unitOfWork.AppUsers.Get(id) != null;
+            }
         }
     }
 }

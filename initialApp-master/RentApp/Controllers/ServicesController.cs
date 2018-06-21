@@ -20,29 +20,39 @@ namespace RentApp.Controllers
     public class ServicesController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
+        private object locking = new object();
 
         public ServicesController(IUnitOfWork unitOfWork)
         {
-            this.unitOfWork = unitOfWork;
+            lock (locking)
+            {
+                this.unitOfWork = unitOfWork;
+            }
         }
 
         // GET: api/Services
         public IEnumerable<Service> GetServices()
         {
-            return unitOfWork.Services.GetAllServices();
+            lock (locking)
+            {
+                return unitOfWork.Services.GetAllServices();
+            }
         }
 
         // GET: api/Services/5
         [ResponseType(typeof(Service))]
         public IHttpActionResult GetService(int id)
         {
-            Service service = unitOfWork.Services.Get(id);
-            if (service == null)
+            lock (locking)
             {
-                return NotFound();
-            }
+                Service service = unitOfWork.Services.Get(id);
+                if (service == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(service);
+                return Ok(service);
+            }
         }
 
         // PUT: api/Services/5
@@ -62,32 +72,35 @@ namespace RentApp.Controllers
 
             try
             {
-                unitOfWork.Services.Update(service);
-                unitOfWork.Complete();
-
-                if (service.Deleted)
+                lock (locking)
                 {
-                   List<Vehicle> vehiclesForService = unitOfWork.Vehicles.GetVehiclesForService(service.Id).Where(v => v.ServiceId == service.Id).ToList();
-                    foreach(var vehicle in vehiclesForService)
-                    {
-                        vehicle.Deleted = true;
-                        unitOfWork.Vehicles.Update(vehicle);
-                        unitOfWork.Complete();
-                    }
+                    unitOfWork.Services.Update(service);
+                    unitOfWork.Complete();
 
-                    List<Comment> commentsForService = unitOfWork.Comments.GetCommentsForService(service.Id).Where(v => v.ServiceID == service.Id).ToList();
-                    foreach (var com in commentsForService)
+                    if (service.Deleted)
                     {
-                        com.Deleted = true;
-                        unitOfWork.Comments.Update(com);
-                        unitOfWork.Complete();
-                    }
-                    List<BranchOffice> branchesForService = unitOfWork.BranchOffices.GetBranchOfficesForService(service.Id).Where(v => v.ServiceID == service.Id).ToList();
-                    foreach (var br in branchesForService)
-                    {
-                        br.Deleted = true;
-                        unitOfWork.BranchOffices.Update(br);
-                        unitOfWork.Complete();
+                        List<Vehicle> vehiclesForService = unitOfWork.Vehicles.GetVehiclesForService(service.Id).Where(v => v.ServiceId == service.Id).ToList();
+                        foreach (var vehicle in vehiclesForService)
+                        {
+                            vehicle.Deleted = true;
+                            unitOfWork.Vehicles.Update(vehicle);
+                            unitOfWork.Complete();
+                        }
+
+                        List<Comment> commentsForService = unitOfWork.Comments.GetCommentsForService(service.Id).Where(v => v.ServiceID == service.Id).ToList();
+                        foreach (var com in commentsForService)
+                        {
+                            com.Deleted = true;
+                            unitOfWork.Comments.Update(com);
+                            unitOfWork.Complete();
+                        }
+                        List<BranchOffice> branchesForService = unitOfWork.BranchOffices.GetBranchOfficesForService(service.Id).Where(v => v.ServiceID == service.Id).ToList();
+                        foreach (var br in branchesForService)
+                        {
+                            br.Deleted = true;
+                            unitOfWork.BranchOffices.Update(br);
+                            unitOfWork.Complete();
+                        }
                     }
                 }
             }
@@ -147,11 +160,12 @@ namespace RentApp.Controllers
                 httpPostedFile.SaveAs(fileSavePath);
                 service.Logo = "http://localhost:51111/Content/images/services/" + fileName;
                 service.Approved = false;
-            }        
-          
-            unitOfWork.Services.Add(service);
-            unitOfWork.Complete();
-
+            }
+            lock (locking)
+            {
+                unitOfWork.Services.Add(service);
+                unitOfWork.Complete();
+            }
             return CreatedAtRoute("DefaultApi", new { id = service.Id }, service);
         }
 
@@ -159,16 +173,19 @@ namespace RentApp.Controllers
         [ResponseType(typeof(Service))]
         public IHttpActionResult DeleteService(int id)
         {
-            Service service = unitOfWork.Services.Get(id);
-            if (service == null)
+            lock (locking)
             {
-                return NotFound();
+                Service service = unitOfWork.Services.Get(id);
+                if (service == null)
+                {
+                    return NotFound();
+                }
+
+                unitOfWork.Services.Remove(service);
+                unitOfWork.Complete();
+
+                return Ok(service);
             }
-
-            unitOfWork.Services.Remove(service);
-            unitOfWork.Complete();
-
-            return Ok(service);
         }
 
         protected override void Dispose(bool disposing)
@@ -182,7 +199,10 @@ namespace RentApp.Controllers
 
         private bool ServiceExists(int id)
         {
-            return unitOfWork.Services.Get(id) != null;
+            lock (locking)
+            {
+                return unitOfWork.Services.Get(id) != null;
+            }
         }
     }
 }
