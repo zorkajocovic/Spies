@@ -26,7 +26,12 @@ namespace RentApp.Controllers
             return db.VehicleTypes.GetAllVehicleTypes();
         }
 
+<<<<<<< HEAD
         [Authorize(Roles = "Admin, Manager, AppUser")]
+=======
+
+        // GET: api/VehicleTypes/5
+>>>>>>> aaa0ffe6548aad2bda3dae0dde638a0fd18f73f1
         [ResponseType(typeof(VehicleType))]
         public IHttpActionResult GetVehicleTypes(int id)
         {

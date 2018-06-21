@@ -45,7 +45,16 @@ namespace RentApp.Controllers
             }
         }
 
+<<<<<<< HEAD
         [AllowAnonymous]
+=======
+        public IEnumerable<Vehicle> GetSearchVehicle(string text)
+        {
+            return db.Vehicles.GetSearchVehicle(text);
+        }
+
+        // GET: api/Vehicle/5
+>>>>>>> aaa0ffe6548aad2bda3dae0dde638a0fd18f73f1
         [ResponseType(typeof(Vehicle))]
         public IHttpActionResult GetService(int id)
         {

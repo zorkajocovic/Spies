@@ -23,6 +23,11 @@ export class ServicesComponent implements OnInit {
   servicesForAdmin: Service[];
   allservices: Service[];
   ActiveService: Service;
+<<<<<<< HEAD
+=======
+  PopList: Service[];
+  activeUser: number;
+>>>>>>> aaa0ffe6548aad2bda3dae0dde638a0fd18f73f1
 
   constructor(private service: DemoServiceService, private router: Router) {
     this.services = [];
@@ -33,8 +38,18 @@ export class ServicesComponent implements OnInit {
     this.allservices = [];
     }
 
+
   ngOnInit() {
     this.allServices();
+debugger
+    this.service.getCurrentUser().subscribe(
+      data => {
+        this.activeUser = data;
+        debugger
+      },
+      error => {
+        alert("nije uspelo")
+      })
   }
 
   allServices() {
@@ -45,7 +60,6 @@ export class ServicesComponent implements OnInit {
         debugger
         this.allservices.forEach(el => {
           debugger
-
               if (el.Approved == true) {
                 this.services.push(el);
               }
@@ -64,6 +78,7 @@ export class ServicesComponent implements OnInit {
 }
 
   deleteService(serviceId: number) {
+<<<<<<< HEAD
     for (var i = 0; i < this.services.length; i++) {
       if (this.services[i].Id == serviceId) {
         this.services[i].Deleted = true;
@@ -76,8 +91,27 @@ export class ServicesComponent implements OnInit {
           error => {
             alert("nije uspelo")
           });
+=======
+    debugger
+
+    this.services.forEach(data =>
+      {
+        if(data.Id == serviceId){
+          data.Deleted=true;
+
+          this.service.deleteService(data.Id, data).subscribe(
+            data => {
+              this.allServices();
+              this.router.navigate(['services']);
+            },
+            error => {
+              alert("nije uspelo")
+            });
+        }
+>>>>>>> aaa0ffe6548aad2bda3dae0dde638a0fd18f73f1
       }
-    }
+    )
+
   }
 
   ApprovedService(id: number) {

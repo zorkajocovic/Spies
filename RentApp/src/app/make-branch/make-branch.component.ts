@@ -8,7 +8,8 @@ import { MapInfo } from '../models/map.model';
 @Component({
   selector: 'app-make-branch',
   templateUrl: './make-branch.component.html',
-  styleUrls: ['./make-branch.component.css']
+  styleUrls: ['./make-branch.component.css'],
+  styles: ['agm-map {height: 500px; width: 700px;}']
 })
 
 export class MakeBranchComponent implements OnInit {
@@ -19,6 +20,8 @@ export class MakeBranchComponent implements OnInit {
   serviceId: number;
   activeUser: number;
   mapInfo: MapInfo;
+  latNum: number;
+  lngNum: number;
   
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) { 
     this.activatedRoute.params.subscribe(params => {this.serviceId = params["Id"]});
@@ -58,6 +61,11 @@ export class MakeBranchComponent implements OnInit {
     debugger
     newBranch.ServiceID = this.serviceId;
     newBranch.CreatorID = this.activeUser;
+
+    newBranch.Latitude = this.latNum;
+    newBranch.Longitude = this.lngNum;
+
+
     let body = new FormData();
     body.append('image', this.selectedFile)
     body.append('branch', JSON.stringify(newBranch))
@@ -76,4 +84,16 @@ export class MakeBranchComponent implements OnInit {
     form.reset();
   }
 
+  
+  placeMarker($event){
+    console.log($event.coords.lat);
+    console.log($event.coords.lng);
+    this.latNum = $event.coords.lat;
+    this.lngNum = $event.coords.lng;
+
+  }
+
+
 }
+
+
