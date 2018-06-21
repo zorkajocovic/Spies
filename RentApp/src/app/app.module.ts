@@ -80,42 +80,43 @@ const Routes= [
   {
     path: "make-service",
     component: MakeServiceComponent,
-    canActivate: [IsManager],
+    canActivate: ['isAdminOrManager']
   },
 
   {
     path: "make-branch/:Id",
     component: MakeBranchComponent,
-    canActivate: [IsManager]
+    canActivate: ['isAdminOrManager']
   },
   {
     path: "make-vehicle/:Id",
     component: MakeVehicleComponent,
-    canActivate: [IsManager]
+    canActivate: ['isAdminOrManager']
   },
   {
     path: "edit-service/:Id",
     component: EditServiceComponent,
-    canActivate: [IsManager]
+    canActivate: ['isAdminOrManager']
   },
   {
     path: "edit-profile",
-    component: EditProfileComponent
+    component: EditProfileComponent,
+    canActivate: ['isAdminOrManager']
     },
     {
-        path: "edit-profile",
+      path: "edit-profile",
     component: EditProfileComponent,
     canActivate: [IsSomeLogged]
   },
   {
     path: "edit-branch/:Id",
       component: EditBranchComponent,
-      canActivate: [IsManager]
+      canActivate: ['isAdminOrManager']
   },
   {
     path: "edit-vehicle/:Id",
       component: EditVehicleComponent,
-      canActivate: [IsManager]
+      canActivate: ['isAdminOrManager']
   }
   
 ]
@@ -162,6 +163,14 @@ const Routes= [
       provide: 'IsSomeLogged',
       useValue: () => {
         return true;
+      } 
+    },
+    {
+      provide: 'isAdminOrManager',
+      useValue: () => {
+        if(localStorage.role == 'Admin' || localStorage.role == "Manager"){
+          return true;
+        }
       } 
     },
 

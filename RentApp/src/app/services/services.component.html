@@ -1,4 +1,4 @@
-<div *ngIf="isManager()">
+<div *ngIf="isManager() || isAdmin()">
     <a [routerLink]="['/make-service']">Dodaj servis</a>
 </div>
 
