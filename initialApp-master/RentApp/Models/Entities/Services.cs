@@ -10,11 +10,11 @@ namespace RentApp.Models.Entities
     public class Service
     {
         public int Id { get; set; }
-        [Required]
+        //[Required]
         public string Name { get; set; }
-        [Required]
+      //  [Required]
         public string Logo { get; set; }
-        [Required]
+      //  [Required]
         public string Email { get; set; }
         public string Description { get; set; }
         public bool Approved { get; set; }

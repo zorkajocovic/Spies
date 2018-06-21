@@ -10,13 +10,13 @@ namespace RentApp.Models.Entities
     public class BranchOffice
     {
         public int BranchOfficeID { get; set; }
-        [Required]
+      //  [Required]
         public string Address { get; set; }
-        [Required]
+        //[Required]
         public float Latitude { get; set; }
-        [Required]
+        //[Required]
         public float Longitude { get; set; }
-        [Required]
+       // [Required]
         public string Image { get; set; }
 
         [ForeignKey("ServiceId")]

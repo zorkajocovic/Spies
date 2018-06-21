@@ -33,6 +33,7 @@ export class MakeVehicleComponent implements OnInit {
     this.types = [];
     this.years = [];
     this.yesNo = ["Yes", "No"];
+    debugger
     for(var i=1995; i<2018; i++){
       this.years.push(i);
     }
@@ -59,6 +60,8 @@ export class MakeVehicleComponent implements OnInit {
     this.service.getAllVehicleTypes().subscribe(
       data => {
         this.types = data;
+        debugger
+
       },
       error => {
         alert("nije uspelo")
@@ -77,6 +80,7 @@ export class MakeVehicleComponent implements OnInit {
   }
 
   SaveVehicle(newVehicle: Vehicle, form: NgForm){
+    debugger
     newVehicle.CreatorID = this.activeUser;
     newVehicle.ServiceId = this.serviceId;
     this.available == "Yes" ? newVehicle.Available = true : newVehicle.Available = false;
