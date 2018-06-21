@@ -7,6 +7,6 @@ export class IsClient implements CanActivate {
   constructor() {}
 
   canActivate() {
-    return localStorage.role == 'AppUser';
+    return localStorage.role == 'AppUser' ?  true : false;
   }
 }

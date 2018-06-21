@@ -16,5 +16,10 @@ namespace RentApp.Persistance.Repository
         {
         }
 
+        public IEnumerable<VehicleType> GetAllVehicleTypes()
+        {
+            return Context.VehicleTypes.Where(p => p.Deleted != true).ToList();
+        }
+
     }
 }

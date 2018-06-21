@@ -2,6 +2,7 @@ import { BrowserModule, makeStateKey } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AgmCoreModule } from '@agm/core';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/demo.interceptor';
@@ -28,7 +29,6 @@ import { MakeVehicleComponent } from './make-vehicle/make-vehicle.component';
 import { EditServiceComponent } from './edit-service/edit-service.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
-
 const ChildRoutes =
   [
     {
@@ -40,12 +40,14 @@ const ChildRoutes =
 const Routes= [
   {
     path: "login",
-    component: LoginComponent
+    component: LoginComponent,
+    //canActivate: [IsSomeLogged]
   },
 
   {
     path: "register",
-    component: RegisterComponent
+    component: RegisterComponent,
+    
   },
 
   {
@@ -71,29 +73,50 @@ const Routes= [
 
   {
     path: "profile",
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [IsSomeLogged]
   },
 
   {
     path: "make-service",
-    component: MakeServiceComponent
+    component: MakeServiceComponent,
+    canActivate: [IsManager]
   },
 
   {
     path: "make-branch/:Id",
-    component: MakeBranchComponent
+    component: MakeBranchComponent,
+    canActivate: [IsManager]
   },
   {
     path: "make-vehicle/:Id",
-    component: MakeVehicleComponent
+    component: MakeVehicleComponent,
+    canActivate: [IsManager]
   },
   {
     path: "edit-service/:Id",
-    component: EditServiceComponent
+    component: EditServiceComponent,
+    canActivate: [IsManager]
   },
   {
+<<<<<<< HEAD
     path: "edit-profile",
     component: EditProfileComponent
+=======
+  path: "edit-profile",
+    component: EditProfileComponent,
+    canActivate: [IsSomeLogged]
+  },
+  {
+    path: "edit-branch/:Id",
+      component: EditBranchComponent,
+      canActivate: [IsManager]
+  },
+  {
+    path: "edit-vehicle/:Id",
+      component: EditVehicleComponent,
+      canActivate: [IsManager]
+>>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
   }
   
 ]
@@ -114,13 +137,21 @@ const Routes= [
     MakeBranchComponent,
     MakeVehicleComponent,
     EditServiceComponent,
+<<<<<<< HEAD
     EditProfileComponent
     ],
+=======
+    EditProfileComponent,
+    EditBranchComponent,
+    EditVehicleComponent
+      ],
+>>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
   imports: [
     BrowserModule,
     RouterModule.forRoot(Routes),
     FormsModule,
-    HttpClientModule
+        HttpClientModule,
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'})
   ],
   providers: [
     DemoServiceService,
@@ -138,7 +169,8 @@ const Routes= [
       useValue: () => {
         return true;
       } 
-    }
+    },
+
   ],
   bootstrap: [AppComponent]
 })

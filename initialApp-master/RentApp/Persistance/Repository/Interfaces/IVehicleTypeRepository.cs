@@ -9,5 +9,7 @@ namespace RentApp.Persistance.Repository.Interfaces
 {
     public interface IVehicleTypeRepository :  IRepository<VehicleType, int>
     {
+
+        IEnumerable<VehicleType> GetAllVehicleTypes();
     }
 }

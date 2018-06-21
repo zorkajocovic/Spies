@@ -40,6 +40,12 @@ namespace RentApp.Controllers
             return Ok(rate);
         }
 
+        [ResponseType(typeof(Rate))]
+        public IEnumerable<Rate> GetRateForService(int serviceId)
+        {
+            return db.Rates.GetRate(serviceId);
+        }
+
         // PUT: api/Services/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutService(int id, Rate rate)

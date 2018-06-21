@@ -29,7 +29,7 @@ namespace RentApp.Controllers
         // GET: api/Services
         public IEnumerable<Service> GetServices()
         {
-            return unitOfWork.Services.GetAll();
+            return unitOfWork.Services.GetAllServices();
         }
 
         // GET: api/Services/5
@@ -47,6 +47,7 @@ namespace RentApp.Controllers
 
         // PUT: api/Services/5
         [ResponseType(typeof(void))]
+        [Authorize]
         public IHttpActionResult PutService(int id, Service service)
         {
             if (!ModelState.IsValid)
@@ -63,6 +64,32 @@ namespace RentApp.Controllers
             {
                 unitOfWork.Services.Update(service);
                 unitOfWork.Complete();
+
+                if (service.Deleted)
+                {
+                   List<Vehicle> vehiclesForService = unitOfWork.Vehicles.GetVehiclesForService(service.Id).Where(v => v.ServiceId == service.Id).ToList();
+                    foreach(var vehicle in vehiclesForService)
+                    {
+                        vehicle.Deleted = true;
+                        unitOfWork.Vehicles.Update(vehicle);
+                        unitOfWork.Complete();
+                    }
+
+                    List<Comment> commentsForService = unitOfWork.Comments.GetCommentsForService(service.Id).Where(v => v.ServiceID == service.Id).ToList();
+                    foreach (var com in commentsForService)
+                    {
+                        com.Deleted = true;
+                        unitOfWork.Comments.Update(com);
+                        unitOfWork.Complete();
+                    }
+                    List<BranchOffice> branchesForService = unitOfWork.BranchOffices.GetBranchOfficesForService(service.Id).Where(v => v.ServiceID == service.Id).ToList();
+                    foreach (var br in branchesForService)
+                    {
+                        br.Deleted = true;
+                        unitOfWork.BranchOffices.Update(br);
+                        unitOfWork.Complete();
+                    }
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -81,6 +108,7 @@ namespace RentApp.Controllers
 
         // POST: api/Services
         [ResponseType(typeof(Service))]
+        [Authorize]
         public IHttpActionResult PostService()
         {
             HttpRequestMessage request = this.Request;
@@ -118,6 +146,7 @@ namespace RentApp.Controllers
                 // Save the uploaded file to "UploadedFiles" folder
                 httpPostedFile.SaveAs(fileSavePath);
                 service.Logo = "http://localhost:51111/Content/images/services/" + fileName;
+                service.Approved = false;
             }        
           
             unitOfWork.Services.Add(service);

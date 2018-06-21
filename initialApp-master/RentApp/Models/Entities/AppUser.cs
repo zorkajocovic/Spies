@@ -10,9 +10,11 @@ namespace RentApp.Models.Entities
     public class AppUser
     {
         public int Id { get; set; }
+        [Required]
         public string FullName { get; set; }
 
         //[Column(..,TypeName="datetime2")]
+        [Required]
         public DateTime? DateOfBirth { get; set; }
         public string Image { get; set; }
         

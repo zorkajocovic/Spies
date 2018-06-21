@@ -17,5 +17,10 @@ namespace RentApp.Persistance.Repository
 
         }
 
+        public IEnumerable<Item> GetItemForVehicle(int vehicleId)
+        {
+            return Context.Items.Where(p => p.VehicleID == vehicleId);
+        }
+
     }
 }

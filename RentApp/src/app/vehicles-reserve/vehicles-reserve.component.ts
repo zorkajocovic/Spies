@@ -4,6 +4,8 @@ import { BranchOffice } from '../models/branchoffice';
 import { NgForm } from '@angular/forms';
 import { Reservation } from '../models/reservation'
 import { Vehicle } from '../models/vehicle';
+import { Item } from '../models/item';
+
 
 @Component({
   selector: 'app-vehicles-reserve',
@@ -17,9 +19,14 @@ export class VehiclesReserveComponent implements OnInit {
   Branchoffice1: number;
   UserId: number;
   GetDate: string;
+<<<<<<< HEAD
+  item: Item;
 
 
 
+=======
+  
+>>>>>>> f844380f499caf3e2a567b402db39d2f102d3308
   @Input() vehicleId: number;
 
   constructor(private service: DemoServiceService) {
@@ -29,8 +36,10 @@ export class VehiclesReserveComponent implements OnInit {
 
   ngOnInit() {
     this.allBranchOffices('http://localhost:51111/api/BranchOffice');
-
+    this.ItemForVehicle(this.vehicleId);
   }
+
+ 
 
   allBranchOffices(path: string) {
     this.service.getMethodDemo(path).subscribe(
@@ -42,13 +51,23 @@ export class VehiclesReserveComponent implements OnInit {
       })
   }
 
+  ItemForVehicle(num: number){
+    debugger
+    this.service.getItemForVehicle(num).subscribe(
+      data => {
+        this.item = data;
+        debugger
+      },
+      error => {
+        alert("nije uspelooooo")
+      })
+  }
+
 
 
   ReservationData(dataForm: Reservation, form: NgForm) {
-
     this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(
-      data => {
-        
+      data => {       
         this.UserId = data;
         debugger
         dataForm.ClientID = this.UserId;

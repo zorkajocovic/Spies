@@ -14,7 +14,10 @@ namespace RentApp.Persistance.Repository
         {
         }
 
-        
-        
+        public IEnumerable<Service> GetAllServices()
+        {
+            return Context.Services.Where(p => p.Deleted != true).ToList();
+        }
+
     }
 }

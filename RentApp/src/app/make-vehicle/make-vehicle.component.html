@@ -1,13 +1,14 @@
 <div class="container">
-  <button (click)="toggle()">Add Type</button>
-  <div *ngIf="isVisible">
-    <form #makeType="ngForm" (ngSubmit)="SaveType(makeType.value, makeType)">
-      <label for="VehicleName">Type Name</label>
-      <input type="text" name="VehicleName" placeholder="Type.." ngModel/>
-      <input type="submit" value="Save">
-    </form>
+  <div *ngIf="isAdmin()">
+    <button (click)="toggle()">Add Type</button>
+    <div *ngIf="isVisible">
+      <form #makeType="ngForm" (ngSubmit)="SaveType(makeType.value, makeType)">
+        <label for="VehicleName">Type Name</label>
+        <input type="text" name="VehicleName" placeholder="Type.." ngModel/>
+        <input type="submit" value="Save">
+      </form>
+    </div>
   </div>
-
   <form #makeBranch="ngForm" (ngSubmit)="SaveVehicle(makeBranch.value, makeBranch)">
     <label for="fname">Model</label>
     <input type="text" name="Model" placeholder="Model.." ngModel/>
@@ -19,6 +20,9 @@
       </select>
     </div>
 
+    <label for="fcena">Cena po satu:</label>
+    <input type="text" placeholder="Cena.." [(ngModel)]="nesto"/>
+
     <label for="lname">Image</label>
     <br>
     <input type='file' (change)="onSelectFile($event)" name="Image" placeholder="Image.." ngModel/>
@@ -26,7 +30,7 @@
     <br>
     <br>
 
-    <div class="form-group">
+    <div class="form-group" *ngIf="isManager()">
       <label>Available</label>
       <div *ngFor="let yes of yesNo">
         <input name="yes" type="radio" [value]="yes" for="yes" [(ngModel)]="available" />
@@ -45,7 +49,8 @@
     </div>
 
     <label for="subject">Description</label>
-    <textarea type="text" id="subject" name="Description" placeholder="Write something about vehicle.." style="height:200px" ngModel></textarea>
+    <textarea type="text" id="subject" name="Description" placeholder="Write something about vehicle.." style="height:200px"
+      ngModel></textarea>
 
     <input type="submit" value="Save">
 

@@ -8,5 +8,6 @@ export class Vehicle {
     Description: string;
     Image: string;
     Available: boolean;
+    CreatorID: number;
     Deleted: boolean;
 }

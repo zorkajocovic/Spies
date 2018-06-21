@@ -273,7 +273,6 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
-    <Compile Include="Controllers\PriceListController.cs" />
     <Compile Include="Controllers\RateController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
@@ -291,9 +290,25 @@
     <Compile Include="Migrations\201806171520157_RentACar.Designer.cs">
       <DependentUpon>201806171520157_RentACar.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Migrations\201806191445497_RentApp.cs" />
     <Compile Include="Migrations\201806191445497_RentApp.Designer.cs">
       <DependentUpon>201806191445497_RentApp.cs</DependentUpon>
+=======
+<<<<<<< HEAD
+    <Compile Include="Migrations\201806201921157_rentaa.cs" />
+    <Compile Include="Migrations\201806201921157_rentaa.Designer.cs">
+      <DependentUpon>201806201921157_rentaa.cs</DependentUpon>
+=======
+    <Compile Include="Migrations\201806201711545_Rent.cs" />
+    <Compile Include="Migrations\201806201711545_Rent.Designer.cs">
+      <DependentUpon>201806201711545_Rent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806201733365_Rent1.cs" />
+    <Compile Include="Migrations\201806201733365_Rent1.Designer.cs">
+      <DependentUpon>201806201733365_Rent1.cs</DependentUpon>
+>>>>>>> f844380f499caf3e2a567b402db39d2f102d3308
+>>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -301,7 +316,6 @@
     <Compile Include="Models\Entities\BranchOffice.cs" />
     <Compile Include="Models\Entities\Comment.cs" />
     <Compile Include="Models\Entities\Item.cs" />
-    <Compile Include="Models\Entities\PriceList.cs" />
     <Compile Include="Models\Entities\RAIdentityUser.cs" />
     <Compile Include="Models\Entities\AppUser.cs" />
     <Compile Include="Models\Entities\Rate.cs" />
@@ -318,7 +332,6 @@
     <Compile Include="Persistance\Repository\Interfaces\IBranchOfficeRepository.cs" />
     <Compile Include="Persistance\Repository\Interfaces\ICommentRepository.cs" />
     <Compile Include="Persistance\Repository\Interfaces\IItemRepository.cs" />
-    <Compile Include="Persistance\Repository\Interfaces\IPriceListRepository.cs" />
     <Compile Include="Persistance\Repository\Interfaces\IRateRepository.cs" />
     <Compile Include="Persistance\Repository\Interfaces\IRepository.cs" />
     <Compile Include="Persistance\Repository\Interfaces\IReservationRepository.cs" />
@@ -326,7 +339,6 @@
     <Compile Include="Persistance\Repository\Interfaces\IVehicleTypeRepository.cs" />
     <Compile Include="Persistance\Repository\ItemRepository.cs" />
     <Compile Include="Persistance\Repository\Interfaces\IVehicleRepository.cs" />
-    <Compile Include="Persistance\Repository\PriceListRepository.cs" />
     <Compile Include="Persistance\Repository\RateRepository.cs" />
     <Compile Include="Persistance\Repository\Repository.cs" />
     <Compile Include="Persistance\Repository\ReservationRepository.cs" />
@@ -445,8 +457,21 @@
     <EmbeddedResource Include="Migrations\201806171520157_RentACar.resx">
       <DependentUpon>201806171520157_RentACar.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
     <EmbeddedResource Include="Migrations\201806191445497_RentApp.resx">
       <DependentUpon>201806191445497_RentApp.cs</DependentUpon>
+=======
+<<<<<<< HEAD
+    <EmbeddedResource Include="Migrations\201806201921157_rentaa.resx">
+      <DependentUpon>201806201921157_rentaa.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="Migrations\201806201711545_Rent.resx">
+      <DependentUpon>201806201711545_Rent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806201733365_Rent1.resx">
+      <DependentUpon>201806201733365_Rent1.cs</DependentUpon>
+>>>>>>> f844380f499caf3e2a567b402db39d2f102d3308
+>>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

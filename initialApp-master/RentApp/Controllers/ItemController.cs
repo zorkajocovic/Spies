@@ -22,9 +22,10 @@ namespace RentApp.Controllers
         }
 
         // GET: api/Services
-        public IEnumerable<Item> GetItems()
+        [Route("api/GetItemVehicleId/{VehicleId}")]
+        public IEnumerable<Item> GetItemVehicleId(int VehicleId)
         {
-            return db.Items.GetAll();
+            return db.Items.GetItemForVehicle(VehicleId);
         }
 
         // GET: api/Services/5

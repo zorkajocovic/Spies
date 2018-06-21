@@ -54,11 +54,10 @@ export class EditVehicleComponent implements OnInit {
 
 
   onSubmit(form: NgForm){
-    debugger
     this.service.updateVehicle(this.vehicleId, this.activeVehicle).subscribe(
       data => {
-        debugger
-        alert("Uspesno izmenjeno auto!")
+        alert("Uspesno izmenjeno auto!");
+        this.router.navigate(['edit-vehicle/' + this.vehicleId]);
       },
       error => {
         alert("Nije uspela izmena auta")

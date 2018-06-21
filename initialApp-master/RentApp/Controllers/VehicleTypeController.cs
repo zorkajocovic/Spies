@@ -23,7 +23,7 @@ namespace RentApp.Controllers
         // GET: api/VehicleTypes
         public IEnumerable<VehicleType> GetVehicleTypes()
         {
-            return db.VehicleTypes.GetAll();
+            return db.VehicleTypes.GetAllVehicleTypes();
         }
 
         // GET: api/VehicleTypes/5
@@ -75,6 +75,7 @@ namespace RentApp.Controllers
 
         // POST: api/VehicleTypes
         [ResponseType(typeof(VehicleType))]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult PostService(VehicleType vehicleType)
         {
             if (!ModelState.IsValid)

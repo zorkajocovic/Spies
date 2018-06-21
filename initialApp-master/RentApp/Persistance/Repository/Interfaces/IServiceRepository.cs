@@ -9,5 +9,6 @@ namespace RentApp.Persistance.Repository
 {
     public interface IServiceRepository : IRepository<Service, int>
     {
+        IEnumerable<Service> GetAllServices();
     }
 }

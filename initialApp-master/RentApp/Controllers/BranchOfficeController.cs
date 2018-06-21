@@ -26,10 +26,10 @@ namespace RentApp.Controllers
         // GET: api/Services
         public IEnumerable<BranchOffice> GetBranchOffice()
         {
-            return unitOfWork.BranchOffices.GetAll();
+            return unitOfWork.BranchOffices.GetAllBranchOffices();
         }
 
-        [Route("api/GetBranchOfficesForService/{serviceId}")]
+        [Route("api/GetBranchOfficeForService/{serviceId}")]
         public IEnumerable<BranchOffice> GetBranchOfficesForService(int serviceId)
         {
             return unitOfWork.BranchOffices.GetBranchOfficesForService(serviceId);
@@ -50,6 +50,7 @@ namespace RentApp.Controllers
 
         // PUT: api/Services/5
         [ResponseType(typeof(void))]
+        [Authorize]
         public IHttpActionResult PutBranchOffice(int id, BranchOffice branchOffice)
         {
             if (!ModelState.IsValid)
@@ -84,6 +85,7 @@ namespace RentApp.Controllers
 
         // POST: api/Services
         [ResponseType(typeof(BranchOffice))]
+        [Authorize]
         public IHttpActionResult PostBranchOffice()
         {
             HttpRequestMessage request = this.Request;

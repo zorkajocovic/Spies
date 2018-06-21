@@ -76,6 +76,7 @@ namespace RentApp.Controllers
 
         // POST: api/Services
         [ResponseType(typeof(Reservation))]
+        [Authorize(Roles = "AppUser")]
         public IHttpActionResult PostReservation(ReservationBinding reservationBinding)
         {
             Reservation reservation = new Reservation();
