@@ -286,6 +286,7 @@
     <Compile Include="Migrations\201806031439020_Initial.Designer.cs">
       <DependentUpon>201806031439020_Initial.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
 
     <Compile Include="Migrations\201806211603320_rent.cs" />
     <Compile Include="Migrations\201806211603320_rent.Designer.cs">
@@ -293,6 +294,8 @@
 
 
     </Compile>
+=======
+>>>>>>> 3a6dbc2bc3e0dab6d9728f8372581e6930516346
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -439,10 +442,13 @@
     <EmbeddedResource Include="Migrations\201806031439020_Initial.resx">
       <DependentUpon>201806031439020_Initial.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
 
     <EmbeddedResource Include="Migrations\201806211603320_rent.resx">
       <DependentUpon>201806211603320_rent.cs</DependentUpon>
     </EmbeddedResource>
+=======
+>>>>>>> 3a6dbc2bc3e0dab6d9728f8372581e6930516346
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

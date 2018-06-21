@@ -60,15 +60,15 @@ export class VehiclesComponent implements OnInit {
   ngOnInit() {
     for(var i=1; i<=5; i++){
       this.rates.push(i);
-    }
+  }
 
-    this.service.getCurrentUser().subscribe(
-      data => {
-        this.activeUser = data;
-      },
-      error => {
-        alert("nije uspelo")
-      })
+  this.service.getCurrentUser().subscribe(
+    data => {
+      this.activeUser = data;
+    },
+    error => {
+      alert("nije uspelo")
+    })
   }
 
   selectSearch(event: any){
@@ -128,15 +128,12 @@ export class VehiclesComponent implements OnInit {
       return this.vehicles;
   }
 
-  SendRate() {    
-    this.rate.Value = this.selectedRate;
-    this.rate = new Rate(this.serviceId);
-
+  SendRate() {
+    debugger  
     this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(
       data => {
-            this.rate.ClientID = data;
-            this.rate = new Rate(this.serviceId);
-
+            this.rate = new Rate(this.serviceId, this.selectedRate, data);;
+            debugger
             this.service.postMethodDemo("http://localhost:51111/api/Rate", this.rate).subscribe(
               data => {
               },
@@ -145,7 +142,7 @@ export class VehiclesComponent implements OnInit {
               });
       })
   }
-
+  
   allComments(num: number) {
     this.service.getAllCommentsForService(num).subscribe(
       data => {

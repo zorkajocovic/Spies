@@ -1,5 +1,4 @@
 export class Item {
-    ItemID: number;
     Price: number;
     VehicleID: number;
 

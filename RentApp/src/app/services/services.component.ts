@@ -20,12 +20,19 @@ export class ServicesComponent implements OnInit {
   vehicles: Vehicle[];
   branches: BranchOffice[];
   comments: Comment[];
+  servicesForAdmin: Service[];
+  allservices: Service[];
+  ActiveService: Service;
+  PopList: Service[];
 
   constructor(private service: DemoServiceService, private router: Router) {
     this.services = [];
     this.vehicles = [];
     this.branches = [];
     this.comments = [];
+    this.servicesForAdmin = [];
+    this.allservices = [];
+    this.PopList=[];
   }
 
   ngOnInit() {
@@ -33,14 +40,28 @@ export class ServicesComponent implements OnInit {
   }
 
   allServices() {
+    debugger
     this.service.getAllServices().subscribe(
       data => {
-        this.services = data;
-      },
+        this.allservices = data;
+        debugger
+        this.allservices.forEach(el => {
+          debugger
+
+              if (el.Approved == true) {
+                this.services.push(el);
+              } else {
+                this.servicesForAdmin.push(el);
+              }
+          
+          });
+        debugger
       error => {
         alert("nije uspelo")
-      })
-  }
+      }
+    }
+    )
+}
 
   deleteService(serviceId: number) {
     debugger
@@ -58,6 +79,47 @@ export class ServicesComponent implements OnInit {
       }
     }
   }
+
+  ApprovedService(id: number) {
+    debugger
+    this.service.getService(id).subscribe(
+      data => {
+        this.ActiveService = data;
+        this.ActiveService.Approved = true;
+        debugger
+        this.service.updateService(id, this.ActiveService).subscribe(
+          data => {
+
+            this.services=[];
+            this.servicesForAdmin=[];
+            this.allServices();
+          },
+          error => {
+            alert("nije uspelo")
+          });
+      },
+      error => {
+        alert("nije uspelo")
+      });
+  }
+
+  DenyService(id: number) {
+    this.service.getService(id).subscribe(
+      data => {
+        this.ActiveService = data;
+
+        this.service.deleteService(id, this.ActiveService).subscribe(
+          data => {
+            this.allServices();
+          },
+          error => {
+            alert("nije uspelo")
+          });
+
+      })
+  }
+
+
 
   isManager(){
     return localStorage.role == 'Manager' ?  true : false;
