@@ -115,6 +115,7 @@ export class DemoServiceService {
     
     if(!localStorage.jwt)
     {
+      debugger
        let x = this.httpClient.post('http://localhost:51111/oauth/token',`username=${user.username}&password=${user.password}&grant_type=password`, {"headers": headers}) as Observable<any>
 
     x.subscribe(
