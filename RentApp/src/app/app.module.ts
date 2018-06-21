@@ -80,7 +80,7 @@ const Routes= [
   {
     path: "make-service",
     component: MakeServiceComponent,
-    canActivate: [IsManager]
+    canActivate: [IsManager],
   },
 
   {

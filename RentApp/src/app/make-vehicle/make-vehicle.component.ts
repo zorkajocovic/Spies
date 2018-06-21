@@ -94,9 +94,7 @@ export class MakeVehicleComponent implements OnInit {
       data => {
         this.vehicle = data;
         alert("Uspesno ste dodali vozilo!")
-        debugger
-        this.item = new Item(this.vehicle.VehicleID, this.nesto);
-        debugger
+        
         this.service.postMethodDemoItem(this.item).subscribe(
           data => {
               alert("Uspesno ste dodali cenu vozila!");
