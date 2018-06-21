@@ -290,6 +290,10 @@
     <Compile Include="Migrations\201806171520157_RentACar.Designer.cs">
       <DependentUpon>201806171520157_RentACar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806210835505_rent.cs" />
+    <Compile Include="Migrations\201806210835505_rent.Designer.cs">
+      <DependentUpon>201806210835505_rent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -436,6 +440,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806171520157_RentACar.resx">
       <DependentUpon>201806171520157_RentACar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806210835505_rent.resx">
+      <DependentUpon>201806210835505_rent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

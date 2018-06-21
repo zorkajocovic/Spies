@@ -24,14 +24,11 @@ export class MakeVehicleComponent implements OnInit {
   years: number[];
   available: string;
   isVisible: boolean = false;
-<<<<<<< HEAD
   item: Item;
   vehicle: Vehicle;
   public nesto: number;
-=======
   activeUser: number;
 
->>>>>>> f844380f499caf3e2a567b402db39d2f102d3308
   constructor(private service: DemoServiceService, private router: Router, private activatedRoute: ActivatedRoute) { 
     this.types = [];
     this.years = [];

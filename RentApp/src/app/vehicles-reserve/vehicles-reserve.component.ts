@@ -19,14 +19,8 @@ export class VehiclesReserveComponent implements OnInit {
   Branchoffice1: number;
   UserId: number;
   GetDate: string;
-<<<<<<< HEAD
   item: Item;
 
-
-
-=======
-  
->>>>>>> f844380f499caf3e2a567b402db39d2f102d3308
   @Input() vehicleId: number;
 
   constructor(private service: DemoServiceService) {
@@ -62,8 +56,6 @@ export class VehiclesReserveComponent implements OnInit {
         alert("nije uspelooooo")
       })
   }
-
-
 
   ReservationData(dataForm: Reservation, form: NgForm) {
     this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(

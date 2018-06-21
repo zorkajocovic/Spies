@@ -5,18 +5,13 @@ import { Vehicle } from '../models/vehicle';
 import { DemoServiceService } from '../demoService/demo-service.service';
 import { VehiclesReserveComponent } from '../vehicles-reserve/vehicles-reserve.component'
 import { Rate } from '../models/rate';
-import { NgForm, NumberValueAccessor } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { Comment } from '../models/comment';
 import { AppUser } from '../models/AppUser.model';
 import { Router } from '@angular/router';
 import { VehicleType } from '../models/vehicle-type';
-<<<<<<< HEAD
-import { ActiveUser } from '../models/ActiveUser.model';
-=======
 import { IsAdmin } from '../guard/auth.admin';
 import { IsClient } from '../guard/auth.client';
-import { FilterPipePipe } from '../vehicles/filter-pipe.pipe';
->>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
 
 @Component({
   selector: 'app-vehicles',
@@ -37,19 +32,12 @@ export class VehiclesComponent implements OnInit {
   star1: string;
   rate: Rate;
   UserID: number;
-<<<<<<< HEAD
-  users: ActiveUser[];
-=======
   users: AppUser[];
->>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
   userNames: string[];
-  vehicleTypes: VehicleType[];
-  isVisible: boolean = false;
   deleteId: number;
   isVisible: boolean = false;
   vehicleTypes: VehicleType[];
   isOn: boolean[];
-  isAdmin: IsAdmin;
   RateValue1: string;
   selectedRate: number;
   rates: number[];
@@ -62,16 +50,10 @@ export class VehiclesComponent implements OnInit {
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.activatedRoute.params.subscribe(params => { this.serviceId = params["Id"] });    //Id je definisano u appmodule.ts kod path: "service/Id"
-<<<<<<< HEAD
-    this.allVehicles('http://localhost:51111/api/GetVehiclesForService/' + this.serviceId);
-    this.getAllCommentsForService(this.serviceId);
-    this.allVehicleType('http://localhost:51111/api/VehicleType');
-=======
     this.allVehicles();
     this.allComments(this.serviceId);
     this.allVehicleTypes('http://localhost:51111/api/VehicleType');
  
->>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
   }
 
   ngOnInit() {
@@ -79,6 +61,7 @@ export class VehiclesComponent implements OnInit {
     for(var i=0; i<4; i++){
         this.rates.push(i);
     }
+
     this.service.getCurrentUser().subscribe(
       data => {
         this.activeUser = data;
@@ -88,10 +71,6 @@ export class VehiclesComponent implements OnInit {
       })
   }
 
-<<<<<<< HEAD
-  allVehicles(path: string) {
-    this.service.getMethodDemo(path).subscribe(
-=======
   selectSearch(event: any){
     debugger
     this.filterText = event.target.value;
@@ -115,11 +94,10 @@ export class VehiclesComponent implements OnInit {
     // }
     }
     )
-    
   }
+
   allVehicles() {
-    this.service.getAllVehiclesForService(this.serviceId).subscribe(
->>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
+    this.service.geAllVehiclesForService(this.serviceId).subscribe(
       data => {
         debugger
         this.vehicles = data;
@@ -132,11 +110,6 @@ export class VehiclesComponent implements OnInit {
 
   SendRate() {
     debugger
-<<<<<<< HEAD
-    this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(
-      data => {
-        this.rate.ClientID = data
-=======
     
     this.rate.Value = this.selectedRate;
     this.rate = new Rate(this.serviceId);
@@ -188,7 +161,6 @@ export class VehiclesComponent implements OnInit {
       data => {
         this.rate.ClientID = data
         debugger
->>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
         this.rate.SerId = this.serviceId
         if (this.star5 == "5") {
           this.rate.Value = 5;
@@ -208,109 +180,6 @@ export class VehiclesComponent implements OnInit {
           error => {
             alert("nije uspelo")
           });
-<<<<<<< HEAD
-      })
-  }
-
-  getAllCommentsForService(serviceId: number) {
-    this.service.getMethodDemo(serviceId).subscribe(
-      data => {
-
-        this.comments = data;
-        for (var i = 0; i < this.comments.length; i++) {
-
-          this.service.getMethodDemo('http://localhost:51111/api/AppUsers/' + this.comments[i].ClientID).subscribe(
-            data => {
-              this.users = data;
-            },
-            error => {
-              alert("nije uspelo ovo")
-            })
-
-        }
-        for (var i = 0; i < this.users.length; i++) {
-          this.userNames.push(this.users[i].FullName);
-        }
-
-      })
-  }
-
-  deleteVehicle(id: number) {
-
-    debugger
-    for (var i = 0; i < this.vehicles.length; i++) {
-      if (this.vehicles[i].VehicleID == id) {
-        debugger
-        this.vehicles[i].Deleted = true;
-        this.service.updateVehicle(this.vehicles[i].VehicleID, this.vehicles[i]).subscribe(
-          data => {
-            debugger
-            alert("Uspesno obrisano auto!")
-          },
-          error => {
-            alert("nije uspelo")
-          });
-      }
-    }
-  }
-
-
-  AddComment(comment: Comment, form: NgForm) {
-    this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(
-      data => {
-        this.UserID = data;
-
-        comment.ClientID = this.UserID;
-        comment.ServiceID = this.serviceId;
-
-        this.service.postMethodDemo("http://localhost:51111/api/CommentsForService", comment.ServiceID).subscribe(
-          data => {
-            this.getAllCommentsForService(comment.ServiceID);
-          },
-          error => {
-            alert("nije uspelo")
-          });
-      })
-
-    form.reset();
-
-  }
-
-
-  allVehicleType(path: string) {
-    this.service.getMethodDemo(path).subscribe(
-      data => {
-        this.vehicleTypes = data;
-        // alert("uspelo")
-      },
-      error => {
-        alert("nije uspelo")
-      })
-  }
-
-  toggle(): void {
-    this.isVisible = !this.isVisible;
-  }
-
-
-  DeleteVehicleType(id: number) {
-    for (var i = 0; i < this.vehicleTypes.length; i++) {
-      if (this.vehicleTypes[i].VehicleTypeId == id) {
-        this.vehicleTypes[i].Deleted = true;
-
-        this.service.updateVehicleType(this.vehicleTypes[i].VehicleTypeId, this.vehicleTypes[i]).subscribe(
-          data => {
-            alert("Uspesno obrisan tip!")
-            this.allVehicleType('http://localhost:51111/api/VehicleType');
-            debugger
-          },
-          error => {
-            alert("nije uspelo")
-          });
-      }
-    }
-
-=======
       })*/
   }
 
@@ -408,6 +277,5 @@ export class VehiclesComponent implements OnInit {
 
   isAdmin(){
     return localStorage.role == 'Admin' ?  true : false;
->>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
   }
 }

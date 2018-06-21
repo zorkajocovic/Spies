@@ -9,15 +9,11 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { AppUser } from '../models/AppUser.model'
 import { BranchOffice } from '../models/branchoffice';
 import { Vehicle } from '../models/vehicle';
-<<<<<<< HEAD
 import { VehicleType } from '../models/vehicle-type';
-=======
 import { Comment } from '../models/comment';
 import { Service } from '../models/service';
-import { VehicleType } from '../models/vehicle-type';
 import { Profile } from 'selenium-webdriver/firefox';
 import { ActiveUser } from '../models/ActiveUser.model';
->>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
 //import 'rxjs/add/operator/catch';
 //import 'rxjs/add/operator/map';
 
@@ -36,9 +32,6 @@ export class DemoServiceService {
     this.messageSource.next(state);
   }
  
-  getAllCommentsForService(serviceId: number): Observable<any> {
-    return this.httpClient.get('http://localhost:51111/api/CommentsForService/' + serviceId);
-  }
   getMethodDemo(path): Observable<any> {
     return this.httpClient.get(path);
   }
@@ -59,11 +52,11 @@ export class DemoServiceService {
     return this.httpClient.get("http://localhost:51111/api/Services");
   }
 
-  getRateForService(serviceId): Observable<any> {
+  geRateForService(serviceId): Observable<any> {
     return this.httpClient.get("http://localhost:51111/api/RateForService", serviceId);
   }
   
-  getAllVehiclesForService(serviceId): Observable<any> {
+  geAllVehiclesForService(serviceId): Observable<any> {
     return this.httpClient.get("http://localhost:51111/api/GetVehicleForService/" + serviceId);
   }
 
@@ -103,9 +96,6 @@ export class DemoServiceService {
     return this.httpClient.put("http://localhost:51111/api/Services/" + id, newMember)
   }
 
-  updateProfile(path, newMember): Observable<any> {
-    return this.httpClient.put(path, newMember)
-  }
   updateBranch(id: number, newMember: BranchOffice): Observable<any> {
     return this.httpClient.put("http://localhost:51111/api/BranchOffice/" + id, newMember)
   }
@@ -114,13 +104,8 @@ export class DemoServiceService {
     return this.httpClient.put("http://localhost:51111/api/Vehicle/" + id, newMember)
   }
 
-<<<<<<< HEAD
-  updateVehicleType(id: number, newMember: VehicleType): Observable<any> {
-    return this.httpClient.put("http://localhost:51111/api/VehicleType/" + id, newMember)
-=======
   updateComment(id: number, newMember: Comment): Observable<any> {
     return this.httpClient.put("http://localhost:51111/api/Comment/" + id, newMember)
->>>>>>> 5110d1dbb970d41ce28499b838be08c48eae03fb
   }
 
   getTheToken(user){
