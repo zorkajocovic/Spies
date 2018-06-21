@@ -23,7 +23,6 @@ export class ServicesComponent implements OnInit {
   servicesForAdmin: Service[];
   allservices: Service[];
   ActiveService: Service;
-  PopList: Service[];
 
   constructor(private service: DemoServiceService, private router: Router) {
     this.services = [];
@@ -32,8 +31,7 @@ export class ServicesComponent implements OnInit {
     this.comments = [];
     this.servicesForAdmin = [];
     this.allservices = [];
-    this.PopList=[];
-  }
+    }
 
   ngOnInit() {
     this.allServices();
@@ -50,7 +48,9 @@ export class ServicesComponent implements OnInit {
 
               if (el.Approved == true) {
                 this.services.push(el);
-              } else {
+              }
+               else
+              {
                 this.servicesForAdmin.push(el);
               }
           
@@ -64,12 +64,12 @@ export class ServicesComponent implements OnInit {
 }
 
   deleteService(serviceId: number) {
-    debugger
     for (var i = 0; i < this.services.length; i++) {
       if (this.services[i].Id == serviceId) {
         this.services[i].Deleted = true;
         this.service.deleteService(this.services[i].Id, this.services[i]).subscribe(
           data => {
+            this.services = [];
             this.allServices();
             this.router.navigate(['services']);
           },
@@ -86,13 +86,21 @@ export class ServicesComponent implements OnInit {
       data => {
         this.ActiveService = data;
         this.ActiveService.Approved = true;
-        debugger
         this.service.updateService(id, this.ActiveService).subscribe(
           data => {
-
             this.services=[];
             this.servicesForAdmin=[];
             this.allServices();
+          this.router.navigate(['services']);
+            debugger
+            this.service.SendEmail(this.ActiveService.CreatorID, 1).subscribe(
+              data =>{
+                alert("uspjesno poslat mejl")
+              }, 
+              error => {
+                alert("nije uspelo slanje mejla")
+              }
+            );
           },
           error => {
             alert("nije uspelo")
@@ -104,13 +112,24 @@ export class ServicesComponent implements OnInit {
   }
 
   DenyService(id: number) {
+    debugger
     this.service.getService(id).subscribe(
       data => {
         this.ActiveService = data;
-
+        this.ActiveService.Deleted = true;
         this.service.deleteService(id, this.ActiveService).subscribe(
           data => {
+            this.services = [];
+            this.servicesForAdmin = [];
             this.allServices();
+            this.service.SendEmail(this.ActiveService.CreatorID, 0).subscribe(
+              data =>{
+                alert("uspjesno poslat mejl")
+              }, 
+              error => {
+                alert("nije uspelo slanje mejla")
+              }
+            );
           },
           error => {
             alert("nije uspelo")
@@ -118,8 +137,6 @@ export class ServicesComponent implements OnInit {
 
       })
   }
-
-
 
   isManager(){
     return localStorage.role == 'Manager' ?  true : false;

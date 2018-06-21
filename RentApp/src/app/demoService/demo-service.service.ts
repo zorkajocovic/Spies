@@ -40,7 +40,9 @@ export class DemoServiceService {
     return this.httpClient.get('http://localhost:51111/api/VehicleType');
   }
 
-
+  SendEmail(serviceCreator: string, approved: number): Observable<any>{
+    return this.httpClient.get(`http://localhost:51111/api/SendEmail?serviceCreator=${serviceCreator}&approved=${approved}`);
+  }
   
   getService(serviceId): Observable<any> {
     return this.httpClient.get("http://localhost:51111/api/Services/" + serviceId);

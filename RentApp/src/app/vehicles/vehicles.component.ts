@@ -132,7 +132,7 @@ export class VehiclesComponent implements OnInit {
     debugger  
     this.service.getMethodDemo("http://localhost:51111/api/GetActiveUserId").subscribe(
       data => {
-            this.rate = new Rate(this.serviceId, this.selectedRate, data);;
+            this.rate = new Rate(this.serviceId, this.selectedRate, data);
             debugger
             this.service.postMethodDemo("http://localhost:51111/api/Rate", this.rate).subscribe(
               data => {

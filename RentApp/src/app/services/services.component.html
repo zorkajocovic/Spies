@@ -24,9 +24,6 @@
         </div>
     </div>
 
-
-
-
       
     <div *ngIf="isAdmin()" class="row">
         <h3 class="display-4 text-center"> Odobri servise: </h3>
@@ -40,8 +37,8 @@
                     <a [routerLink]="['/branches/', service.Id]" class="btn btn-primary rounded-0 mb-2">Branch Offices</a>
 
                     <div>
-                        <input (click)="ApprovedService(service.Id, i)" value="Odobri" type="submit" class="btn btn-success" />
-                        <input (clikc)="DenyService(service.Id)" value="Odbij" type="submit" class="btn btn-primary" />
+                        <input (click)="ApprovedService(service.Id)" value="Odobri" type="submit" class="btn btn-success" />
+                        <input (click)="DenyService(service.Id)" value="Odbij" type="submit" class="btn btn-primary" />
                     </div>
                 </div>
             </div>
