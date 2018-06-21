@@ -56,7 +56,7 @@ namespace RentApp.Controllers
             }
         }
 
-        // PUT: api/Services/5
+        [Authorize(Roles = "AppUser")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutComment(int id, Comment comment)
         {
@@ -113,6 +113,7 @@ namespace RentApp.Controllers
 
         // DELETE: api/Services/5
         [ResponseType(typeof(Comment))]
+        [Authorize(Roles = "AppUser")]
         public IHttpActionResult DeleteComment(int id)
         {
             Comment comment = unitOfWork.Comments.Get(id);

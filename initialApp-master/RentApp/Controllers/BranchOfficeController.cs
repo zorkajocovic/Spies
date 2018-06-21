@@ -60,7 +60,7 @@ namespace RentApp.Controllers
 
         // PUT: api/Services/5
         [ResponseType(typeof(void))]
-        [Authorize]
+        [Authorize(Roles = "Admin, Manager")]
         public IHttpActionResult PutBranchOffice(int id, BranchOffice branchOffice)
         {
             if (!ModelState.IsValid)
@@ -98,7 +98,7 @@ namespace RentApp.Controllers
 
         // POST: api/Services
         [ResponseType(typeof(BranchOffice))]
-        [Authorize]
+        [Authorize(Roles = "Admin, Manager")]
         public IHttpActionResult PostBranchOffice()
         {
             HttpRequestMessage request = this.Request;
@@ -148,6 +148,7 @@ namespace RentApp.Controllers
 
         // DELETE: api/Services/5
         [ResponseType(typeof(BranchOffice))]
+        [Authorize(Roles = "Admin, Manager")]
         public IHttpActionResult DeleteBranchOffice(int id)
         {
             lock (locking)

@@ -31,7 +31,7 @@ namespace RentApp.Controllers
             return unitOfWork.AppUsers.GetAll();
         }
 
-        // GET: api/Services/5
+        
         [ResponseType(typeof(AppUser))]
         public IHttpActionResult GetAppUser(int id)
         {
@@ -47,7 +47,7 @@ namespace RentApp.Controllers
         }
 
         [Route("api/GetActiveUserId")]
-        [Authorize]
+        [Authorize(Roles = "Admin, Manager, AppUser")]
         public int GetActiveUserId()
         {
             lock (locking)
@@ -125,6 +125,7 @@ namespace RentApp.Controllers
 
         // DELETE: api/Services/5
         [ResponseType(typeof(AppUser))]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult DeleteAppUser(int id)
         {
             lock (locking)

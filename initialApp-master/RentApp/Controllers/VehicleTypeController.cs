@@ -20,15 +20,15 @@ namespace RentApp.Controllers
             db = context;
         }
 
-        // GET: api/VehicleTypes
+        [Authorize(Roles = "Admin, Manager, AppUser")]
         public IEnumerable<VehicleType> GetVehicleTypes()
         {
             return db.VehicleTypes.GetAllVehicleTypes();
         }
 
-        // GET: api/VehicleTypes/5
+        [Authorize(Roles = "Admin, Manager, AppUser")]
         [ResponseType(typeof(VehicleType))]
-        public IHttpActionResult GetService(int id)
+        public IHttpActionResult GetVehicleTypes(int id)
         {
             VehicleType type = db.VehicleTypes.Get(id);
             if (type == null)
@@ -39,9 +39,9 @@ namespace RentApp.Controllers
             return Ok(type);
         }
 
-        // PUT: api/VehicleTypes/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutService(int id, VehicleType vehicleType)
+        public IHttpActionResult PutVehicleType(int id, VehicleType vehicleType)
         {
             if (!ModelState.IsValid)
             {
@@ -73,10 +73,9 @@ namespace RentApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/VehicleTypes
         [ResponseType(typeof(VehicleType))]
         [Authorize(Roles = "Admin")]
-        public IHttpActionResult PostService(VehicleType vehicleType)
+        public IHttpActionResult PostVehicleTypes(VehicleType vehicleType)
         {
             if (!ModelState.IsValid)
             {
@@ -88,9 +87,9 @@ namespace RentApp.Controllers
             return CreatedAtRoute("DefaultApi", new { id = vehicleType.VehicleTypeId }, vehicleType);
         }
 
-        // DELETE: api/VehicleTypes/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(VehicleType))]
-        public IHttpActionResult DeleteService(int id)
+        public IHttpActionResult DeleteVehicleTypes(int id)
         {
             VehicleType type = db.VehicleTypes.Get(id);
             if (type == null)

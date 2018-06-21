@@ -11,5 +11,6 @@ namespace RentApp.Persistance.Repository
     {
 
         int GetActiveUserId(string username);
+        RAIdentityUser GetUserById(int id);
     }
 }

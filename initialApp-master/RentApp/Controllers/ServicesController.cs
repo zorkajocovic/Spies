@@ -14,6 +14,7 @@ using RentApp.Persistance.UnitOfWork;
 using System.Web;
 using System.IO;
 using Newtonsoft.Json;
+using RentApp.Tools;
 
 namespace RentApp.Controllers
 {
@@ -30,7 +31,7 @@ namespace RentApp.Controllers
             }
         }
 
-        // GET: api/Services
+        [AllowAnonymous]
         public IEnumerable<Service> GetServices()
         {
             lock (locking)
@@ -39,7 +40,29 @@ namespace RentApp.Controllers
             }
         }
 
-        // GET: api/Services/5
+        [HttpGet]
+        [Route("api/SendEmail")]
+        public void SendEmail(string serviceCreator, int approved)
+        {
+            EmailTemplate emailTemplate = new EmailTemplate
+            {
+                Subject = "Informacije o servisu"
+            };
+
+            if (approved == 1)
+            {
+                emailTemplate.Message = "Vas servis je odobren!";
+            }
+            else
+            {
+                emailTemplate.Message = "Vas servis nije odobren!";
+            }
+
+           var creator = unitOfWork.AppUsers.GetUserById(Int32.Parse(serviceCreator));
+            EmailHelper.SendEmail(creator.UserName, creator.Email, emailTemplate);
+        }
+
+        [AllowAnonymous]
         [ResponseType(typeof(Service))]
         public IHttpActionResult GetService(int id)
         {
@@ -54,10 +77,9 @@ namespace RentApp.Controllers
                 return Ok(service);
             }
         }
-
-        // PUT: api/Services/5
+        
         [ResponseType(typeof(void))]
-        [Authorize]
+        [Authorize(Roles = "Admin, Manager")]
         public IHttpActionResult PutService(int id, Service service)
         {
             if (!ModelState.IsValid)
@@ -119,9 +141,8 @@ namespace RentApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Services
         [ResponseType(typeof(Service))]
-        [Authorize]
+        [Authorize(Roles = "Admin, Manager")]
         public IHttpActionResult PostService()
         {
             HttpRequestMessage request = this.Request;
@@ -169,7 +190,7 @@ namespace RentApp.Controllers
             return CreatedAtRoute("DefaultApi", new { id = service.Id }, service);
         }
 
-        // DELETE: api/Services/5
+        [Authorize(Roles = "Admin, Manager")]
         [ResponseType(typeof(Service))]
         public IHttpActionResult DeleteService(int id)
         {

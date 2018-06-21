@@ -22,7 +22,7 @@ namespace RentApp.Controllers
             db = context;
         }
 
-        // GET: api/Services
+        [Authorize(Roles = "Admin")]
         public IEnumerable<Reservation> GetReservations()
         {
             lock (locking)
@@ -33,7 +33,7 @@ namespace RentApp.Controllers
 
         // GET: api/Services/5
         [ResponseType(typeof(Reservation))]
-        public IHttpActionResult GetService(int id)
+        public IHttpActionResult GetReservation(int id)
         {
             lock (locking)
             {
@@ -49,7 +49,8 @@ namespace RentApp.Controllers
 
         // PUT: api/Services/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutService(int id, Reservation reservation)
+        [Authorize(Roles = "AppUser")]
+        public IHttpActionResult PutReservation(int id, Reservation reservation)
         {
             if (!ModelState.IsValid)
             {

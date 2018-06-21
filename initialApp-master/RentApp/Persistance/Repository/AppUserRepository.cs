@@ -25,11 +25,11 @@ namespace RentApp.Persistance.Repository
             return user.AppUserId;
         }
 
-       //public RAIdentityUser GetActiveUser(string username)
-       // {
-       //     var user = Context.Users.Where(u => u.Email == username).FirstOrDefault();
-       //     return user;
-       // }
+        public RAIdentityUser GetUserById(int id)
+        {
+            var user = Context.Users.Where(u => u.AppUserId == id).FirstOrDefault();
+            return user;
+        }
 
     }
 }

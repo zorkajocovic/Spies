@@ -25,8 +25,7 @@ namespace RentApp.Controllers
             db = context;
         }
 
-        // GET: api/Services
-        //  api/Services?serviceId=1
+        [AllowAnonymous]
         public IEnumerable<Vehicle> GetVehicles(/*int serviceId = 0*/)
         {
             lock (locking)
@@ -36,7 +35,7 @@ namespace RentApp.Controllers
         }
 
 
-        // GET: api/Vehicle/1
+        [AllowAnonymous]
         [Route("api/GetVehicleForService/{serviceId}")]
         public IEnumerable<Vehicle> GetVehicleForService(int serviceId)
         {
@@ -46,7 +45,7 @@ namespace RentApp.Controllers
             }
         }
 
-        // GET: api/Vehicle/5
+        [AllowAnonymous]
         [ResponseType(typeof(Vehicle))]
         public IHttpActionResult GetService(int id)
         {
@@ -62,7 +61,7 @@ namespace RentApp.Controllers
             }
         }
 
-        // PUT: api/Services/5
+        [Authorize(Roles = "Admin, Manager")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutVehicle(int id, Vehicle vehicle)
         {
@@ -99,9 +98,8 @@ namespace RentApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Services
+        [Authorize(Roles = "Admin, Manager")]
         [ResponseType(typeof(Vehicle))]
-        [Authorize]
         public IHttpActionResult PostVehicle()
             {
             HttpRequestMessage request = this.Request;
@@ -148,7 +146,7 @@ namespace RentApp.Controllers
             return CreatedAtRoute("DefaultApi", new { id = vehicle.VehicleID }, vehicle);
         }
 
-        // DELETE: api/Services/5
+        [Authorize(Roles = "Admin, Manager")]
         [ResponseType(typeof(Vehicle))]
         public IHttpActionResult DeleteVehicle(int id)
         {
