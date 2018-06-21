@@ -3,7 +3,7 @@ namespace RentApp.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class rent : DbMigration
+    public partial class renta : DbMigration
     {
         public override void Up()
         {
@@ -84,6 +84,7 @@ namespace RentApp.Migrations
                         Available = c.Boolean(nullable: false),
                         CreatorID = c.Int(nullable: false),
                         Deleted = c.Boolean(nullable: false),
+                        PriceVehicle = c.Single(nullable: false),
                     })
                 .PrimaryKey(t => t.VehicleID)
                 .ForeignKey("dbo.AppUsers", t => t.CreatorID, cascadeDelete: false)
