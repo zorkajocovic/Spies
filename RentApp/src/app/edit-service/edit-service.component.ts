@@ -35,7 +35,7 @@ export class EditServiceComponent implements OnInit {
   
   this.service.updateService(this.serviceId, this.activeService).subscribe(
     data => {
-      debugger
+      this.router.navigate(['services/']);
       alert("Uspesno izmenjen servis!")
     },
     error => {

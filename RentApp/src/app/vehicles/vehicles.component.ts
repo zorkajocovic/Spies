@@ -72,7 +72,6 @@ export class VehiclesComponent implements OnInit {
   }
 
   selectSearch(event: any){
-    debugger
     this.filterText = event.target.value;
   }
 
@@ -87,6 +86,12 @@ export class VehiclesComponent implements OnInit {
         var brojEvent = veh.Model.substring(0, lengthFilter);
 
         if(brojEvent.toLowerCase() == event.toLowerCase()){
+          this.findedVehicles.push(veh);
+        }
+     }
+     else if(this.filterText == "Price"){
+       debugger
+        if(veh.PriceVehicle <= event){
           this.findedVehicles.push(veh);
         }
      }
@@ -123,9 +128,7 @@ export class VehiclesComponent implements OnInit {
       return this.vehicles;
   }
 
-  SendRate() {
-    debugger
-    
+  SendRate() {    
     this.rate.Value = this.selectedRate;
     this.rate = new Rate(this.serviceId);
 
@@ -144,13 +147,11 @@ export class VehiclesComponent implements OnInit {
   }
 
   allComments(num: number) {
-    debugger
     this.service.getAllCommentsForService(num).subscribe(
       data => {
         this.comments = data;
 
       })
-      debugger
 }
 
   deleteVehicle(id: number) {
@@ -199,7 +200,6 @@ export class VehiclesComponent implements OnInit {
     this.service.getMethodDemo(path).subscribe(
       data => {
         this.vehicleTypes = data;
-        // alert("uspelo")
         debugger
       },
       error => {
@@ -208,7 +208,6 @@ export class VehiclesComponent implements OnInit {
   }
 
   DeleteVehicleType(id: number) {
-    debugger
     for (var i = 0; i < this.vehicleTypes.length; i++) {
       if (this.vehicleTypes[i].VehicleTypeId == id) {
         this.vehicleTypes[i].Deleted = true;
@@ -217,7 +216,6 @@ export class VehiclesComponent implements OnInit {
           data => {
             alert("Uspesno obrisan tip!")
             this.allVehicleTypes('http://localhost:51111/api/VehicleType');
-            debugger
           },
           error => {
             alert("nije uspelo")

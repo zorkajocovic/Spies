@@ -62,57 +62,6 @@
     </div>
 </div>
 
-<!--
-<span id="star">
-<span class="fa fa-star" (click)="SendRate(1)" [ngClass]="{checked: isOn[0]}"></span>
-<span class="fa fa-star" (click)="SendRate(2)" [ngClass]="{checked: isOn[1]}"></span>
-<span class="fa fa-star" (click)="SendRate(3)" [ngClass]="{checked: isOn[2]}"></span>
-<span class="fa fa-star" (click)="SendRate(4)" [ngClass]="{checked: isOn[3]}"></span>
-<span class="fa fa-star" (click)="SendRate(5)" [ngClass]="{checked: isOn[4]}"></span>
-</span>
--->
-<!--
-<div *ngIf="isClient()">
-<div class="container">
-    <div class="row">
-        <div>
-            <p style="font-size:larger" style="color: white">Ocenite servis:
-                <p>
-        </div>
-        <div class="rating">
-            <input (change)="SendRate()" [checked]="rating >= 1" [(ngModel)]="star1" type="radio" id="star1" name="rating" value="1" />
-            <label for="star10" title="Rocks!"></label>
-            <input (click)="SendRate()" [checked]="rating >= 2" [(ngModel)]="star2" type="radio" id="star2" name="rating" value="2" />
-            <label for="star9" title="Rocks!"></label>
-            <input (click)="SendRate()" [checked]="rating >= 3" [(ngModel)]="star3" type="radio" id="star3" name="rating" value="3" />
-            <label for="star8" title="Pretty good"></label>
-            <input (click)="SendRate()" [checked]="rating >= 4" [(ngModel)]="star4" type="radio" id="star4" name="rating" value="4" />
-            <label for="star7" title="Pretty good"></label>
-            <input (click)="SendRate()" [checked]="rating >= 5" [(ngModel)]="star5" type="radio" id="star5" name="rating" value="5" />
-            <label for="star6" title="Meh"></label>
-        </div>
-    </div>
-</div>
-</div>
--->
-<!--
-<div>
- <h3 class="display-4 text-center"><b> Dobrodosli!</b> </h3>     
-    <hr class="bg-dark mb-4 w-25">>
-</div>
-<div *ngFor="let vehicle of vehicles; let i=index" class="card mb-3">
-    <img class="card-img-top" src="{{vehicle.Image}}" alt="Card image cap">
-    <div  class="card-body">
-        <p><b>Model:</b> {{vehicle.Model}}</p>
-        <p><b>Proizvodjac:</b> {{vehicle.Producer}}</p>
-        <p><b>Godina proizvodnje:</b> {{vehicle.ProductionYear}}</p>
-        <p><b>Opis:</b> {{vehicle.Description}}</p>
-         <button><a (click) = "showSpecificReservation = vehicle.VehicleID">Reservisi</a></button>       
-        <app-vehicles-reserve [(vehicleId)]="vehicle.VehicleID" *ngIf="showSpecificReservation == vehicle.VehicleID"></app-vehicles-reserve>
-    </div> 
-  </div>
--->
-
 <div class="container container mt-10 mb-5">
     <h3 class="display-4 text-center">
         <b> Dobrodosli!</b>
@@ -213,7 +162,7 @@
         </div>
 </div>
 
-<div *ngIf="isManager()">
+<div *ngIf="isManager() || isAdmin()">
     <a [routerLink]="['/make-vehicle/', serviceId]">Dodaj auto</a>
 </div>
 

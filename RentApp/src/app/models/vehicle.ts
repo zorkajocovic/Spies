@@ -10,4 +10,5 @@ export class Vehicle {
     Available: boolean;
     CreatorID: number;
     Deleted: boolean;
+    PriceVehicle: number;
 }

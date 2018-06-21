@@ -32,7 +32,7 @@ export class EditBranchComponent implements OnInit {
   onSubmit(form: NgForm){
     this.service.updateBranch(this.branchId, this.activeBranch).subscribe(
       data => {
-        debugger
+       // this.router.navigate(['branches/' + this.serviceId]);
         alert("Uspesno izmenjena filijala!")
       },
       error => {
