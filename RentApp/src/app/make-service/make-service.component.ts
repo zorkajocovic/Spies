@@ -20,7 +20,7 @@ export class MakeServiceComponent implements OnInit {
 
   selectedFile: File;
   url: string;
-  creator: string;
+  creator: number;
 
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {

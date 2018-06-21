@@ -24,5 +24,10 @@ namespace RentApp.Persistance.Repository
         {
             return Context.Vehicles.Where(p => p.Deleted != true).ToList();
         }
+
+        public IEnumerable<Vehicle> GetSearchVehicle(string text)
+        {
+            return Context.Vehicles.Where(v => v.Model.Contains(text) || v.Producer.Contains(text) || v.Description.Contains(text) || v.VehicleType.VehicleName.Contains(text)).ToList();
+        }
     }
 }

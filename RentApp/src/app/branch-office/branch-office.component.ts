@@ -16,7 +16,6 @@ import { IsAdmin } from '../guard/auth.admin';
 export class BranchOfficeComponent implements OnInit {
 
   serviceId: number;
-  isAdmin: IsAdmin;
   mapInfo: MapInfo;
   latNum: number;
   lngNum: number;
@@ -74,6 +73,10 @@ export class BranchOfficeComponent implements OnInit {
 
     isManager(){
       return localStorage.role == 'Manager' ?  true : false;
+    }
+
+    isAdmin(){
+      return localStorage.role == 'Admin' ?  true : false;
     }
   }  
 

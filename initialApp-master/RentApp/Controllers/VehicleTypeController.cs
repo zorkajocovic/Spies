@@ -26,6 +26,7 @@ namespace RentApp.Controllers
             return db.VehicleTypes.GetAllVehicleTypes();
         }
 
+
         // GET: api/VehicleTypes/5
         [ResponseType(typeof(VehicleType))]
         public IHttpActionResult GetService(int id)

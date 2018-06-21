@@ -5,6 +5,6 @@ export class Service {
     Email: string;
     Description: string;
     Approved: boolean;
-    CreatorID: string;
+    CreatorID: number;
     Deleted: boolean;
 }

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { VehicleType } from '../models/vehicle-type';
 import { IsAdmin } from '../guard/auth.admin';
 import { IsClient } from '../guard/auth.client';
+import { Service } from '../models/service';
 
 @Component({
   selector: 'app-vehicles',
@@ -47,6 +48,8 @@ export class VehiclesComponent implements OnInit {
   filterText: string = '';
   findedVehicles: Vehicle[];
   selectedType: number = -1;
+  searchVehicles: Vehicle[];
+  activeService: Service;
 
   constructor(private service: DemoServiceService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.activatedRoute.params.subscribe(params => { this.serviceId = params["Id"] });    //Id je definisano u appmodule.ts kod path: "service/Id"
@@ -54,13 +57,13 @@ export class VehiclesComponent implements OnInit {
     this.allComments(this.serviceId);
     this.allVehicleTypes('http://localhost:51111/api/VehicleType');
     this.rates = [];
-   
+   this.searchVehicles=[];
   }
 
   ngOnInit() {
     for(var i=1; i<=5; i++){
       this.rates.push(i);
-  }
+        }
 
   this.service.getCurrentUser().subscribe(
     data => {
@@ -74,6 +77,19 @@ export class VehiclesComponent implements OnInit {
   selectSearch(event: any){
     this.filterText = event.target.value;
   }
+
+CreatorOfService(){
+
+  this.service.getService(this.serviceId).subscribe(
+    data => {
+      this.activeService = data;
+    },
+    error => {
+      alert("nije uspelo")
+    })
+}
+
+
 
   filterBy(event: any){
     this.findedVehicles = [];
@@ -115,6 +131,16 @@ export class VehiclesComponent implements OnInit {
     )
   }
 
+  TextForSearch(event: any){
+    debugger
+      this.service.getSearchVehicle(event).subscribe(
+        data => {
+            this.searchVehicles=data;
+
+        })
+  }
+
+
   allVehicles() : Vehicle[]{
     this.service.geAllVehiclesForService(this.serviceId).subscribe(
       data => {
@@ -142,7 +168,7 @@ export class VehiclesComponent implements OnInit {
               });
       })
   }
-  
+
   allComments(num: number) {
     this.service.getAllCommentsForService(num).subscribe(
       data => {

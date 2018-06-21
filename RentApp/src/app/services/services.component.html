@@ -7,18 +7,20 @@
     <hr class="bg-dark mb-4 w-25">
 
     <div class="row">
-        <div class="col-md-4" *ngFor="let service of services">
+        <div class="col-md-4" *ngFor="let serv of services">
             <div class="card">
-                <img class="card-img-top" src="{{service.Logo}}" alt="Card image cap">
+                <img class="card-img-top" src="{{serv.Logo}}" alt="Card image cap">
                 <div class="card-block p-3">
-                    <h4 class="card-title" name="Name">{{service.Name}}</h4>
-                    <p class="card-text" name="Description">{{service.Description}}</p>
+                    <h4 class="card-title" name="Name">{{serv.Name}}</h4>
+                    <p class="card-text" name="Description">{{serv.Description}}</p>
                     <a [routerLink]="['/services/', service.Id]" class="btn btn-primary rounded-0 mb-2">Vehicles</a>
                     <a [routerLink]="['/branches/', service.Id]" class="btn btn-primary rounded-0 mb-2">Branch Offices</a>
-
+                
+                    <div *ngIf="serv.CreatorID == activeUser">
                     <button class="btn" id="btnTrash">
-                        <i class="fa fa-trash" (click)="deleteService(service.Id)"></i>
+                        <i class="fa fa-trash" (click)="deleteService(serv.Id)"></i>
                     </button>
+                    </div>
                 </div>
             </div>
         </div>

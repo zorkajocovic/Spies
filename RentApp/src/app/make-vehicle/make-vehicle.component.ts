@@ -93,18 +93,8 @@ export class MakeVehicleComponent implements OnInit {
     this.service.postMethodDemo("http://localhost:51111/api/Vehicle", body).subscribe(
       data => {
         this.vehicle = data;
-        alert("Uspesno ste dodali vozilo!")
-        
-        this.service.postMethodDemoItem(this.item).subscribe(
-          data => {
-              alert("Uspesno ste dodali cenu vozila!");
-           },
-          error => {
-            alert("nije uspelo")
-          });
-
-
-        this.router.navigate(['services/' + this.serviceId]);
+        alert("Uspesno ste dodali vozilo!")      
+        this.router.navigate(['services/' + this.serviceId]);           
       },
       error => {
         alert("nije uspelo")

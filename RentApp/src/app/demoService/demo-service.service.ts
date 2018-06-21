@@ -45,7 +45,11 @@ export class DemoServiceService {
   getService(serviceId): Observable<any> {
     return this.httpClient.get("http://localhost:51111/api/Services/" + serviceId);
   }
-  
+
+  getSearchVehicle(text): Observable<any> {
+    return this.httpClient.get("http://localhost:51111/api/SearchVehicle/" + text);
+  }
+
   getCurrentUser(): Observable<any>{
     return this.httpClient.get("http://localhost:51111/api/GetActiveUserId");
   }
