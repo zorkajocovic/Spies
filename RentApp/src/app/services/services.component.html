@@ -24,4 +24,28 @@
         </div>
     </div>
 
+
+
+
+      
+    <div *ngIf="isAdmin()" class="row">
+        <h3 class="display-4 text-center"> Odobri servise: </h3>
+        <div class="col-md-4" *ngFor="let service of servicesForAdmin">
+            <div class="card">
+                <img class="card-img-top" src="{{service.Logo}}" alt="Card image cap">
+                <div class="card-block p-3">
+                    <h4 class="card-title" name="Name">{{service.Name}}</h4>
+                    <p class="card-text" name="Description">{{service.Description}}</p>
+                    <a [routerLink]="['/services/', service.Id]" class="btn btn-primary rounded-0 mb-2">Vehicles</a>
+                    <a [routerLink]="['/branches/', service.Id]" class="btn btn-primary rounded-0 mb-2">Branch Offices</a>
+
+                    <div>
+                        <input (click)="ApprovedService(service.Id, i)" value="Odobri" type="submit" class="btn btn-success" />
+                        <input (clikc)="DenyService(service.Id)" value="Odbij" type="submit" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

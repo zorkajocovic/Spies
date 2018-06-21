@@ -1,38 +1,18 @@
 
-<div *ngIf="isAdmin()">
-<button (click)="toggle()">Obrisati tip vozila</button>
-<a style="font-size:larger" style="color: white" [routerLink]="['/edit-service/', serviceId]">Izmeni servis</a>
-<div *ngIf="isVisible">
-    <table id="customers">
-        <tr>
-            <th>ID</th>
-            <th>Ime</th>
-            <th></th>
-        </tr>
-        <div *ngFor="let vehicleType of vehicleTypes">
-            <tr>
-                <td>{{vehicleType.VehicleTypeId}}</td>
-                <td>{{vehicleType.VehicleName}}</td>
-                <td>
-                    <button>
-                        <a (click)="DeleteVehicleType(vehicleType.VehicleTypeId)">Obrisi</a>
-                    </button>
-                </td>
-            </tr>
-        </div>
-    </table>
-</div>
+<div *ngIf="isManager() || isAdmin()">
+    <a [routerLink]="['/make-vehicle/', serviceId]">Dodaj auto</a>
 </div>
 
-<form>
-<label for="Type">Oceni servis</label>
+
+<form style="float: right;">
+<label style="color: aliceblue" for="Type">Oceni servis</label>
 <div>
-  <select name="rate" [(ngModel)]="selectedRate">
+  <select class="custom-select" style="width:70px;" name="rate" [(ngModel)]="selectedRate">
     <option *ngFor="let rate of rates" [value]="rate">{{rate}}</option>
   </select>
 </div>
 
-<button (click)="SendRate()" value="Zavrsi"></button>
+<button style="width:70px;" class="btn btn-success" (click)="SendRate()" value="Zavrsi">Oceni</button>
 </form>
 
 
@@ -160,10 +140,6 @@
                 </div>
             </div>
         </div>
-</div>
-
-<div *ngIf="isManager() || isAdmin()">
-    <a [routerLink]="['/make-vehicle/', serviceId]">Dodaj auto</a>
 </div>
 
 <div *ngIf="isClient()">

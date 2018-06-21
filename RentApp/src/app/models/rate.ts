@@ -1,10 +1,11 @@
 export class Rate {
-    RateID: number;
     ClientID: number;
-    SerId: number;
+    ServiceID: number;
     Value: number;
 
-    constructor(serid: number){
-        this.SerId=serid;
+    constructor(serid: number, value: number, client: number){
+        this.ServiceID=serid;
+        this.Value = value;
+        this.ClientID=client;
     }
 }
