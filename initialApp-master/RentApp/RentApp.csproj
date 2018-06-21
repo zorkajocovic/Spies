@@ -286,6 +286,10 @@
     <Compile Include="Migrations\201806031439020_Initial.Designer.cs">
       <DependentUpon>201806031439020_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806211552597_renta.cs" />
+    <Compile Include="Migrations\201806211552597_renta.Designer.cs">
+      <DependentUpon>201806211552597_renta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -431,6 +435,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201806031439020_Initial.resx">
       <DependentUpon>201806031439020_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806211552597_renta.resx">
+      <DependentUpon>201806211552597_renta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
